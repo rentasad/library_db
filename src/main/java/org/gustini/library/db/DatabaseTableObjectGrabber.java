@@ -7,7 +7,7 @@ import java.sql.Statement;
 import java.util.HashMap;
 import java.util.Set;
 
-import gustini.library.db.dataObjects.DatabaseTableObject;
+import org.gustini.library.db.dataObjects.DatabaseTableObject;
 /**
  * 
  * Gustini GmbH (2015)

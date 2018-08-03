@@ -1,4 +1,4 @@
-package gustini.library.db.dataObjects;
+package org.gustini.library.db.dataObjects;
 
 public class MySQLDataTypeValue
 {

@@ -1,4 +1,4 @@
-package gustini.library.db.sqlExecutionTool.objects;
+package org.gustini.library.db.sqlExecutionTool;
 
 public enum QueryTypEnum
 {
