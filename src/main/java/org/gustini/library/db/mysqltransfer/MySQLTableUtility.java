@@ -30,14 +30,13 @@ public class MySQLTableUtility
 {
 
     private Map<String, String> configMap;
-    
-    public MySQLTableUtility(Map<String, String> configMap
-                             )
+
+    public MySQLTableUtility(
+                             Map<String, String> configMap)
     {
         super();
         this.configMap = configMap;
     }
-    
 
     /**
      * Gibt die Anzahl der verfuegbaren Eintraege einer Tabelle zurueck.
@@ -57,7 +56,7 @@ public class MySQLTableUtility
         tableName = tableName.toUpperCase();
         if (configMap.containsKey(tableName))
         {
-            adsTabellenPfad = this.configMap.get(tableName)+ "\\";
+            adsTabellenPfad = this.configMap.get(tableName) + "\\";
         }
         selectQuery += adsTabellenPfad + tableName;
         Statement adsSelectStatement = adsConnection.createStatement();
@@ -86,7 +85,7 @@ public class MySQLTableUtility
     public int transferTableFromAdsToMySQL(final Connection mySQLConnection, final Connection adsConnection, final IsqlTableDescriptionInterface mySQLTableDescription) throws SQLException, WrongDataTypeException
     {
 
-        boolean debug = true;
+        boolean debug = false;
         String tableName = mySQLTableDescription.getName();
         ISQLTableColumnsDescriptionInterface[] tableColumnDescriptions = MySQLTableUtility.getMySQLTableColumnDescription(mySQLConnection, tableName);
         if (debug)
@@ -118,11 +117,11 @@ public class MySQLTableUtility
             // columnList += "\n";
         }
         String adsTabellenPfad = "";
-//        tableName = tableName.toLowerCase();
-//        if (tableName.equalsIgnoreCase("v4haupt"))
-//        {
-//            System.out.println("STOP");
-//        }
+        // tableName = tableName.toLowerCase();
+        // if (tableName.equalsIgnoreCase("v4haupt"))
+        // {
+        // System.out.println("STOP");
+        // }
 
         if (this.configMap.containsKey(tableName))
         {
@@ -222,10 +221,10 @@ public class MySQLTableUtility
                     ISQLTableColumnsDescriptionInterface column = tableColumnDescriptions[i];
                     int objektTypInt = column.getJavaDatatypeFromISQLTyp(column.getType());
                     String field = column.getField();
-//                    if (field.equals("TEASER"))
-//                    {
-//                        System.out.println("TEASER : " + adsSelectResultSet.getString(column.getField()));
-//                    }
+                    // if (field.equals("TEASER"))
+                    // {
+                    // System.out.println("TEASER : " + adsSelectResultSet.getString(column.getField()));
+                    // }
                     switch (objektTypInt)
                     {
                         case ISQLTableColumnsDescriptionInterface.OBJECT_DATA_TYPE_BOOLEAN:
@@ -312,7 +311,9 @@ public class MySQLTableUtility
             String fieldName = resultSet.getString("Field");
             columnDescription.setCollation(resultSet.getString("Collation"));
             // columnDescription.setLength(resultSet.getInt("Length"));
-            columnDescription.setCanBeNull(resultSet.getBoolean("Null"));
+            String canBeNullString = resultSet.getString("Null");
+            boolean canBeNullBoolean = parseBooleanYesNoString(canBeNullString);
+            columnDescription.setCanBeNull(canBeNullBoolean);
             columnDescription.setKey(resultSet.getString("Key"));
             columnDescription.setExtra(resultSet.getString("Extra"));
             columnDescription.setPrivileges(resultSet.getString("Privileges"));
@@ -332,6 +333,7 @@ public class MySQLTableUtility
                 int javaObjektTypInt = columnDescription.getJavaDatatypeFromISQLTyp(typInt);
                 if (javaObjektTypInt == ISQLTableColumnsDescriptionInterface.OBJECT_DATA_TYPE_BOOLEAN)
                 {
+                    
                     columnDescription.setDefaultBoolean(resultSet.getBoolean("Default"));
                 } else if (javaObjektTypInt == ISQLTableColumnsDescriptionInterface.OBJECT_DATA_TYPE_DATE)
                 {
@@ -371,6 +373,25 @@ public class MySQLTableUtility
             mySQLTableDescriptions.add(columnDescription);
         }
         return mySQLTableDescriptions.toArray(new MySQLTableColumnDescription[0]);
+    }
+
+    /**
+     * 
+     * Description:
+     * 
+     * @param yesNoString
+     * @return
+     *         Creation: 15.08.2018 by mst
+     */
+    private static  boolean parseBooleanYesNoString(String yesNoString)
+    {
+        if (yesNoString.toLowerCase().equals("yes"))
+        {
+            return true;
+        }else
+        {
+            return false;
+        }
     }
 
     /**

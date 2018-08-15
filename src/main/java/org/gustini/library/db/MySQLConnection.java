@@ -1,15 +1,18 @@
 package org.gustini.library.db;
 
 import java.sql.Connection;
-import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * 
  * Gustini GmbH (2017)
  * Creation: 03.03.2017
+ * UPDATE 15.08.2018
+ * Switch to MySql Connector 8
  * Library
  * gustini.library.db
  * 
@@ -48,18 +51,22 @@ public class MySQLConnection
     public static final String MYSQL_USER = "MYSQL_USER";
     public static final String MYSQL_DATABASE = "MYSQL_DATABASE";
     public static final String MYSQL_PASSWORD = "MYSQL_PASSWORD";
+
+    public static final String DRIVER_CLASS_MYSQL_CONNECTOR_5 = "com.mysql.jdbc.Driver";
+    public static final String DRIVER_CLASS_MYSQL_CONNECTOR_8 = "com.mysql.cj.jdbc.Driver";
+
     private static MySQLConnection instance = null;
-    private static Driver driver = null;
+    // private static Driver driver = null;
     public static boolean debug = false;
     private Map<String, String> connectionParametersMap;
     private Connection connection;
-    
+
     /**
      * 
-     * Description: 
+     * Description:
      * 
      * @return
-     * Creation: 14.02.2018 by mst
+     *         Creation: 14.02.2018 by mst
      */
     public static boolean isInit()
     {
@@ -68,16 +75,16 @@ public class MySQLConnection
         else
             return true;
     }
-    
+
     public static void initInstance(Map<String, String> connectionParametersMap) throws SQLException
     {
-        
+
         if (instance == null)
         {
             instance = new MySQLConnection();
             instance.setConnection(MySQLConnection.dbConnect(connectionParametersMap));
             instance.setConnectionParametersMap(connectionParametersMap);
-        }else
+        } else
         {
             if (debug)
             {
@@ -85,101 +92,27 @@ public class MySQLConnection
             }
         }
     }
-//    public static void initInstance(String mySqlDatabaseName, Map<String, String> connectionParametersMap) throws SQLException
-//    {
-//        if (instance == null)
-//        {
-//            instance = new MySQLConnection();
-//            instance.setConnection(MySQLConnection.dbConnect(mySqlDatabaseName, connectionParametersMap)); 
-//        }else
-//        {
-//            if (debug)
-//            {
-//                System.err.println("Instance wurde bereits initialisiert");
-//            }
-//        }
-//    }
-//
-//    public static void initInstance(String dbHost, String databaseName, String dbUserid, String dbPassword) throws SQLException
-//    {
-//        if (instance == null)
-//        {
-//            instance = new MySQLConnection();
-//            instance.setConnection(MySQLConnection.dbConnect(dbHost, databaseName, dbUserid, dbPassword)); 
-//        }else
-//        {
-//            if (debug)
-//            {
-//                System.err.println("Instance wurde bereits initialisiert");
-//            }
-//        }
-//    }
-//    
-//    public static void initInstance(String dbHost, String databaseName, String dbUserid, String dbPassword, String encoding) throws SQLException
-//    {
-//        if (instance == null)
-//        {
-//            instance = new MySQLConnection();
-//            instance.setConnection(MySQLConnection.dbConnect(dbHost, databaseName, dbUserid, dbPassword, encoding)); 
-//        }else
-//        {
-//            if (debug)
-//            {
-//                System.err.println("Instance wurde bereits initialisiert");
-//            }
-//        }
-//    }
-//    
-//    public static void initInstanceWithoutEncoding(final Map<String, String> connectionParametersMap) throws SQLException
-//    {
-//        if (instance == null)
-//        {
-//            instance = new MySQLConnection();
-//            instance.setConnection(MySQLConnection.dbConnectWithoutEncoding(connectionParametersMap)); 
-//        }else
-//        {
-//            if (debug)
-//            {
-//                System.err.println("Instance wurde bereits initialisiert");
-//            }
-//        }
-//    }
-//    public static void initInstanceWithoutEncoding(String dbHost, String databaseName, String db_userid, String db_password) throws SQLException
-//    {
-//        if (instance == null)
-//        {
-//            instance = new MySQLConnection();
-//            instance.setConnection(MySQLConnection.dbConnectWithoutEncoding(dbHost, databaseName, db_userid, db_password)); 
-//        }else
-//        {
-//            if (debug)
-//            {
-//                System.err.println("Instance wurde bereits initialisiert");
-//            }
-//        }
-//    }
-    
-    
+
     /**
      * 
      * Description: GetInstance Class for Managing Connection (and Reconnection after Close and Timeout
      * 
      * @return
      * @throws SQLException
-     * Creation: 14.02.2018 by mst
+     *             Creation: 14.02.2018 by mst
      */
     public static MySQLConnection getInstance() throws SQLException
     {
         if (instance == null)
         {
             throw new SQLException("MySqlConnection Instance not initialized");
-        }else
+        } else
         {
             return instance;
         }
-        
-        
+
     }
+
     /**
      *
      * Description:
@@ -223,13 +156,13 @@ public class MySQLConnection
 
     /**
      * 
-     * Description: 
+     * Description:
      * 
      * @param mySqlDatabaseName
      * @param connectionParametersMap
      * @return
      * @throws SQLException
-     * Creation: 14.02.2018 by mst
+     *             Creation: 14.02.2018 by mst
      */
     public static Connection dbConnect(String mySqlDatabaseName, Map<String, String> connectionParametersMap) throws SQLException
     {
@@ -256,20 +189,17 @@ public class MySQLConnection
      */
     public static Connection dbConnect(String dbHost, String databaseName, String dbUserid, String dbPassword) throws SQLException
     {
-        try
-        {
-            initDriver();
-            Class.forName("com.mysql.jdbc.Driver").newInstance();
-            return DriverManager.getConnection(String.format("jdbc:mysql://%s/%s?rewriteBatchedStatements=true&zeroDateTimeBehavior=convertToNull&characterEncoding=cp1250", dbHost, databaseName), dbUserid, dbPassword);
-        } catch (InstantiationException | IllegalAccessException | ClassNotFoundException | SQLException e)
-        {
-            throw new SQLException(e);
-        }
+        String characterEncoding = "cp1250";
+        Map<String, String> connectionProperties = getDefaultConnectionPropertiesMap();
+        connectionProperties.put("characterEncoding", characterEncoding);
+        String paramString = getParamStringFromConnectionPropertiesMap(connectionProperties);
+        String connectionString = String.format("jdbc:mysql://%s/%s?%s", dbHost, databaseName, paramString);
+        return DriverManager.getConnection(connectionString, dbUserid, dbPassword);
     }
 
     /**
      * 
-     * Description: 
+     * Description:
      * 
      * @param dbHost
      * @param databaseName
@@ -278,25 +208,20 @@ public class MySQLConnection
      * @param encoding
      * @return
      * @throws SQLException
-     * Creation: 14.02.2015 by mst
+     *             Creation: 14.02.2015 by mst
      */
-    public static Connection dbConnect(String dbHost, String databaseName, String dbUserid, String dbPassword, String encoding) throws SQLException 
+    public static Connection dbConnect(String dbHost, String databaseName, String dbUserid, String dbPassword, String encoding) throws SQLException
     {
-        try
-        {
-            initDriver();
-            Class.forName("com.mysql.jdbc.Driver").newInstance();
-            return DriverManager.getConnection(
-                        String.format("jdbc:mysql://%s/%s?rewriteBatchedStatements=true&zeroDateTimeBehavior=convertToNull&useUnicode=true&characterEncoding=%s", dbHost, databaseName, encoding), dbUserid, dbPassword);
-        } catch (InstantiationException | IllegalAccessException | ClassNotFoundException | SQLException e)
-        {
-            throw new SQLException(e);
-        }
+        Map<String, String> connectionProperties = getDefaultConnectionPropertiesMap();
+        connectionProperties.put("characterEncoding", encoding);
+        String paramString = getParamStringFromConnectionPropertiesMap(connectionProperties);
+        String connectionString = String.format("jdbc:mysql://%s/%s?%s", dbHost, databaseName, paramString);
+        return DriverManager.getConnection(connectionString, dbUserid, dbPassword);
     }
 
     /**
      *
-     * Description:
+     * Description: Default Connection without any  additional Params
      *
      * @param dbHost
      * @param databaseName
@@ -312,24 +237,17 @@ public class MySQLConnection
      */
     public static Connection dbConnectWithoutEncoding(String dbHost, String databaseName, String db_userid, String db_password) throws SQLException
     {
-        try
-        {
-            initDriver();
-            return DriverManager.getConnection(String.format("jdbc:mysql://%s/%s?user=%s&password=%s", dbHost, databaseName, db_userid, db_password));
-        } catch (InstantiationException | IllegalAccessException | ClassNotFoundException | SQLException e)
-        {
-            throw new SQLException(e);
-        }
+        return DriverManager.getConnection(String.format("jdbc:mysql://%s/%s?user=%s&password=%s", dbHost, databaseName, db_userid, db_password));
     }
 
     /**
      * 
-     * Description: 
+     * Description:
      * 
      * @param connectionParametersMap
      * @return
      * @throws SQLException
-     * Creation: 14.02.2015 by mst
+     *             Creation: 14.02.2015 by mst
      */
     public static Connection dbConnectWithoutEncoding(final Map<String, String> connectionParametersMap) throws SQLException
     {
@@ -341,60 +259,101 @@ public class MySQLConnection
     }
 
     /**
-     *
-     * Description: Initialisiert Driver
-     *
-     * Creation: 15.12.2015 by mst
-     *
-     * @throws ClassNotFoundException
-     * @throws IllegalAccessException
-     * @throws InstantiationException
-     */
-    private static void initDriver() throws InstantiationException, IllegalAccessException, ClassNotFoundException
-    {
-        if (driver == null)
-        {
-            driver = (Driver) Class.forName("com.mysql.jdbc.Driver").newInstance();
-        }
-    }
-    /**
      * 
-     * Description: 
+     * Description:
      * 
      * @return
-     * Creation: 14.02.2018 by mst
-     * @throws SQLException 
+     *         Creation: 14.02.2018 by mst
+     * @throws SQLException
      */
     public Connection getConnection() throws SQLException
     {
         if (this.connection.isValid(4))
         {
-            return this.connection;    
-        }else
+            return this.connection;
+        } else
         {
             this.connection = MySQLConnection.dbConnect(this.connectionParametersMap);
-            return this.connection; 
+            return this.connection;
         }
-        
+
     }
+
     /**
      * 
-     * Description: 
+     * Description: Return default Connection Properties Map with hard coded Defaults
+     * 
+     * allowMultiQueries = true
+     * zeroDateTimeBehavior = CONVERT_TO_NULL
+     * useUnicode = true
+     * 
+     * @return
+     *         Creation: 15.08.2018 by mst
+     */
+    public static Map<String, String> getDefaultConnectionPropertiesMap()
+    {
+        Map<String, String> connectionPropertiesMap = new HashMap<String, String>();
+        connectionPropertiesMap.put("allowMultiQueries", "true");
+        connectionPropertiesMap.put("zeroDateTimeBehavior", "CONVERT_TO_NULL");
+        connectionPropertiesMap.put("useUnicode", "true");
+        return connectionPropertiesMap;
+    }
+
+    /**
+     * 
+     * Description:
+     * 
+     * @param connectionPropertiesMap
+     * @return
+     *         Creation: 15.08.2018 by mst
+     */
+    public static String getParamStringFromConnectionPropertiesMap(final Map<String, String> connectionPropertiesMap)
+    {
+        String parameterString = "";
+        Set<String> keySet = connectionPropertiesMap.keySet();
+        int i = 0;
+        for (String param : keySet)
+        {
+            i++;
+            String value = connectionPropertiesMap.get(param);
+            parameterString += String.format("%s=%s", param, value);
+            if (i < keySet.size())
+            {
+                // Append ? if other param will follow
+                parameterString += "&";
+            }
+        }
+
+        return parameterString;
+    }
+
+    /**
+     * 
+     * Description:
      * 
      * @param connection
-     * Creation: 14.02.2018 by mst
+     *            Creation: 14.02.2018 by mst
      */
     public void setConnection(Connection connection)
     {
         this.connection = connection;
     }
 
-    
     /**
-     * @param connectionParametersMap the connectionParametersMap to set
+     * @return the connectionParametersMap
+     */
+    public Map<String, String> getConnectionParametersMap()
+    {
+        return connectionParametersMap;
+    }
+
+    /**
+     * @param connectionParametersMap
+     *            the connectionParametersMap to set
      */
     public void setConnectionParametersMap(Map<String, String> connectionParametersMap)
     {
         this.connectionParametersMap = connectionParametersMap;
     }
+
 }
