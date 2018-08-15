@@ -16,10 +16,11 @@ import java.util.Map;
 import org.gustini.library.basicTools.DateTools;
 import org.gustini.library.db.QueryFunctions;
 import org.gustini.library.db.dataObjects.PreparedDataTypesEnum;
+import org.gustini.library.db.sqlExecutionTool.objects.QueryTypEnum;
+import org.gustini.library.db.sqlExecutionTool.objects.SqlExecutionObject;
 import org.gustini.library.tools.exceptions.UnknownEnumException;
 import org.gustini.library.tools.exceptions.guiExceptions.AlertException;
 import org.gustini.library.tools.fileOperator.FileOperator;
-
 
 /**
  * 
@@ -49,37 +50,36 @@ public class SqlFileExecutionTool
     private final String[] paramsToCheck =
     { CONFIG_PARAM_SQL_FILENAME, CONFIG_PARAM_QUERY_TYP, CONFIG_PARAM_MULTIPLE_STATEMENTS, CONFIG_PARAM_IS_PREPARED_STATEMENT };
 
-//    /**
-//     * 
-//     * @param configFile
-//     * @throws ConfigFileToolException
-//     */
-//    public SqlFileExecutionTool(
-//                                File configFile)
-//                throws ConfigFileToolException
-//    {
-//        this.configMapMap = ConfigFileTool.readIniFileWithAllSections(configFile.getAbsolutePath());
-//        initConfig();
-//    }
-    
-    
-    public SqlFileExecutionTool(Map<String, Map<String, String>> configMapMap) throws SqlExecutionToolException 
+    // /**
+    // *
+    // * @param configFile
+    // * @throws ConfigFileToolException
+    // */
+    // public SqlFileExecutionTool(
+    // File configFile)
+    // throws ConfigFileToolException
+    // {
+    // this.configMapMap = ConfigFileTool.readIniFileWithAllSections(configFile.getAbsolutePath());
+    // initConfig();
+    // }
+
+    public SqlFileExecutionTool(
+                                Map<String, Map<String, String>> configMapMap)
+                throws SqlExecutionToolException
     {
         this.configMapMap = configMapMap;
         initConfig();
     }
-    
+
     private void initConfig() throws SqlExecutionToolException
     {
         this.configMapGeneralSettings = this.configMapMap.get("GENERAL_SETTINGS");
         this.sectionNameList = getSqlExecutionConfigIniSectionsFromConfig();
         this.sqlExecutionObjectMap = getSqlExecutionObjectMap(sectionNameList);
         this.sqlExecutionObjectList = new ArrayList<>(this.sqlExecutionObjectMap.values());
-        
+
     }
-    
-    
-    
+
     /**
      * 
      * Description:
@@ -89,7 +89,7 @@ public class SqlFileExecutionTool
      *         Creation: 30.05.2017 by mst
      * @throws SQLException
      * @throws IOException
-     * @throws AlertException 
+     * @throws AlertException
      */
     public void executeExecutionQuery(SqlExecutionObject seo, Connection con) throws SQLException, IOException, AlertException
     {
@@ -125,14 +125,14 @@ public class SqlFileExecutionTool
      * 
      * @param sqlConfigIniSectionsList
      * @return
-     * @throws SqlExecutionToolException 
+     * @throws SqlExecutionToolException
      * @throws ConfigFileToolException
      *             Creation: 30.05.2017 by mst
      */
-    private Map<String,SqlExecutionObject> getSqlExecutionObjectMap(List<String> sqlConfigIniSectionsList) throws SqlExecutionToolException 
+    private Map<String, SqlExecutionObject> getSqlExecutionObjectMap(List<String> sqlConfigIniSectionsList) throws SqlExecutionToolException
     {
-        
-        Map<String,SqlExecutionObject> map = new HashMap<>();
+
+        Map<String, SqlExecutionObject> map = new HashMap<>();
         for (String sectionName : sqlConfigIniSectionsList)
         {
             if (isSqlExecConfigMapValid(sectionName))
@@ -151,23 +151,23 @@ public class SqlFileExecutionTool
         }
         return map;
     }
-    
+
     /**
      * 
-     * Description: 
+     * Description:
      * 
      * @param sqlConfigIniSectionsList
      * @return
-     * @throws SqlExecutionToolException 
+     * @throws SqlExecutionToolException
      * @throws ConfigFileToolException
-     * Creation: 16.06.2017 by mst
+     *             Creation: 16.06.2017 by mst
      */
     protected List<SqlExecutionObject> getSqlExecutionObjectList(List<String> sqlConfigIniSectionsList) throws SqlExecutionToolException
     {
-        Map<String,SqlExecutionObject> map = getSqlExecutionObjectMap(sqlConfigIniSectionsList);
+        Map<String, SqlExecutionObject> map = getSqlExecutionObjectMap(sqlConfigIniSectionsList);
         List<SqlExecutionObject> list = new ArrayList<>(map.values());
         return list;
-        
+
     }
 
     /**
@@ -209,7 +209,8 @@ public class SqlFileExecutionTool
     /**
      * 
      * Description:Read SQLConfigSections-Param-Value from config map
-     * @throws SqlExecutionToolException 
+     * 
+     * @throws SqlExecutionToolException
      * 
      * @throws ConfigFileToolException
      *             Creation: 30.05.2017 by mst
@@ -224,7 +225,7 @@ public class SqlFileExecutionTool
             {
                 list.add(sqlConfigSection.trim());
             }
-            
+
             return list;
 
         } else
@@ -309,16 +310,17 @@ public class SqlFileExecutionTool
      * 
      * Description: return ResultSet from Single Query from SqlExecutionObject
      * 
-     * @param seo SqlExecutionObject must have the follogwin Properties:
-     * isPreparedStatement = false;
-     * isMultiple_Statements = false;
-     * QueryTypEnum = QUERIES
+     * @param seo
+     *            SqlExecutionObject must have the follogwin Properties:
+     *            isPreparedStatement = false;
+     *            isMultiple_Statements = false;
+     *            QueryTypEnum = QUERIES
      * 
      * @param con
      * @return
      * @throws SQLException
      * @throws IOException
-     * Creation: 30.05.2017 by mst
+     *             Creation: 30.05.2017 by mst
      */
     public ResultSet getResultSetFromSqlExecutionObject(SqlExecutionObject seo, Connection con) throws SQLException, IOException
     {
@@ -338,11 +340,11 @@ public class SqlFileExecutionTool
             String query = getQueryFromSqlFile(sqlFileName);
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(query);
-//            stmt.close();
+            // stmt.close();
             return rs;
         } else
         {
-            
+
             throw new IllegalArgumentException("This method need an SqlExecutionObject with Single Query - multiple Queries can't receive a result Set!");
         }
 
@@ -356,12 +358,12 @@ public class SqlFileExecutionTool
      */
     public boolean executeQueryWithPreparedArguments(SqlExecutionObject seo, Connection con, Object[] preparedArguments) throws IOException, SQLException, UnknownEnumException
     {
-            PreparedStatement ps = getFilledPreparedStatement(seo, con, preparedArguments);    
-        
-        
+        PreparedStatement ps = getFilledPreparedStatement(seo, con, preparedArguments);
+
         boolean hasResult = ps.execute();
         return !hasResult;
     }
+
     /**
      * 
      * Description: Execute Query without ResultSet
@@ -370,18 +372,15 @@ public class SqlFileExecutionTool
      */
     public boolean executeQueryWithPreparedArguments(SqlExecutionObject seo, String sqlQuery, Connection con, Object[] preparedArguments) throws IOException, SQLException, UnknownEnumException
     {
-            PreparedStatement ps = getFilledPreparedStatement(seo,sqlQuery, con, preparedArguments);    
-        
-        
+        PreparedStatement ps = getFilledPreparedStatement(seo, sqlQuery, con, preparedArguments);
+
         boolean hasResult = ps.execute();
         return !hasResult;
     }
 
-    
-    
     /**
      * 
-     * Description: 
+     * Description:
      * 
      * @param seo
      * @param con
@@ -390,7 +389,7 @@ public class SqlFileExecutionTool
      * @throws UnknownEnumException
      * @throws IOException
      * @throws SQLException
-     * Creation: 19.06.2017 by mst
+     *             Creation: 19.06.2017 by mst
      */
     public PreparedStatement getFilledPreparedStatement(SqlExecutionObject seo, Connection con, Object[] preparedArguments) throws UnknownEnumException, IOException, SQLException
     {
@@ -445,21 +444,20 @@ public class SqlFileExecutionTool
         }
     }
 
-    
-/**
- * 
- * Description: 
- * 
- * @param seo
- * @param sqlQuery
- * @param con
- * @param preparedArguments
- * @return
- * @throws UnknownEnumException
- * @throws IOException
- * @throws SQLException
- * Creation: 19.06.2017 by mst
- */
+    /**
+     * 
+     * Description:
+     * 
+     * @param seo
+     * @param sqlQuery
+     * @param con
+     * @param preparedArguments
+     * @return
+     * @throws UnknownEnumException
+     * @throws IOException
+     * @throws SQLException
+     *             Creation: 19.06.2017 by mst
+     */
     public PreparedStatement getFilledPreparedStatement(SqlExecutionObject seo, String sqlQuery, Connection con, Object[] preparedArguments) throws UnknownEnumException, IOException, SQLException
     {
         if (seo.isPreparedStatement())
@@ -520,7 +518,6 @@ public class SqlFileExecutionTool
         return sqlExecutionObjectMap;
     }
 
-
     /**
      * @return the sectionNameList
      */
@@ -529,9 +526,9 @@ public class SqlFileExecutionTool
         return sectionNameList;
     }
 
-
     /**
-     * @param sectionNameList the sectionNameList to set
+     * @param sectionNameList
+     *            the sectionNameList to set
      */
     public void setSectionNameList(List<String> sectionNameList)
     {
