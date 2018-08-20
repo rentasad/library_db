@@ -296,6 +296,15 @@ public class MySQLConnection
         connectionPropertiesMap.put("allowMultiQueries", "true");
         connectionPropertiesMap.put("zeroDateTimeBehavior", "CONVERT_TO_NULL");
         connectionPropertiesMap.put("useUnicode", "true");
+        /*
+         * UPDATE 20.08.2018
+         * https://stackoverflow.com/questions/26515700/mysql-jdbc-driver-5-1-33-time-zone-issue
+         * After Error: The server time zone value 'CEST' is unrecognized or represents more than one time zone.
+         */
+        connectionPropertiesMap.put("useJDBCCompliantTimezoneShift", "true");
+        connectionPropertiesMap.put("useLegacyDatetimeCode", "false");
+        connectionPropertiesMap.put("serverTimezone", "UTC");
+        
         return connectionPropertiesMap;
     }
 
