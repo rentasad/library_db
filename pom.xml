@@ -1,7 +1,8 @@
 <?xml version="1.0"?>
 <project
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
-	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>Gustini</groupId>
@@ -9,7 +10,6 @@
 		<version>latest</version>
 	</parent>
 	<artifactId>gustini.library.db</artifactId>
-	<version>latest</version>
 	<name>gustini.library.db</name>
 	<url>http://maven.apache.org</url>
 	<properties>
@@ -41,28 +41,23 @@
 			<artifactId>gustini.library.basicTools</artifactId>
 			<version>latest</version>
 		</dependency>
-		<dependency>
-			<groupId>com.extendedsystems.jdbc.advantage</groupId>
-			<artifactId>adsjdbc11</artifactId>
-			<version>11.0</version>
-		</dependency>
+<dependency>
+  <groupId>com.extendedsystems.jdbc.advantage</groupId>
+  <artifactId>adsjdbc11.0</artifactId>
+  <version>11.0</version>
+</dependency>
 		<dependency>
 			<groupId>com.microsoft.sqlserver</groupId>
 			<artifactId>sqljdbc4</artifactId>
 			<version>4.0</version>
 		</dependency>
-		<!-- Remove and add new Version 
+		<!-- Remove and add new Version <dependency> <groupId>mysql</groupId> <artifactId>mysql-connector-java</artifactId> 
+			<version>5.1.36</version> </dependency> -->
+		<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<version>5.1.36</version>
+			<version>8.0.12</version>
 		</dependency>
--->
-<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
-<dependency>
-    <groupId>mysql</groupId>
-    <artifactId>mysql-connector-java</artifactId>
-    <version>8.0.12</version>
-</dependency>
 	</dependencies>
 </project>
