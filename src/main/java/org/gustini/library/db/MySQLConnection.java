@@ -395,7 +395,10 @@ public class MySQLConnection
          */
         connectionPropertiesMap.put("useJDBCCompliantTimezoneShift", "true");
         connectionPropertiesMap.put("useLegacyDatetimeCode", "false");
-        connectionPropertiesMap.put("serverTimezone", "UTC");
+        /**
+         * Zeitzone UTC sorgte für das Einfügen des falschen Datums
+         */
+//        connectionPropertiesMap.put("serverTimezone", "UTC");
 
         return connectionPropertiesMap;
     }
