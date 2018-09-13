@@ -219,6 +219,7 @@ public class AdsConnection
         try
         {
             initDriver();
+            System.out.println(connectionString);
             return DriverManager.getConnection(connectionString);
         } catch (InstantiationException | IllegalAccessException | ClassNotFoundException | SQLException e)
         {
@@ -267,7 +268,7 @@ public class AdsConnection
         String tableType = configMap.get(PARAMETER_NAME_ADS_TABLE_TYPE);
         String dsnProperties = String.format(";LockType=%s;CharType=%s;TableType=%s", lockType, charType, tableType);
         String connectionString = String.format("%s%s", fullConnectionUrl,dsnProperties);
-        System.out.println(connectionString);
+//        System.out.println(connectionString);
         try
         {
             initDriver();
