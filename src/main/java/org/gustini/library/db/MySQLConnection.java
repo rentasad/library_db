@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import com.mysql.cj.util.TimeUtil;
+
 /**
  * 
  * Gustini GmbH (2017)
@@ -208,6 +210,48 @@ public class MySQLConnection
             return MySQLConnection.dbConnect(mySqlServerUrl, mySqlDatabaseName, mySqlDbUserid, mySqlDbPassword);
         }
 
+    }
+    /**
+     * 
+     * Description:Connect with parameter  serverTimezone=UTC
+     * 
+     * @param mySqlConfigMap
+     * @return
+     * @throws SQLException
+     * Creation: 20.09.2018 by mst
+     */
+    public static Connection dbConnectWithTimeZoneUTC(Map<String, String> mySqlConfigMap) throws SQLException
+    {
+        try
+        {
+            loadDriverStatic();
+        } catch (InstantiationException | IllegalAccessException | ClassNotFoundException e)
+        {
+            throw new SQLException(e);
+        }
+        String mySqlServerUrl = mySqlConfigMap.get(MYSQL_HOST);
+        String mySqlDatabaseName = mySqlConfigMap.get(MYSQL_DATABASE);
+        String mySqlDbUserid = mySqlConfigMap.get(MYSQL_USER);
+        String mySqlDbPassword = mySqlConfigMap.get(MYSQL_PASSWORD);
+
+        String characterEncoding = "cp1250";
+        Map<String, String> connectionProperties = getDefaultConnectionPropertiesMap();
+        connectionProperties.put("serverTimezone", "UTC");
+        connectionProperties.put("characterEncoding", characterEncoding);
+
+        
+        /*
+         * Encoding hinzufügen wenn in Config angegeben
+         */
+        if (mySqlConfigMap.containsKey("MYSQL_ENCODING"))
+        {
+            String mySqlEncoding = mySqlConfigMap.get("MYSQL_ENCODING");
+            connectionProperties.put("characterEncoding", mySqlEncoding);
+        }
+        String paramString = getParamStringFromConnectionPropertiesMap(connectionProperties);
+        String connectionString = String.format("jdbc:mysql://%s/%s?%s", mySqlServerUrl, mySqlDatabaseName, paramString);
+        return DriverManager.getConnection(connectionString, mySqlDbUserid, mySqlDbPassword);
+        
     }
 
     /**
@@ -459,5 +503,7 @@ public class MySQLConnection
     {
         this.connectionParametersMap = connectionParametersMap;
     }
+
+
 
 }
