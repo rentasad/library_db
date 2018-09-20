@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import com.mysql.cj.util.TimeUtil;
 
 /**
  * 
@@ -79,7 +78,7 @@ public class MySQLConnection
     {
         if (!driverWasInitStatic)
         {
-            Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
+            Class.forName(DRIVER_CLASS_MYSQL_CONNECTOR_5).newInstance();
             driverWasInitStatic = true;
         }
     }
@@ -97,7 +96,7 @@ public class MySQLConnection
     {
         if (!driverWasInit)
         {
-            Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
+            Class.forName(DRIVER_CLASS_MYSQL_CONNECTOR_5).newInstance();
             driverWasInit = true;
         }
     }
@@ -430,7 +429,10 @@ public class MySQLConnection
     {
         Map<String, String> connectionPropertiesMap = new HashMap<String, String>();
         connectionPropertiesMap.put("allowMultiQueries", "true");
-        connectionPropertiesMap.put("zeroDateTimeBehavior", "CONVERT_TO_NULL");
+        // JDBC 8
+        //connectionPropertiesMap.put("zeroDateTimeBehavior", "CONVERT_TO_NULL");
+        // JDBC 5.x
+        connectionPropertiesMap.put("zeroDateTimeBehavior", "convertToNull");
         connectionPropertiesMap.put("useUnicode", "true");
         /*
          * UPDATE 20.08.2018

@@ -41,23 +41,22 @@
 			<artifactId>gustini.library.basicTools</artifactId>
 			<version>latest</version>
 		</dependency>
-<dependency>
-  <groupId>com.extendedsystems.jdbc.advantage</groupId>
-  <artifactId>adsjdbc11.0</artifactId>
-  <version>11.0</version>
-</dependency>
+		<dependency>
+			<groupId>com.extendedsystems.jdbc.advantage</groupId>
+			<artifactId>adsjdbc11.0</artifactId>
+			<version>11.0</version>
+		</dependency>
 		<dependency>
 			<groupId>com.microsoft.sqlserver</groupId>
 			<artifactId>sqljdbc4</artifactId>
 			<version>4.0</version>
 		</dependency>
-		<!-- Remove and add new Version <dependency> <groupId>mysql</groupId> <artifactId>mysql-connector-java</artifactId> 
-			<version>5.1.36</version> </dependency> -->
-		<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+		<!-- UPDATE 20.09.2018 Update nach Fehler in ServerTimeZone -> Fallback 
+			zu alter Version https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<version>8.0.12</version>
+			<version>5.1.46</version>
 		</dependency>
 	</dependencies>
 </project>
