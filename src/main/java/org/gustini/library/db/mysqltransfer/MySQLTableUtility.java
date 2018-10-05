@@ -220,11 +220,15 @@ public class MySQLTableUtility
                     int colNumber = i + 1;
                     ISQLTableColumnsDescriptionInterface column = tableColumnDescriptions[i];
                     int objektTypInt = column.getJavaDatatypeFromISQLTyp(column.getType());
-                    String field = column.getField();
-                    // if (field.equals("TEASER"))
-                    // {
-                    // System.out.println("TEASER : " + adsSelectResultSet.getString(column.getField()));
-                    // }
+                    /*
+                     * Die Auskommentierten Zeilen dienen dem DEBUG, wenn der Transfer fehlschlägt.
+                     * Meistens liegt die Ursache im Encoding
+                     */
+//                    String field = column.getField();
+//                     if (field.equals("ART_UEBERS"))
+//                     {
+//                     System.out.println("ART_UEBERS : " + adsSelectResultSet.getString(column.getField()));
+//                     }
                     switch (objektTypInt)
                     {
                         case ISQLTableColumnsDescriptionInterface.OBJECT_DATA_TYPE_BOOLEAN:
