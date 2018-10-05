@@ -434,6 +434,7 @@ public class MySQLConnection
         // JDBC 5.x
         connectionPropertiesMap.put("zeroDateTimeBehavior", "convertToNull");
         connectionPropertiesMap.put("useUnicode", "true");
+        connectionPropertiesMap.put("useSSL", "false");
         /*
          * UPDATE 20.08.2018
          * https://stackoverflow.com/questions/26515700/mysql-jdbc-driver-5-1-33-time-zone-issue
