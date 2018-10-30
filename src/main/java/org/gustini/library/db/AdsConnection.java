@@ -219,7 +219,7 @@ public class AdsConnection
         try
         {
             initDriver();
-            System.out.println(connectionString);
+//            System.out.println(connectionString);
             return DriverManager.getConnection(connectionString);
         } catch (InstantiationException | IllegalAccessException | ClassNotFoundException | SQLException e)
         {
