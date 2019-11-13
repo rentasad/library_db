@@ -212,7 +212,6 @@ public class QueryFunctions
      */
     public static boolean executeUpdateQuery(Connection con, String query) throws AlertException
     {
-        
         try
         {
             Statement stmt = con.createStatement();
@@ -222,7 +221,6 @@ public class QueryFunctions
         } catch (Exception e)
         {
             System.err.println("Query: " + query);
-            
             throw new AlertException(e);
         } 
         

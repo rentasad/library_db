@@ -63,6 +63,12 @@ public class SqlFileExecutionTool
     // initConfig();
     // }
 
+    /**
+     * 
+     * @param configMapMap
+     *            NEEDED GENERAL_SETTINGS;
+     * @throws SqlExecutionToolException
+     */
     public SqlFileExecutionTool(
                                 Map<String, Map<String, String>> configMapMap)
                 throws SqlExecutionToolException
@@ -91,7 +97,7 @@ public class SqlFileExecutionTool
      * @throws IOException
      * @throws AlertException
      */
-    public void executeExecutionQuery(SqlExecutionObject seo, Connection con) throws SQLException, IOException, AlertException
+    public static void executeExecutionQuery(SqlExecutionObject seo, Connection con) throws SQLException, IOException, AlertException
     {
         /**
          * Check if SqlExecutionObject are valid for execution
@@ -269,12 +275,28 @@ public class SqlFileExecutionTool
      */
     public static String[] getSqlQueriesFromSqlFile(String sqlFileName) throws IOException
     {
-        final String DEFAULT_DELIMITER = ";";
         String sqlQueryValue = FileOperator.readFile(sqlFileName);
         /*
          * Aufsplitten der SQL-Statements in mehrere Strings
          */
-        return sqlQueryValue.split(DEFAULT_DELIMITER);
+        return getSqlQueriesFromSqlString(sqlQueryValue);
+    }
+
+    /**
+     * 
+     * Description:Splittet einen SQL-String in einzelne SQL-Strings durch den Trenner ";"
+     * 
+     * @param multipleSqlString
+     * @return
+     *         Creation: 11.09.2019 by mst
+     */
+    public static String[] getSqlQueriesFromSqlString(String multipleSqlString)
+    {
+        /*
+         * Aufsplitten der SQL-Statements in mehrere Strings
+         */
+        final String DEFAULT_DELIMITER = ";";
+        return multipleSqlString.split(DEFAULT_DELIMITER);
     }
 
     /**
@@ -356,7 +378,7 @@ public class SqlFileExecutionTool
      * 
      * Creation: 30.05.2017 by mst
      */
-    public boolean executeQueryWithPreparedArguments(SqlExecutionObject seo, Connection con, Object[] preparedArguments) throws IOException, SQLException, UnknownEnumException
+    public static boolean executeQueryWithPreparedArguments(SqlExecutionObject seo, Connection con, Object[] preparedArguments) throws IOException, SQLException, UnknownEnumException
     {
         PreparedStatement ps = getFilledPreparedStatement(seo, con, preparedArguments);
 
@@ -370,7 +392,7 @@ public class SqlFileExecutionTool
      * 
      * Creation: 30.05.2017 by mst
      */
-    public boolean executeQueryWithPreparedArguments(SqlExecutionObject seo, String sqlQuery, Connection con, Object[] preparedArguments) throws IOException, SQLException, UnknownEnumException
+    public static boolean executeQueryWithPreparedArguments(SqlExecutionObject seo, String sqlQuery, Connection con, Object[] preparedArguments) throws IOException, SQLException, UnknownEnumException
     {
         PreparedStatement ps = getFilledPreparedStatement(seo, sqlQuery, con, preparedArguments);
 
@@ -391,7 +413,7 @@ public class SqlFileExecutionTool
      * @throws SQLException
      *             Creation: 19.06.2017 by mst
      */
-    public PreparedStatement getFilledPreparedStatement(SqlExecutionObject seo, Connection con, Object[] preparedArguments) throws UnknownEnumException, IOException, SQLException
+    public static PreparedStatement getFilledPreparedStatement(SqlExecutionObject seo, Connection con, Object[] preparedArguments) throws UnknownEnumException, IOException, SQLException
     {
         if (seo.isPreparedStatement())
         {
@@ -458,7 +480,7 @@ public class SqlFileExecutionTool
      * @throws SQLException
      *             Creation: 19.06.2017 by mst
      */
-    public PreparedStatement getFilledPreparedStatement(SqlExecutionObject seo, String sqlQuery, Connection con, Object[] preparedArguments) throws UnknownEnumException, IOException, SQLException
+    public static PreparedStatement getFilledPreparedStatement(SqlExecutionObject seo, String sqlQuery, Connection con, Object[] preparedArguments) throws UnknownEnumException, IOException, SQLException
     {
         if (seo.isPreparedStatement())
         {
