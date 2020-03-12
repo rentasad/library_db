@@ -81,6 +81,11 @@
    	<artifactId>rentasad.library.basicTools</artifactId>
    	<version>1.0.0</version>
    </dependency>
+   <dependency>
+   	<groupId>rentasad</groupId>
+   	<artifactId>rentasad.library.configFileTool</artifactId>
+   	<version>1.0.0</version>
+   </dependency>
 	</dependencies>
 	<version>1.0.0</version>
 	<groupId>rentasad</groupId>

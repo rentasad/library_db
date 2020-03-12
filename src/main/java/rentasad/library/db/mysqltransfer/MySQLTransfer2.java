@@ -7,13 +7,12 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import org.gustini.library.tools.exceptions.WrongDataTypeException;
-
+import rentasad.library.basicTools.StringTool;
 import rentasad.library.db.dataObjects.ISQLTableColumnsDescriptionInterface;
 import rentasad.library.db.dataObjects.IsqlTableDescriptionInterface;
 import rentasad.library.db.dataObjects.MySQLTableColumnDescription;
 import rentasad.library.db.dataObjects.MySQLTableDescription;
-import rentasad.rentasad.library.basicTools.StringTool;
+import rentasad.library.tools.exceptions.WrongDataTypeException;
 
 /**
  * 
