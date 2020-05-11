@@ -24,7 +24,7 @@
 			</plugin>
 		</plugins>
 	</build>
-	<!-- 
+	
 	<distributionManagement>
 		<repository>
 			<id>internal</id>
@@ -36,7 +36,7 @@
 		</snapshotRepository>
 	</distributionManagement>
 	
-	 -->
+	 
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
@@ -45,15 +45,28 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
+			<scope>system</scope>
 			<groupId>com.extendedsystems.jdbc.advantage</groupId>
-			<artifactId>adsjdbc11.0</artifactId>
+			<artifactId>adsjdbc</artifactId>
 			<version>11.0</version>
+			<systemPath>${basedir}\src\lib\adsjdbc11.0.jar</systemPath>
 		</dependency>
-		<dependency>
+	<!-- 	<dependency>
+			<scope>system</scope>
 			<groupId>com.microsoft.sqlserver</groupId>
 			<artifactId>sqljdbc4</artifactId>
 			<version>4.0</version>
+			<systemPath>${basedir}\src\lib\microsoft\sqlserver\sqljdbc4\4.0\sqljdbc4-4.0.jar</systemPath>
 		</dependency>
+	 -->	
+		<!-- https://mvnrepository.com/artifact/com.microsoft.sqlserver/sqljdbc4 -->
+<dependency>
+    <groupId>com.microsoft.sqlserver</groupId>
+    <artifactId>sqljdbc4</artifactId>
+    <version>4.0</version>
+</dependency>
+		
+		
 		<!-- UPDATE 20.09.2018 Update nach Fehler in ServerTimeZone -> Fallback 
 			zu alter Version https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
 		<dependency>

@@ -8,8 +8,6 @@ import java.util.Properties;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
-import rentasad.library.db.AdsConnection;
-
 public class DataSource
 {
 

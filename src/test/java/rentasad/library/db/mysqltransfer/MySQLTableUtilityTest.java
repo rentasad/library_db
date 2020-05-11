@@ -11,7 +11,6 @@ import org.junit.Test;
 
 import rentasad.library.db.AdsConnection;
 import rentasad.library.db.dataObjects.IsqlTableDescriptionInterface;
-import rentasad.library.db.mysqltransfer.MySQLTableUtility;
 
 public class MySQLTableUtilityTest
 {

@@ -1,0 +1,9 @@
+#NOTE: This is an Aether internal implementation file, its format can be changed without prior notice.
+#Thu Nov 26 10:41:11 CET 2015
+http\://myrepo.net/repo/.error=
+http\://repo.maven.apache.org/maven2/.lastUpdated=1442226366808
+http\://myrepo.net/repo/.lastUpdated=1442226366750
+https\://repo.maven.apache.org/maven2/.lastUpdated=1447065844950
+http\://gstvmdev2.gustini.local\:8888/repository/internal/.lastUpdated=1448530871362
+http\://repo.maven.apache.org/maven2/.error=
+https\://repo.maven.apache.org/maven2/.error=

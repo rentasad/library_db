@@ -6,7 +6,6 @@ import java.sql.Date;
 
 import org.junit.Test;
 
-import rentasad.library.db.QueryFunctions;
 import rentasad.library.db.dataObjects.PreparedDataTypesEnum;
 
 public class QueryFunctionsTest

@@ -1,8 +1,6 @@
 package rentasad.library.db;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 
 import java.sql.Connection;
 import java.util.HashMap;
@@ -12,9 +10,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import rentasad.library.db.MySQLConnection;
-
-public class MySQLConnectionTest
+public class MYSQLConnectionTest
 {
 
     @Before
@@ -30,9 +26,9 @@ public class MySQLConnectionTest
     @Test
     public void testGetParamStringFromConnectionPropertiesMap() throws Exception
     {
-        Map<String, String> connectionPropertiesMap = MySQLConnection.getDefaultConnectionPropertiesMap();
-        System.out.println(MySQLConnection.getParamStringFromConnectionPropertiesMap(connectionPropertiesMap));
-        assertEquals(MySQLConnection.getParamStringFromConnectionPropertiesMap(connectionPropertiesMap), "useUnicode=true&useJDBCCompliantTimezoneShift=true&allowMultiQueries=true&zeroDateTimeBehavior=convertToNull&useLegacyDatetimeCode=false");
+        Map<String, String> connectionPropertiesMap = MYSQLConnection.getDefaultConnectionPropertiesMap();
+        System.out.println(MYSQLConnection.getParamStringFromConnectionPropertiesMap(connectionPropertiesMap));
+        assertEquals(MYSQLConnection.getParamStringFromConnectionPropertiesMap(connectionPropertiesMap), "useUnicode=true&useJDBCCompliantTimezoneShift=true&allowMultiQueries=true&zeroDateTimeBehavior=convertToNull&useLegacyDatetimeCode=false");
     }
 
     @Test
@@ -49,7 +45,7 @@ public class MySQLConnectionTest
         mySqlConfigMap.put("MYSQL_USER", MYSQL_USER);
         mySqlConfigMap.put("MYSQL_PASSWORD", MYSQL_PASSWORD);
         mySqlConfigMap.put("MYSQL_ENCODING", MYSQL_ENCODING);
-        Connection con = MySQLConnection.dbConnectWithTimeZoneUTC(mySqlConfigMap);
+        Connection con = MYSQLConnection.dbConnectWithTimeZoneUTC(mySqlConfigMap);
         con.close();
     }
     @Test
@@ -66,7 +62,7 @@ public class MySQLConnectionTest
         mySqlConfigMap.put("MYSQL_USER", MYSQL_USER);
         mySqlConfigMap.put("MYSQL_PASSWORD", MYSQL_PASSWORD);
         mySqlConfigMap.put("MYSQL_ENCODING", MYSQL_ENCODING);
-        Connection con = MySQLConnection.dbConnect(mySqlConfigMap);
+        Connection con = MYSQLConnection.dbConnect(mySqlConfigMap);
         con.close();
     }
     

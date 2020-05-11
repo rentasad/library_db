@@ -46,7 +46,7 @@ import java.util.Set;
  *         ucs2 UnicodeBig
  *
  */
-public class MySQLConnection
+public class MYSQLConnection
 {
     public static final String MYSQL_HOST = "MYSQL_HOST";
     public static final String MYSQL_USER = "MYSQL_USER";
@@ -56,7 +56,7 @@ public class MySQLConnection
     public static final String DRIVER_CLASS_MYSQL_CONNECTOR_5 = "com.mysql.jdbc.Driver";
     public static final String DRIVER_CLASS_MYSQL_CONNECTOR_8 = "com.mysql.cj.jdbc.Driver";
 
-    private static MySQLConnection instance = null;
+    private static MYSQLConnection instance = null;
     // private static Driver driver = null;
     public static boolean debug = false;
     private Map<String, String> connectionParametersMap;
@@ -121,7 +121,7 @@ public class MySQLConnection
     {
         if (instance == null)
         {
-            instance = new MySQLConnection();
+            instance = new MYSQLConnection();
             if (!instance.driverWasInit)
             {
                 try
@@ -132,7 +132,7 @@ public class MySQLConnection
                     throw new SQLException(e);
                 }
             }
-            instance.setConnection(MySQLConnection.dbConnect(connectionParametersMap));
+            instance.setConnection(MYSQLConnection.dbConnect(connectionParametersMap));
             instance.setConnectionParametersMap(connectionParametersMap);
         } else
         {
@@ -151,7 +151,7 @@ public class MySQLConnection
      * @throws SQLException
      *             Creation: 14.02.2018 by mst
      */
-    public static MySQLConnection getInstance() throws SQLException
+    public static MYSQLConnection getInstance() throws SQLException
     {
         if (instance == null)
         {
@@ -203,10 +203,10 @@ public class MySQLConnection
         if (connectionParametersMap.containsKey("MYSQL_ENCODING"))
         {
             String mySqlEncoding = connectionParametersMap.get("MYSQL_ENCODING");
-            return MySQLConnection.dbConnect(mySqlServerUrl, mySqlDatabaseName, mySqlDbUserid, mySqlDbPassword, mySqlEncoding);
+            return MYSQLConnection.dbConnect(mySqlServerUrl, mySqlDatabaseName, mySqlDbUserid, mySqlDbPassword, mySqlEncoding);
         } else
         {
-            return MySQLConnection.dbConnect(mySqlServerUrl, mySqlDatabaseName, mySqlDbUserid, mySqlDbPassword);
+            return MYSQLConnection.dbConnect(mySqlServerUrl, mySqlDatabaseName, mySqlDbUserid, mySqlDbPassword);
         }
 
     }
@@ -275,7 +275,7 @@ public class MySQLConnection
         String mySqlServerUrl = connectionParametersMap.get(MYSQL_HOST);
         String mySqlDbUserid = connectionParametersMap.get(MYSQL_USER);
         String mySqlDbPassword = connectionParametersMap.get(MYSQL_PASSWORD);
-        return MySQLConnection.dbConnect(mySqlServerUrl, mySqlDatabaseName, mySqlDbUserid, mySqlDbPassword);
+        return MYSQLConnection.dbConnect(mySqlServerUrl, mySqlDatabaseName, mySqlDbUserid, mySqlDbPassword);
     }
 
     /**
@@ -408,7 +408,7 @@ public class MySQLConnection
             return this.connection;
         } else
         {
-            this.connection = MySQLConnection.dbConnect(this.connectionParametersMap);
+            this.connection = MYSQLConnection.dbConnect(this.connectionParametersMap);
             return this.connection;
         }
 
