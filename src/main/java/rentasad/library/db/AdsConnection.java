@@ -142,7 +142,7 @@ public class AdsConnection
 	 * <br>
 	 * <br>
 	 */
-	private static final String PARAMETER_NAME_ADS_DATABASE_DICTIONARY = "DATABASE_DICTIONARY";
+	public static final String PARAMETER_NAME_ADS_DATABASE_DICTIONARY = "DATABASE_DICTIONARY";
 	private static Driver driver = null;
 	private Map<String, String> configMap;
 
@@ -208,7 +208,7 @@ public class AdsConnection
 	 */
 	public Connection getConnection() throws SQLException
 	{
-		return dbConnection(configMap);
+		return dbConnect(configMap);
 	}
 
 	/**
@@ -247,7 +247,7 @@ public class AdsConnection
 	 * @throws SQLException
 	 * @throws DbConnectionException
 	 */
-	public static Connection dbConnection(Map<String, String> configMap) throws SQLException
+	public static Connection dbConnect(Map<String, String> configMap) throws SQLException
 	{
 		String host = configMap.get(PARAMETER_NAME_ADS_HOST);
 		String socket = configMap.get(PARAMETER_NAME_ADS_SOCKET);
@@ -283,7 +283,7 @@ public class AdsConnection
 	 */
 	public static Connection dbConnect() throws SQLException
 	{
-		return dbConnection(getDefaultConfigMap());
+		return dbConnect(getDefaultConfigMap());
 	}
 
 	/**
@@ -301,7 +301,7 @@ public class AdsConnection
 		configMap.put(PARAMETER_NAME_ADS_DATABASE_DICTIONARY, configMap.get(PARAMETER_NAME_ADS_DATABASE_DICTIONARY)
 					+ appendConnectionDirectoryString
 						+ "/");
-		return dbConnection(configMap);
+		return dbConnect(configMap);
 	}
 
 	public static Connection dbConnectToUrl(String fullConnectionUrl) throws SQLException
@@ -340,7 +340,7 @@ public class AdsConnection
 		Map<String, String> configMap = getDefaultConfigMap();
 		String dataDictionary = configMap.get(PARAMETER_NAME_ADS_DATABASE_DICTIONARY);
 		configMap.put(PARAMETER_NAME_ADS_DATABASE_DICTIONARY, dataDictionary + vs4MandantString);
-		return dbConnection(configMap);
+		return dbConnect(configMap);
 	}
 
 	/**
