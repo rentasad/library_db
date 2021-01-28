@@ -10,7 +10,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import rentasad.library.db.AdsConnection;
-import rentasad.library.db.dataObjects.IsqlTableDescriptionInterface;
 
 public class MySQLTableUtilityTest
 {
@@ -45,20 +44,20 @@ public class MySQLTableUtilityTest
     }
 
     
-    public void testTransferMySqlTableToMySqlTable() throws Exception
-    {
-        String[] tablesToImport = {
-                "v4ar1009"
-        };
-        for (String tableName : tablesToImport)
-        {
-            System.out.println("TRANSFER Tabelle: " + tableName);
-            IsqlTableDescriptionInterface tableDescriptionArray = MySQLTableUtility.getMySQLTableDescription(conTarget, tableName);
-            MySQLTableUtility mySQLTableUtility = new MySQLTableUtility(null);
+//    public void testTransferMySqlTableToMySqlTable() throws Exception
+//    {
+//        String[] tablesToImport = {
+//                "v4ar1009"
+//        };
+//        for (String tableName : tablesToImport)
+//        {
+//            System.out.println("TRANSFER Tabelle: " + tableName);
+//            IsqlTableDescriptionInterface tableDescriptionArray = MySQLTableUtility.getMySQLTableDescription(conTarget, tableName);
+//            MySQLTableUtility mySQLTableUtility = new MySQLTableUtility(null);
 //            mySQLTableUtility.transferMySqlTableToMySqlTable(conSource, conTarget, tableDescriptionArray);
-
-        }
-    }
+//
+//        }
+//    }
     
     @Test
     public void encodingCheck()  throws Exception

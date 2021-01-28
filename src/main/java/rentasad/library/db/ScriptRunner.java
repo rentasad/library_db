@@ -235,7 +235,8 @@ public class ScriptRunner {
         }
     }
 
-    private void printlnError(Object o) {
+    @SuppressWarnings("unused")
+	private void printlnError(Object o) {
         if (errorLogWriter != null) {
             errorLogWriter.println(o);
         }

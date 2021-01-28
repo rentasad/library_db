@@ -32,7 +32,7 @@ public class AdsConnectionTest
     public void testDbConnectionWithParameters() throws Exception
     {
     	
-		String host = "192.168.111.30";
+		String host = "//192.168.111.30";
 		String socket = "6262";
 		String databaseDictionaty = "/vs4/VS/DG/VC2/";
 		String lockType = "proprietary";
