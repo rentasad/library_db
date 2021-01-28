@@ -357,7 +357,8 @@ public class AdsConnection
 	{
 		if (driver == null)
 		{
-			AdsConnection.driver = (Driver) Class.forName("com.extendedsystems.jdbc.advantage.ADSDriver").newInstance();
+			Class.forName("com.extendedsystems.jdbc.advantage.ADSDriver");
+			//AdsConnection.driver = (Driver) Class.forName("com.extendedsystems.jdbc.advantage.ADSDriver").newInstance();
 		}
 	}
 
