@@ -165,7 +165,7 @@ public class MySQLTableUtility
                     switch (objektTypInt)
                     {
                         case ISQLTableColumnsDescriptionInterface.OBJECT_DATA_TYPE_BOOLEAN:
-                            columnString = new Boolean(adsSelectResultSet.getBoolean(column.getField())).toString();
+                            columnString = Boolean.valueOf(adsSelectResultSet.getBoolean(column.getField())).toString();
                             break;
                         case ISQLTableColumnsDescriptionInterface.OBJECT_DATA_TYPE_DATE:
 
@@ -180,13 +180,13 @@ public class MySQLTableUtility
 
                             break;
                         case ISQLTableColumnsDescriptionInterface.OBJECT_DATA_TYPE_DOUBLE:
-                            columnString = new Double(adsSelectResultSet.getDouble(column.getField())).toString();
+                            columnString = Double.valueOf(adsSelectResultSet.getDouble(column.getField())).toString();
                             break;
                         case ISQLTableColumnsDescriptionInterface.OBJECT_DATA_TYPE_FLOAT:
-                            columnString = new Float(adsSelectResultSet.getFloat(column.getField())).toString();
+                            columnString = Float.valueOf(adsSelectResultSet.getFloat(column.getField())).toString();
                             break;
                         case ISQLTableColumnsDescriptionInterface.OBJECT_DATA_TYPE_INT:
-                            columnString = new Integer(adsSelectResultSet.getInt(column.getField())).toString();
+                            columnString = Integer.valueOf(adsSelectResultSet.getInt(column.getField())).toString();
                             break;
                         case ISQLTableColumnsDescriptionInterface.OBJECT_DATA_TYPE_STRING:
                             columnString = "'" + adsSelectResultSet.getString(column.getField()) + "'";
@@ -327,7 +327,7 @@ public class MySQLTableUtility
             String[] werteInKlammernString = StringTool.getStringZwischen(typeString, "\\(", "\\)");
             if (werteInKlammernString.length == 1)
             {
-                columnDescription.setLength(new Integer(werteInKlammernString[0]).intValue());
+                columnDescription.setLength(Integer.valueOf(werteInKlammernString[0]).intValue());
             }
 
             int typInt = getTypeIntFromTypString(typeString);

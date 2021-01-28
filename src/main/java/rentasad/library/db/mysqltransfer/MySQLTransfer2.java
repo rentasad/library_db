@@ -425,7 +425,7 @@ public class MySQLTransfer2
             String[] werteInKlammernString = StringTool.getStringZwischen(typeString, "\\(", "\\)");
             if (werteInKlammernString.length == 1)
             {
-                columnDescription.setLength(new Integer(werteInKlammernString[0]).intValue());
+                columnDescription.setLength(Integer.valueOf(werteInKlammernString[0]).intValue());
             }
 
             int typInt = getTypeIntFromTypString(typeString);

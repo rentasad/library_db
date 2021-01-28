@@ -1,7 +1,6 @@
 package rentasad.library.db.hikaricp;
 
 import java.sql.Connection;
-import java.sql.Driver;
 import java.sql.SQLException;
 import java.util.Properties;
 
@@ -37,8 +36,9 @@ public class DataSource
     
     public static Connection getAdsConnection() throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException
     {
+    	Class.forName("com.extendedsystems.jdbc.advantage.ADSDriver");
         Properties props = new Properties();
-        Driver driver =  (Driver) Class.forName("com.extendedsystems.jdbc.advantage.ADSDriver").newInstance();
+//        Driver driver =  (Driver) Class.forName("com.extendedsystems.jdbc.advantage.ADSDriver").newInstance();
         props.setProperty( "dataSourceClassName" , "com.extendedsystems.jdbc.advantage.ADSDriver" );
         HikariConfig hikariConfig = new HikariConfig(props);
         hikariConfig.setDriverClassName("com.extendedsystems.jdbc.advantage.ADSDriver");

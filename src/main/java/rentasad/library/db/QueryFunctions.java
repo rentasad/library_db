@@ -39,7 +39,7 @@ public class QueryFunctions
         HashMap<Integer, String> fieldNameHashMap = new HashMap<Integer, String>();
         while (fieldNamesResultSet.next())
         {
-            fieldNameHashMap.put(new Integer(i), fieldNamesResultSet.getString(1));
+            fieldNameHashMap.put( Integer.valueOf(i), fieldNamesResultSet.getString(1));
             i++;
         }
         return fieldNameHashMap;

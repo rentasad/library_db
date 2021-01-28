@@ -16,7 +16,7 @@ public class QueryFunctionsTest
     public void testGetPreparedDataTypFromObject() throws Exception
     {
         String testString = "Hallo";
-        Integer i1 = new Integer(1);
+        Integer i1 = Integer.valueOf(1);
         int i2 = 2;
         double d1 = 1.0;
         float f1 = 1f;
