@@ -78,7 +78,7 @@ public class MYSQLConnection
     {
         if (!driverWasInitStatic)
         {
-            Class.forName(DRIVER_CLASS_MYSQL_CONNECTOR_5).newInstance();
+            Class.forName(DRIVER_CLASS_MYSQL_CONNECTOR_8);
             driverWasInitStatic = true;
         }
     }
@@ -96,7 +96,7 @@ public class MYSQLConnection
     {
         if (!driverWasInit)
         {
-            Class.forName(DRIVER_CLASS_MYSQL_CONNECTOR_5).newInstance();
+            Class.forName(DRIVER_CLASS_MYSQL_CONNECTOR_8);
             driverWasInit = true;
         }
     }
