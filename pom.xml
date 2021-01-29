@@ -26,9 +26,18 @@
 					</compilerArgs>
 				</configuration>
 			</plugin>
+			<!-- The Maven-Surefire-Plugin is needed to make Unittests while building -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.14.1</version>
+				<configuration>
+					<argLine>--enable-preview</argLine>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
-	
+
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
@@ -36,27 +45,19 @@
 			<version>4.13.1</version>
 			<scope>test</scope>
 		</dependency>
-<!-- 		<dependency>
-			<scope>system</scope>
-			<groupId>com.extendedsystems.jdbc.advantage</groupId>
-			<artifactId>adsjdbc</artifactId>
-			<version>11.0</version>
-			<systemPath>${basedir}\src\lib\adsjdbc11.0.jar</systemPath>
-		</dependency> -->
-		
-<!-- 		<dependency>
-			<scope>system</scope>
+		<!-- <dependency> <scope>system</scope> <groupId>com.extendedsystems.jdbc.advantage</groupId> 
+			<artifactId>adsjdbc</artifactId> <version>11.0</version> <systemPath>${basedir}\src\lib\adsjdbc11.0.jar</systemPath> 
+			</dependency> -->
+
+		<!-- <dependency> <scope>system</scope> <groupId>com.microsoft.sqlserver</groupId> 
+			<artifactId>sqljdbc4</artifactId> <version>4.0</version> <systemPath>${basedir}\src\lib\microsoft\sqlserver\sqljdbc4\4.0\sqljdbc4-4.0.jar</systemPath> 
+			</dependency> -->
+		<!-- https://mvnrepository.com/artifact/com.microsoft.sqlserver/mssql-jdbc -->
+		<dependency>
 			<groupId>com.microsoft.sqlserver</groupId>
-			<artifactId>sqljdbc4</artifactId>
-			<version>4.0</version>
-			<systemPath>${basedir}\src\lib\microsoft\sqlserver\sqljdbc4\4.0\sqljdbc4-4.0.jar</systemPath>
-		</dependency> -->
-<!-- https://mvnrepository.com/artifact/com.microsoft.sqlserver/mssql-jdbc -->
-<dependency>
-    <groupId>com.microsoft.sqlserver</groupId>
-    <artifactId>mssql-jdbc</artifactId>
-    <version>9.1.0.jre15-preview</version>
-</dependency>
+			<artifactId>mssql-jdbc</artifactId>
+			<version>9.1.0.jre15-preview</version>
+		</dependency>
 
 
 		<!-- UPDATE 20.09.2018 Update nach Fehler in ServerTimeZone -> Fallback 
@@ -85,7 +86,7 @@
 		<dependency>
 			<groupId>rentasad</groupId>
 			<artifactId>rentasad.library.basicTools</artifactId>
-			<version>1.0.0</version>
+			<version>1.1.0</version>
 		</dependency>
 		<dependency>
 			<groupId>rentasad</groupId>
@@ -95,10 +96,10 @@
 		<dependency>
 			<groupId>com.extendedsystems.jdbc.advantage</groupId>
 			<artifactId>adsjdbc</artifactId>
-			<version>12.0</version>
+			<version>11.0</version>
 		</dependency>
 	</dependencies>
 
 	<groupId>rentasad</groupId>
-	<version>1.0.0</version>
+	<version>1.1.0</version>
 </project>

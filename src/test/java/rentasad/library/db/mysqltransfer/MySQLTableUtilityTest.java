@@ -67,6 +67,7 @@ public class MySQLTableUtilityTest
         
         
         Statement stmt = con.createStatement();
+
         ResultSet rs = stmt.executeQuery(query);
         if (rs.next())
         {

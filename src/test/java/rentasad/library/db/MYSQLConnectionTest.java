@@ -27,8 +27,9 @@ public class MYSQLConnectionTest
     public void testGetParamStringFromConnectionPropertiesMap() throws Exception
     {
         Map<String, String> connectionPropertiesMap = MYSQLConnection.getDefaultConnectionPropertiesMap();
-        System.out.println(MYSQLConnection.getParamStringFromConnectionPropertiesMap(connectionPropertiesMap));
-        assertEquals(MYSQLConnection.getParamStringFromConnectionPropertiesMap(connectionPropertiesMap), "useUnicode=true&useJDBCCompliantTimezoneShift=true&allowMultiQueries=true&zeroDateTimeBehavior=convertToNull&useLegacyDatetimeCode=false");
+        
+        
+        assertEquals(MYSQLConnection.getParamStringFromConnectionPropertiesMap(connectionPropertiesMap), "useUnicode=true&useJDBCCompliantTimezoneShift=true&allowPublicKeyRetrieval=true&serverTimezone=Europe/Berlin&allowMultiQueries=true&zeroDateTimeBehavior=convertToNull&useLegacyDatetimeCode=false&useSSL=false");
     }
 
     @Test

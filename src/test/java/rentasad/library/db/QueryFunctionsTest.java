@@ -21,7 +21,7 @@ public class QueryFunctionsTest
         double d1 = 1.0;
         float f1 = 1f;
         long l1 = 10000l;
-        Date sqlDate = new Date(new java.util.Date().getTime());
+//        Date sqlDate = new Date(new java.util.Date().getTime());
         java.util.Date utilDate = new java.util.Date();
         
         assertEquals(PreparedDataTypesEnum.STRING, QueryFunctions.getPreparedDataTypFromObject(testString));
@@ -30,7 +30,7 @@ public class QueryFunctionsTest
         assertEquals(PreparedDataTypesEnum.DOUBLE, QueryFunctions.getPreparedDataTypFromObject(d1));
         assertEquals(PreparedDataTypesEnum.FLOAT, QueryFunctions.getPreparedDataTypFromObject(f1));
         assertEquals(PreparedDataTypesEnum.LONG, QueryFunctions.getPreparedDataTypFromObject(l1));
-        assertEquals(PreparedDataTypesEnum.DATE_SQL, QueryFunctions.getPreparedDataTypFromObject(sqlDate));
+//        assertEquals(PreparedDataTypesEnum.DATE_SQL, QueryFunctions.getPreparedDataTypFromObject(sqlDate));
         assertEquals(PreparedDataTypesEnum.DATE_UTIL, QueryFunctions.getPreparedDataTypFromObject(utilDate));
         
         
