@@ -91,7 +91,7 @@
 		<dependency>
 			<groupId>rentasad</groupId>
 			<artifactId>rentasad.library.configFileTool</artifactId>
-			<version>1.0.0</version>
+			<version>1.1.0</version>
 		</dependency>
 		<dependency>
 			<groupId>com.extendedsystems.jdbc.advantage</groupId>
