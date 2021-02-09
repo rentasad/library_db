@@ -2,8 +2,6 @@ package rentasad.library.db;
 
 import static org.junit.Assert.assertEquals;
 
-import java.sql.Date;
-
 import org.junit.Test;
 
 import rentasad.library.db.dataObjects.PreparedDataTypesEnum;
