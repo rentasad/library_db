@@ -20,10 +20,7 @@
 				<version>3.8.1</version>
 				<configuration>
 					<!-- <source>1.8</source> -->
-					<release>15</release>
-					<compilerArgs>
-						--enable-preview
-					</compilerArgs>
+					<release>11</release>
 				</configuration>
 			</plugin>
 			<!-- The Maven-Surefire-Plugin is needed to make Unittests while building -->
