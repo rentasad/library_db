@@ -20,10 +20,7 @@
 				<version>3.8.1</version>
 				<configuration>
 					<!-- <source>1.8</source> -->
-					<release>15</release>
-					<compilerArgs>
-						--enable-preview
-					</compilerArgs>
+					<release>11</release>
 				</configuration>
 			</plugin>
 			<!-- The Maven-Surefire-Plugin is needed to make Unittests while building -->
@@ -52,11 +49,11 @@
 		<!-- <dependency> <scope>system</scope> <groupId>com.microsoft.sqlserver</groupId> 
 			<artifactId>sqljdbc4</artifactId> <version>4.0</version> <systemPath>${basedir}\src\lib\microsoft\sqlserver\sqljdbc4\4.0\sqljdbc4-4.0.jar</systemPath> 
 			</dependency> -->
-		<!-- https://mvnrepository.com/artifact/com.microsoft.sqlserver/mssql-jdbc -->
+		<!-- https://mvnrepository.com/artifact/com.microsoft.sqlserver/mssql-jdbc JDK 11 -->
 		<dependency>
 			<groupId>com.microsoft.sqlserver</groupId>
 			<artifactId>mssql-jdbc</artifactId>
-			<version>9.1.0.jre15-preview</version>
+			<version>9.4.0.jre11</version>
 		</dependency>
 
 
@@ -101,5 +98,6 @@
 	</dependencies>
 
 	<groupId>rentasad</groupId>
-	<version>1.1.0</version>
+	<version>1.1.1</version>
+	<description>30.08.2021 V1.1.1 - Switch to openJDK11 - MSSQL dependencies switch to JDK 11</description>
 </project>
