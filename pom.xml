@@ -6,6 +6,7 @@
 	<groupId>rentasad.library</groupId>
 	<artifactId>rentasad.library.db</artifactId>
 	<version>D2.0.0</version>
+	
 	<name>rentasad.library.db</name>
 	<!-- FIXME change it to the project's website -->
 	<url>http://www.example.com</url>
@@ -27,7 +28,7 @@
 		<!-- VERSION PROPERTY -->
 		<!-- USING WITH ${basicToolParentVersion} -->
 		<basicToolParentVersion>P2.0.0</basicToolParentVersion>
-		<dbToolParentVersion>D2.0.0</dbToolParentVersion> <!--  <version>${dbToolParentVersion}</version>  -->
+		<dbToolParentVersion>D2.0.0</dbToolParentVersion> <!-- <version>${dbToolParentVersion}</version> -->
 	</properties>
 	<dependencies>
 		<dependency>
