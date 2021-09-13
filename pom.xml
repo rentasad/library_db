@@ -27,9 +27,29 @@
 		<mavenProjectInfoReportsPlugin>3.1.2</mavenProjectInfoReportsPlugin>
 		<!-- VERSION PROPERTY -->
 		<!-- USING WITH ${basicToolParentVersion} -->
-		<basicToolParentVersion>P2.0.0</basicToolParentVersion>
+		<basicToolParentVersion>B2.0.0</basicToolParentVersion>
 		<dbToolParentVersion>D2.0.0</dbToolParentVersion> <!-- <version>${dbToolParentVersion}</version> -->
 	</properties>
+	
+		<!-- Copy & Paste:
+	<dependency>
+		<groupId>rentasad</groupId>
+		<artifactId>rentasad.library.db.ads</artifactId>
+		<version>${dbToolParentVersion}</version>
+	</dependency>
+		<dependency>
+		<groupId>rentasad</groupId>
+		<artifactId>rentasad.library.db.mysql</artifactId>
+		<version>${dbToolParentVersion}</version>
+	</dependency>
+	<dependency>
+		<groupId>rentasad</groupId>
+		<artifactId>rentasad.library.db.mssql</artifactId>
+		<version>${dbToolParentVersion}</version>
+	</dependency>
+	 -->
+	
+	
 	<dependencies>
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>

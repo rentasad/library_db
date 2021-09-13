@@ -11,6 +11,14 @@
 	<groupId>rentasad</groupId>
 	<artifactId>rentasad.library.db.ads</artifactId>
 	<name>rentasad.library.db.ads</name>
+	
+	<!-- Copy & Paste:
+	<dependency>
+		<groupId>rentasad</groupId>
+		<artifactId>rentasad.library.db.ads</artifactId>
+		<version>${dbToolParentVersion}</version>
+	</dependency>
+	 -->
 	<!-- FIXME change it to the project's website -->
 	<url>http://www.example.com</url>
 	<properties>
