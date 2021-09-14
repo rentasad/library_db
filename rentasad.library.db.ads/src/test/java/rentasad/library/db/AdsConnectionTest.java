@@ -55,7 +55,7 @@ public class AdsConnectionTest
         if (rs.next())
         {
             String text = rs.getString("ART_UEBERS");
-            assertEquals(text, "Grissini mit Nativem Olivenöl Extra Italien Amor di pane");
+            assertEquals(text, "Grissini mit Nativem Olivenï¿½l Extra Italien Amor di pane");
             System.out.println(text);
         }
     }

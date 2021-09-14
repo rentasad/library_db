@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import rentasad.library.db.AdsConnection;
 public class DublettenQueryTool
 {
 
