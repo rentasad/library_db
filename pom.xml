@@ -28,7 +28,10 @@
 		<!-- VERSION PROPERTY -->
 		<!-- USING WITH ${basicToolParentVersion} -->
 		<basicToolParentVersion>B2.0.0</basicToolParentVersion>
-		<dbToolParentVersion>D2.0.0</dbToolParentVersion> <!-- <version>${dbToolParentVersion}</version> -->
+		<dbToolParentVersion>D2.0.0</dbToolParentVersion> 
+		<!-- 
+		<version>${dbToolParentVersion}</version> 
+		-->
 	</properties>
 	
 		<!-- Copy & Paste:
