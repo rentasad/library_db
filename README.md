@@ -1,3 +1,4 @@
+DEPRECATED
 # library_db - Connection and Toolkit for 
 - MySql
 - MSSQL 
