@@ -343,6 +343,8 @@ public class AdsConnection
 		return dbConnect(configMap);
 	}
 
+	
+	
 	/**
 	 *
 	 * Description:

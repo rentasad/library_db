@@ -1,12 +1,13 @@
 package rentasad.library.db;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.HashMap;
 
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class AdsConnectionTest
 {
@@ -55,7 +56,7 @@ public class AdsConnectionTest
         if (rs.next())
         {
             String text = rs.getString("ART_UEBERS");
-            assertEquals(text, "Grissini mit Nativem Olivenï¿½l Extra Italien Amor di pane");
+            assertEquals(text, "Grissini mit Nativem Olivenöl Extra Italien Amor di pane");
             System.out.println(text);
         }
     }
