@@ -6,7 +6,7 @@
 	<parent>
 		<artifactId>rentasad.library.db</artifactId>
 		<groupId>rentasad.library</groupId>
-		<version>D2.1.0-SNAPSHOT</version>
+		<version>D2.1.1</version>
 	</parent>
 	<groupId>rentasad</groupId>
 	<artifactId>rentasad.library.db.sqlExecutionTool</artifactId>
