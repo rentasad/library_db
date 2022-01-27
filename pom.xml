@@ -27,7 +27,7 @@
 		<mavenProjectInfoReportsPlugin>3.1.2</mavenProjectInfoReportsPlugin>
 		<!-- VERSION PROPERTY -->
 		<!-- USING WITH ${basicToolParentVersion} -->
-		<basicToolParentVersion>B2.0.0</basicToolParentVersion>
+		<basicToolParentVersion>B2.2.0</basicToolParentVersion>
 		<dbToolParentVersion>D2.1.1</dbToolParentVersion>
 		<!-- 
 		<version>${dbToolParentVersion}</version> 
