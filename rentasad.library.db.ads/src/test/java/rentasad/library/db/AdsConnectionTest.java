@@ -1,13 +1,15 @@
 package rentasad.library.db;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
+import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.HashMap;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class AdsConnectionTest
 {
@@ -55,9 +57,12 @@ public class AdsConnectionTest
         ResultSet rs = stmt.executeQuery(query);
         if (rs.next())
         {
-            String text = rs.getString("ART_UEBERS");
-            assertEquals(text, "Grissini mit Nativem Olivenöl Extra Italien Amor di pane");
-            System.out.println(text);
+            final String expected = "Grissini mit Nativem Olivenöl Extra Italien Amor di pane";
+            final String fieldName = "ART_UEBERS";
+            byte[] textBytes = rs.getString(fieldName).getBytes("Cp1252");
+            String actualText = new String(textBytes, "Cp1252");
+            assertEquals(actualText, expected);
+            System.out.println(actualText);
         }
     }
 }
