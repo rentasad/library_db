@@ -262,13 +262,6 @@ public class SqlFileExecutionTool
 		 * Aufsplitten der SQL-Statements in mehrere Strings
 		 */
 		String[] queries = getSqlQueriesFromSqlString(sqlQueryValue);
-		// last Element is to short for an valid sql query
-		String lastElementFromStringArray = queries[queries.length - 1];
-		if (lastElementFromStringArray.length() <= 5)
-		{
-			queries = removeLastElementFromStringArray(queries);
-		}
-
 		return queries;
 	}
 
@@ -295,7 +288,15 @@ public class SqlFileExecutionTool
 		 * Aufsplitten der SQL-Statements in mehrere Strings
 		 */
 		final String DEFAULT_DELIMITER = ";";
-		return multipleSqlString.split(DEFAULT_DELIMITER);
+		String[] queries = multipleSqlString.split(DEFAULT_DELIMITER);
+		// last Element is to short for an valid sql query
+		String lastElementFromStringArray = queries[queries.length - 1];
+		if (lastElementFromStringArray.length() <= 8)
+		{
+			queries = removeLastElementFromStringArray(queries);
+		}
+		return queries;
+
 	}
 
 	/**
