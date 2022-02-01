@@ -8,10 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import rentasad.library.basicTools.dateTool.DateTools;
 import rentasad.library.configFileTool.ConfigFileToolException;
@@ -283,7 +280,7 @@ public class SqlFileExecutionTool
 	 */
 	private static String[] removeLastElementFromStringArray(final String[] stringArray)
 	{
-		return Arrays.copyOf(queries, stringArray.length - 1);
+		return Arrays.copyOf(stringArray, stringArray.length - 1);
 	}
 
 	/**
