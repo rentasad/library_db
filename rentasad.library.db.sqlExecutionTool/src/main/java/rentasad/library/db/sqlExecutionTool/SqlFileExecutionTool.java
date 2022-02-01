@@ -280,9 +280,24 @@ public class SqlFileExecutionTool
         /*
          * Aufsplitten der SQL-Statements in mehrere Strings
          */
-        return getSqlQueriesFromSqlString(sqlQueryValue);
+        String[] queries = getSqlQueriesFromSqlString(sqlQueryValue);
+        // last Element is to short for an valid sql query
+        if queries(length-1).length() <=5
+        {
+            queries = removeLastElementFromStringArray(queries);
+        }
+        return queries;
     }
 
+    /**
+     * Remove the last element of a string array
+     * @param stringArray
+     * @return
+     */
+    private String[] removeLastElementFromStringArray(final String[] stringArray)
+    {
+        return Arrays.copyOf(queries, stringArray.length-1);
+    }
     /**
      * 
      * Description:Splittet einen SQL-String in einzelne SQL-Strings durch den Trenner ";"
