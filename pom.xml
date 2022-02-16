@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>rentasad.library</groupId>
 	<artifactId>rentasad.library.db</artifactId>
-	<version>D2.1.4</version>
+	<version>D2.2.0</version>
 	
 	<name>rentasad.library.db</name>
 	<!-- FIXME change it to the project's website -->
