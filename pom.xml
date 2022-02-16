@@ -1,153 +1,153 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<groupId>rentasad.library</groupId>
-	<artifactId>rentasad.library.db</artifactId>
-	<version>D2.2.0</version>
-	
-	<name>rentasad.library.db</name>
-	<!-- FIXME change it to the project's website -->
-	<url>https://github.com/rentasad/library_db</url>
-	<packaging>pom</packaging>
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<maven.compiler.source>8</maven.compiler.source>
-		<maven.compiler.target>8</maven.compiler.target>
-		<!-- DEPENDENCIES VERSIONS -->
-		<maven-clean-plugin>3.1.0</maven-clean-plugin>
-		<maven-resources-plugin>3.2.0</maven-resources-plugin>
-		<maven-compiler-plugin>3.8.1</maven-compiler-plugin>
-		<maven-surefire-plugin>3.0.0-M5</maven-surefire-plugin>
-		<maven-jar-plugin>3.2.0</maven-jar-plugin>
-		<maven-install-plugin>3.0.0-M1</maven-install-plugin>
-		<maven-deploy-plugin>3.0.0-M1</maven-deploy-plugin>
-		<maven-site-plugin>3.9.1</maven-site-plugin>
-		<mavenProjectInfoReportsPlugin>3.1.2</mavenProjectInfoReportsPlugin>
-		<!-- VERSION PROPERTY -->
-		<!-- USING WITH ${basicToolParentVersion} -->
-		<basicToolParentVersion>B2.2.1</basicToolParentVersion>
-		<dbToolParentVersion>D2.1.4</dbToolParentVersion>
-		<!-- 
-		<version>${dbToolParentVersion}</version> 
-		-->
-	</properties>
-	
-		<!-- Copy & Paste:
-	<dependency>
-		<groupId>rentasad</groupId>
-		<artifactId>rentasad.library.db.ads</artifactId>
-		<version>${dbToolParentVersion}</version>
-	</dependency>
-		<dependency>
-		<groupId>rentasad</groupId>
-		<artifactId>rentasad.library.db.mysql</artifactId>
-		<version>${dbToolParentVersion}</version>
-	</dependency>
-	<dependency>
-		<groupId>rentasad</groupId>
-		<artifactId>rentasad.library.db.mssql</artifactId>
-		<version>${dbToolParentVersion}</version>
-	</dependency>
-	 -->
-	
-	
-	<dependencies>
-		<dependency>
-			<groupId>org.junit.jupiter</groupId>
-			<artifactId>junit-jupiter-engine</artifactId>
-			<version>5.7.1</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>rentasad</groupId>
-			<artifactId>rentasad.library.basicTools.configFileTool</artifactId>
-			<version>${basicToolParentVersion}</version>
-		</dependency>
-		<dependency>
-			<groupId>rentasad</groupId>
-			<artifactId>rentasad.library.basicTools.exceptions</artifactId>
-			<version>${basicToolParentVersion}</version>
-		</dependency>
-	</dependencies>
-	<build>
-		<pluginManagement>
-			<!-- lock down plugins versions to avoid using Maven defaults (may be 
-				moved to parent pom) -->
-			<plugins>
-				<!-- clean lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle -->
-				<plugin>
-					<artifactId>maven-clean-plugin</artifactId>
-					<version>${maven-clean-plugin}</version>
-				</plugin>
-				<!-- default lifecycle, jar packaging: see https://maven.apache.org/ref/current/maven-core/default-bindings.html#Plugin_bindings_for_jar_packaging -->
-				<plugin>
-					<artifactId>maven-resources-plugin</artifactId>
-					<version>${maven-resources-plugin}</version>
-				</plugin>
-				<plugin>
-					<artifactId>maven-compiler-plugin</artifactId>
-					<version>${maven-compiler-plugin}</version>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-surefire-plugin</artifactId>
-					<version>${maven-surefire-plugin}</version>
-				</plugin>
-				<plugin>
-					<artifactId>maven-jar-plugin</artifactId>
-					<version>${maven-jar-plugin}</version>
-				</plugin>
-				<plugin>
-					<artifactId>maven-install-plugin</artifactId>
-					<version>${maven-install-plugin}</version>
-				</plugin>
-				<plugin>
-					<artifactId>maven-deploy-plugin</artifactId>
-					<version>${maven-deploy-plugin}</version>
-				</plugin>
-				<!-- site lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#site_Lifecycle -->
-				<plugin>
-					<artifactId>maven-site-plugin</artifactId>
-					<version>${maven-site-plugin}</version>
-				</plugin>
-				<plugin>
-					<artifactId>maven-project-info-reports-plugin</artifactId>
-					<version>${maven-project-info-reports-plugin}</version>
-				</plugin>
-				<plugin>
-					<groupId>org.codehaus.mojo</groupId>
-					<artifactId>flatten-maven-plugin</artifactId>
-					<version>1.0.0</version>
-					<configuration>
-						<updatePomFile>true</updatePomFile>
-					</configuration>
-					<executions>
-						<execution>
-							<id>flatten</id>
-							<phase>process-resources</phase>
-							<goals>
-								<goal>flatten</goal>
-							</goals>
-						</execution>
-						<execution>
-							<id>flatten.clean</id>
-							<phase>clean</phase>
-							<goals>
-								<goal>clean</goal>
-							</goals>
-						</execution>
-					</executions>
-				</plugin>
-			</plugins>
-		</pluginManagement>
-	</build>
-	<modules>
-		<module>rentasad.library.db.mysql</module>
-		<module>rentasad.library.db.mssql</module>
-		<module>rentasad.library.db.ads</module>
-		<module>rentasad.library.db.ads2mysqlTransfer</module>
-		<module>rentasad.library.db.sqlExecutionTool</module>
-	</modules>
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>rentasad.library</groupId>
+    <artifactId>rentasad.library.db</artifactId>
+    <version>D2.2.0</version>
+
+    <name>rentasad.library.db</name>
+    <!-- FIXME change it to the project's website -->
+    <url>https://github.com/rentasad/library_db</url>
+    <packaging>pom</packaging>
+    <properties>
+        <project.build.sourceEncoding>Cp1252</project.build.sourceEncoding>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+        <!-- DEPENDENCIES VERSIONS -->
+        <maven-clean-plugin>3.1.0</maven-clean-plugin>
+        <maven-resources-plugin>3.2.0</maven-resources-plugin>
+        <maven-compiler-plugin>3.8.1</maven-compiler-plugin>
+        <maven-surefire-plugin>3.0.0-M5</maven-surefire-plugin>
+        <maven-jar-plugin>3.2.0</maven-jar-plugin>
+        <maven-install-plugin>3.0.0-M1</maven-install-plugin>
+        <maven-deploy-plugin>3.0.0-M1</maven-deploy-plugin>
+        <maven-site-plugin>3.9.1</maven-site-plugin>
+        <mavenProjectInfoReportsPlugin>3.1.2</mavenProjectInfoReportsPlugin>
+        <!-- VERSION PROPERTY -->
+        <!-- USING WITH ${basicToolParentVersion} -->
+        <basicToolParentVersion>B2.2.1</basicToolParentVersion>
+        <dbToolParentVersion>D2.2.0</dbToolParentVersion>
+        <!--
+        <version>${dbToolParentVersion}</version>
+        -->
+    </properties>
+
+    <!-- Copy & Paste:
+<dependency>
+    <groupId>rentasad</groupId>
+    <artifactId>rentasad.library.db.ads</artifactId>
+    <version>${dbToolParentVersion}</version>
+</dependency>
+    <dependency>
+    <groupId>rentasad</groupId>
+    <artifactId>rentasad.library.db.mysql</artifactId>
+    <version>${dbToolParentVersion}</version>
+</dependency>
+<dependency>
+    <groupId>rentasad</groupId>
+    <artifactId>rentasad.library.db.mssql</artifactId>
+    <version>${dbToolParentVersion}</version>
+</dependency>
+ -->
+
+
+    <dependencies>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>5.7.1</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>rentasad</groupId>
+            <artifactId>rentasad.library.basicTools.configFileTool</artifactId>
+            <version>${basicToolParentVersion}</version>
+        </dependency>
+        <dependency>
+            <groupId>rentasad</groupId>
+            <artifactId>rentasad.library.basicTools.exceptions</artifactId>
+            <version>${basicToolParentVersion}</version>
+        </dependency>
+    </dependencies>
+    <build>
+        <pluginManagement>
+            <!-- lock down plugins versions to avoid using Maven defaults (may be
+                moved to parent pom) -->
+            <plugins>
+                <!-- clean lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle -->
+                <plugin>
+                    <artifactId>maven-clean-plugin</artifactId>
+                    <version>${maven-clean-plugin}</version>
+                </plugin>
+                <!-- default lifecycle, jar packaging: see https://maven.apache.org/ref/current/maven-core/default-bindings.html#Plugin_bindings_for_jar_packaging -->
+                <plugin>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <version>${maven-resources-plugin}</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${maven-compiler-plugin}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>${maven-surefire-plugin}</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>${maven-jar-plugin}</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-install-plugin</artifactId>
+                    <version>${maven-install-plugin}</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-deploy-plugin</artifactId>
+                    <version>${maven-deploy-plugin}</version>
+                </plugin>
+                <!-- site lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#site_Lifecycle -->
+                <plugin>
+                    <artifactId>maven-site-plugin</artifactId>
+                    <version>${maven-site-plugin}</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-project-info-reports-plugin</artifactId>
+                    <version>${maven-project-info-reports-plugin}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>flatten-maven-plugin</artifactId>
+                    <version>1.0.0</version>
+                    <configuration>
+                        <updatePomFile>true</updatePomFile>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>flatten</id>
+                            <phase>process-resources</phase>
+                            <goals>
+                                <goal>flatten</goal>
+                            </goals>
+                        </execution>
+                        <execution>
+                            <id>flatten.clean</id>
+                            <phase>clean</phase>
+                            <goals>
+                                <goal>clean</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+    <modules>
+        <module>rentasad.library.db.mysql</module>
+        <module>rentasad.library.db.mssql</module>
+        <module>rentasad.library.db.ads</module>
+        <module>rentasad.library.db.ads2mysqlTransfer</module>
+        <module>rentasad.library.db.sqlExecutionTool</module>
+    </modules>
 </project>
