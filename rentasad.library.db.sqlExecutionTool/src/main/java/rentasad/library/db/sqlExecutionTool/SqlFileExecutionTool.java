@@ -2,6 +2,7 @@ package rentasad.library.db.sqlExecutionTool;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -246,6 +247,22 @@ public class SqlFileExecutionTool
 	public static String getQueryFromSqlFile(String sqlFileName) throws IOException
 	{
 		return FileOperator.readFile(sqlFileName);
+	}
+
+	/**
+	 * Description: get single SQL-Query from File in Resources
+	 * <p>
+	 * if more than one sql statement are in file, the execution will fail
+	 *
+	 * @param sqlFileName
+	 * @return
+	 * @throws IOException Creation: 09.05.2017 by mst
+	 */
+	public static String getQueryFromSqlFileInResources(String sqlFileName) throws IOException
+	{
+		ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+		URL url =  classLoader.getResource(sqlFileName);
+		return FileOperator.readFile(url.getFile());
 	}
 
 	/**
