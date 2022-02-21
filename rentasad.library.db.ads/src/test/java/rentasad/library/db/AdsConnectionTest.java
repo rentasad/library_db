@@ -43,6 +43,10 @@ public class AdsConnectionTest
 
 	}
 
+	/**
+	 *
+	 * @throws Exception
+	 */
 	@Test public void encodingCheck() throws Exception
 	{
 		String query = "SELECT NUMMER, ART_UEBERS FROM F01\\ARTIKEL\\V4AR1009 WHERE NUMMER = '0070022'";

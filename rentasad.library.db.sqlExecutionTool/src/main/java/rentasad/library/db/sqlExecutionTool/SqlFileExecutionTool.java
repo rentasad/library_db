@@ -44,8 +44,7 @@ public class SqlFileExecutionTool
 	public final static String CONFIG_PARAM_MULTIPLE_STATEMENTS = "MULTIPLE_STATEMENTS";
 	public final static String CONFIG_PARAM_IS_PREPARED_STATEMENT = "IS_PREPARED_STATEMENT";
 
-	private final String[] paramsToCheck = { CONFIG_PARAM_SQL_FILENAME, CONFIG_PARAM_QUERY_TYP,
-			CONFIG_PARAM_MULTIPLE_STATEMENTS, CONFIG_PARAM_IS_PREPARED_STATEMENT
+	private final String[] paramsToCheck = { CONFIG_PARAM_SQL_FILENAME, CONFIG_PARAM_QUERY_TYP, CONFIG_PARAM_MULTIPLE_STATEMENTS, CONFIG_PARAM_IS_PREPARED_STATEMENT
 	};
 
 	// /**
@@ -89,8 +88,7 @@ public class SqlFileExecutionTool
 	 * @throws IOException
 	 * @throws AlertException
 	 */
-	public static void executeExecutionQuery(SqlExecutionObject seo, Connection con)
-			throws SQLException, IOException, AlertException
+	public static void executeExecutionQuery(SqlExecutionObject seo, Connection con) throws SQLException, IOException, AlertException
 	{
 		/**
 		 * Check if SqlExecutionObject are valid for execution
@@ -98,7 +96,8 @@ public class SqlFileExecutionTool
 		if (seo.isPreparedStatement())
 		{
 			throw new SQLException("Can't execute Prepeared Statement in this context!");
-		} else if (seo.getQueryTypEnum() == QueryTypEnum.QUERY)
+		}
+		else if (seo.getQueryTypEnum() == QueryTypEnum.QUERY)
 		{
 			throw new SQLException("Can't execute ResultSetQuery in this context!");
 		}
@@ -110,10 +109,52 @@ public class SqlFileExecutionTool
 			{
 				QueryFunctions.executeUpdateQuery(con, query);
 			}
-		} else
+		}
+		else
 		{
 			String query = getQueryFromSqlFile(sqlFileName);
 			QueryFunctions.executeUpdateQuery(con, query);
+		}
+
+	}
+
+	/**
+	 * Description:
+	 *
+	 * @param seo
+	 * @return Creation: 30.05.2017 by mst
+	 * @throws SQLException
+	 * @throws IOException
+	 * @throws AlertException
+	 */
+	public static void executeExecutionQueryWithStringReplace(SqlExecutionObject seo, Connection con, String replaceRegex, String replaceValue) throws SQLException, IOException, AlertException
+	{
+		/**
+		 * Check if SqlExecutionObject are valid for execution
+		 */
+		if (seo.isPreparedStatement())
+		{
+			throw new SQLException("Can't execute Prepeared Statement in this context!");
+		}
+		else if (seo.getQueryTypEnum() == QueryTypEnum.QUERY)
+		{
+			throw new SQLException("Can't execute ResultSetQuery in this context!");
+		}
+		String sqlFileName = seo.getSqlFileName();
+		if (seo.isMultiple_Statements())
+		{
+			String[] queries = getSqlQueriesFromSqlFile(sqlFileName);
+			for (String query : queries)
+			{
+				String replacedQuery = query.replaceAll(replaceRegex, replaceValue);
+				QueryFunctions.executeUpdateQuery(con, replacedQuery);
+			}
+		}
+		else
+		{
+			String query = getQueryFromSqlFile(sqlFileName);
+			String replacedQuery = query.replaceAll(replaceRegex, replaceValue);
+			QueryFunctions.executeUpdateQuery(con, replacedQuery);
 		}
 
 	}
@@ -126,8 +167,7 @@ public class SqlFileExecutionTool
 	 * @throws SqlExecutionToolException
 	 * @throws ConfigFileToolException   Creation: 30.05.2017 by mst
 	 */
-	private Map<String, SqlExecutionObject> getSqlExecutionObjectMap(List<String> sqlConfigIniSectionsList)
-			throws SqlExecutionToolException
+	private Map<String, SqlExecutionObject> getSqlExecutionObjectMap(List<String> sqlConfigIniSectionsList) throws SqlExecutionToolException
 	{
 
 		Map<String, SqlExecutionObject> map = new HashMap<>();
@@ -142,8 +182,7 @@ public class SqlFileExecutionTool
 				boolean multiple_Statements = Boolean.valueOf(sqlMap.get(CONFIG_PARAM_MULTIPLE_STATEMENTS));
 				boolean isPreparedStatement = Boolean.valueOf(sqlMap.get(CONFIG_PARAM_IS_PREPARED_STATEMENT));
 
-				SqlExecutionObject executionObject = new SqlExecutionObject(sqlFileName, queryTypEnum,
-						multiple_Statements, isPreparedStatement);
+				SqlExecutionObject executionObject = new SqlExecutionObject(sqlFileName, queryTypEnum, multiple_Statements, isPreparedStatement);
 				executionObject.setSectionName(sectionName);
 				map.put(sectionName, executionObject);
 			}
@@ -159,8 +198,7 @@ public class SqlFileExecutionTool
 	 * @throws SqlExecutionToolException
 	 * @throws ConfigFileToolException   Creation: 16.06.2017 by mst
 	 */
-	protected List<SqlExecutionObject> getSqlExecutionObjectList(List<String> sqlConfigIniSectionsList)
-			throws SqlExecutionToolException
+	protected List<SqlExecutionObject> getSqlExecutionObjectList(List<String> sqlConfigIniSectionsList) throws SqlExecutionToolException
 	{
 		Map<String, SqlExecutionObject> map = getSqlExecutionObjectMap(sqlConfigIniSectionsList);
 		List<SqlExecutionObject> list = new ArrayList<>(map.values());
@@ -194,7 +232,8 @@ public class SqlFileExecutionTool
 				throw new SqlExecutionToolException("SQL File not found: " + sqlFile.getAbsolutePath());
 			}
 
-		} else
+		}
+		else
 		{
 			throw new SqlExecutionToolException("Section not found: " + sectionName);
 		}
@@ -221,7 +260,8 @@ public class SqlFileExecutionTool
 
 			return list;
 
-		} else
+		}
+		else
 		{
 			throw new SqlExecutionToolException("Missed Parameter:SQLConfigSections ");
 		}
@@ -261,7 +301,7 @@ public class SqlFileExecutionTool
 	public static String getQueryFromSqlFileInResources(String sqlFileName) throws IOException
 	{
 		ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-		URL url =  classLoader.getResource(sqlFileName);
+		URL url = classLoader.getResource(sqlFileName);
 		return FileOperator.readFile(url.getFile());
 	}
 
@@ -335,8 +375,8 @@ public class SqlFileExecutionTool
 	 * @throws SQLException
 	 * @throws UnknownEnumException Creation: 30.05.2017 by mst
 	 */
-	public ResultSet getResultSetQueryWithPreparedStatements(SqlExecutionObject seo, Connection con,
-			Object[] preparedArguments) throws IOException, SQLException, UnknownEnumException
+	public ResultSet getResultSetQueryWithPreparedStatements(
+			SqlExecutionObject seo, Connection con, Object[] preparedArguments) throws IOException, SQLException, UnknownEnumException
 	{
 		PreparedStatement ps = getFilledPreparedStatement(seo, con, preparedArguments);
 		ResultSet rs = ps.executeQuery();
@@ -356,8 +396,7 @@ public class SqlFileExecutionTool
 	 * @throws SQLException
 	 * @throws IOException  Creation: 30.05.2017 by mst
 	 */
-	public ResultSet getResultSetFromSqlExecutionObject(SqlExecutionObject seo, Connection con)
-			throws SQLException, IOException
+	public ResultSet getResultSetFromSqlExecutionObject(SqlExecutionObject seo, Connection con) throws SQLException, IOException
 	{
 		/**
 		 * Check if SqlExecutionObject are valid for execution
@@ -365,7 +404,8 @@ public class SqlFileExecutionTool
 		if (seo.isPreparedStatement())
 		{
 			throw new IllegalArgumentException("Can't execute Prepeared Statement in this context!");
-		} else if (seo.getQueryTypEnum() == QueryTypEnum.EXECUTION)
+		}
+		else if (seo.getQueryTypEnum() == QueryTypEnum.EXECUTION)
 		{
 			throw new IllegalArgumentException("Can't execute EXECUTION-Query in this context!");
 		}
@@ -377,11 +417,11 @@ public class SqlFileExecutionTool
 			ResultSet rs = stmt.executeQuery(query);
 			// stmt.close();
 			return rs;
-		} else
+		}
+		else
 		{
 
-			throw new IllegalArgumentException(
-					"This method need an SqlExecutionObject with Single Query - multiple Queries can't receive a result Set!");
+			throw new IllegalArgumentException("This method need an SqlExecutionObject with Single Query - multiple Queries can't receive a result Set!");
 		}
 
 	}
@@ -391,8 +431,8 @@ public class SqlFileExecutionTool
 	 * <p>
 	 * Creation: 30.05.2017 by mst
 	 */
-	public static boolean executeQueryWithPreparedArguments(SqlExecutionObject seo, Connection con,
-			Object[] preparedArguments) throws IOException, SQLException, UnknownEnumException
+	public static boolean executeQueryWithPreparedArguments(
+			SqlExecutionObject seo, Connection con, Object[] preparedArguments) throws IOException, SQLException, UnknownEnumException
 	{
 		PreparedStatement ps = getFilledPreparedStatement(seo, con, preparedArguments);
 
@@ -405,8 +445,8 @@ public class SqlFileExecutionTool
 	 * <p>
 	 * Creation: 30.05.2017 by mst
 	 */
-	public static boolean executeQueryWithPreparedArguments(SqlExecutionObject seo, String sqlQuery, Connection con,
-			Object[] preparedArguments) throws IOException, SQLException, UnknownEnumException
+	public static boolean executeQueryWithPreparedArguments(
+			SqlExecutionObject seo, String sqlQuery, Connection con, Object[] preparedArguments) throws IOException, SQLException, UnknownEnumException
 	{
 		PreparedStatement ps = getFilledPreparedStatement(seo, sqlQuery, con, preparedArguments);
 
@@ -425,8 +465,8 @@ public class SqlFileExecutionTool
 	 * @throws IOException
 	 * @throws SQLException         Creation: 19.06.2017 by mst
 	 */
-	public static PreparedStatement getFilledPreparedStatement(SqlExecutionObject seo, Connection con,
-			Object[] preparedArguments) throws UnknownEnumException, IOException, SQLException
+	public static PreparedStatement getFilledPreparedStatement(
+			SqlExecutionObject seo, Connection con, Object[] preparedArguments) throws UnknownEnumException, IOException, SQLException
 	{
 		if (seo.isPreparedStatement())
 		{
@@ -469,15 +509,15 @@ public class SqlFileExecutionTool
 				}
 				return ps;
 
-			} else
-			{
-				throw new IllegalArgumentException(
-						"SqlExecutionObject darf kein MultipleQuery sein wenn es Prepared ist! ");
 			}
-		} else
+			else
+			{
+				throw new IllegalArgumentException("SqlExecutionObject darf kein MultipleQuery sein wenn es Prepared ist! ");
+			}
+		}
+		else
 		{
-			throw new IllegalArgumentException(
-					"SqlExecutionObject muss Prepared sein, damit es richtig verarbeitet werden kann! ");
+			throw new IllegalArgumentException("SqlExecutionObject muss Prepared sein, damit es richtig verarbeitet werden kann! ");
 		}
 	}
 
@@ -493,8 +533,8 @@ public class SqlFileExecutionTool
 	 * @throws IOException
 	 * @throws SQLException         Creation: 19.06.2017 by mst
 	 */
-	public static PreparedStatement getFilledPreparedStatement(SqlExecutionObject seo, String sqlQuery, Connection con,
-			Object[] preparedArguments) throws UnknownEnumException, IOException, SQLException
+	public static PreparedStatement getFilledPreparedStatement(
+			SqlExecutionObject seo, String sqlQuery, Connection con, Object[] preparedArguments) throws UnknownEnumException, IOException, SQLException
 	{
 		if (seo.isPreparedStatement())
 		{
@@ -536,15 +576,15 @@ public class SqlFileExecutionTool
 				}
 				return ps;
 
-			} else
-			{
-				throw new IllegalArgumentException(
-						"SqlExecutionObject darf kein MultipleQuery sein wenn es Prepared ist! ");
 			}
-		} else
+			else
+			{
+				throw new IllegalArgumentException("SqlExecutionObject darf kein MultipleQuery sein wenn es Prepared ist! ");
+			}
+		}
+		else
 		{
-			throw new IllegalArgumentException(
-					"SqlExecutionObject muss Prepared sein, damit es richtig verarbeitet werden kann! ");
+			throw new IllegalArgumentException("SqlExecutionObject muss Prepared sein, damit es richtig verarbeitet werden kann! ");
 		}
 	}
 
