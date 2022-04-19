@@ -1,6 +1,6 @@
 @echo off
 
-call mvn versions:set -DnewVersion=D2.2.1
+call mvn versions:set -DnewVersion=D2.2.2
 
 ::If you made a mistake, do
 :: mvn versions:revert

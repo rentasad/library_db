@@ -1,8 +1,8 @@
 package rentasad.library.db.sqlExecutionTool;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -10,7 +10,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.*;
+import java.util.stream.Collectors;
 
+import org.apache.commons.io.IOUtils;
 import rentasad.library.basicTools.dateTool.DateTools;
 import rentasad.library.configFileTool.ConfigFileToolException;
 import rentasad.library.db.QueryFunctions;
@@ -44,8 +46,9 @@ public class SqlFileExecutionTool
 	public final static String CONFIG_PARAM_MULTIPLE_STATEMENTS = "MULTIPLE_STATEMENTS";
 	public final static String CONFIG_PARAM_IS_PREPARED_STATEMENT = "IS_PREPARED_STATEMENT";
 
-	private final String[] paramsToCheck = { CONFIG_PARAM_SQL_FILENAME, CONFIG_PARAM_QUERY_TYP, CONFIG_PARAM_MULTIPLE_STATEMENTS, CONFIG_PARAM_IS_PREPARED_STATEMENT
-	};
+	private final String[] paramsToCheck =
+			{ CONFIG_PARAM_SQL_FILENAME, CONFIG_PARAM_QUERY_TYP, CONFIG_PARAM_MULTIPLE_STATEMENTS, CONFIG_PARAM_IS_PREPARED_STATEMENT
+			};
 
 	// /**
 	// *
@@ -127,7 +130,8 @@ public class SqlFileExecutionTool
 	 * @throws IOException
 	 * @throws AlertException
 	 */
-	public static void executeExecutionQueryWithStringReplace(SqlExecutionObject seo, Connection con, String replaceRegex, String replaceValue) throws SQLException, IOException, AlertException
+	public static void executeExecutionQueryWithStringReplace(SqlExecutionObject seo, Connection con, String replaceRegex, String replaceValue)
+			throws SQLException, IOException, AlertException
 	{
 		/**
 		 * Check if SqlExecutionObject are valid for execution
@@ -300,9 +304,30 @@ public class SqlFileExecutionTool
 	 */
 	public static String getQueryFromSqlFileInResources(String sqlFileName) throws IOException
 	{
-		ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-		URL url = classLoader.getResource(sqlFileName);
-		return FileOperator.readFile(url.getFile());
+		byte[] bytes = IOUtils.toByteArray(SqlFileExecutionTool.class.getClassLoader().getResourceAsStream(sqlFileName));
+		InputStream inputStream = SqlFileExecutionTool.class.getClassLoader().getResourceAsStream(sqlFileName);
+		if (inputStream == null)
+		{
+			throw new IllegalArgumentException(sqlFileName + " is not found");
+		}
+		return new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8)).lines().collect(Collectors.joining("\n")).trim();
+	}
+
+	/**
+	 * Description: Get a StringArray with more then one SQL Queries from a sql file
+	 *
+	 * @param sqlFileName
+	 * @return
+	 * @throws IOException Creation: 17.05.2017 by mst
+	 */
+	public static String[] getSqlQueriesFromSqlFileInResources(String sqlFileName) throws IOException
+	{
+		String sqlQueryValue = getQueryFromSqlFileInResources(sqlFileName);
+		/*
+		 * Aufsplitten der SQL-Statements in mehrere Strings
+		 */
+		String[] queries = getSqlQueriesFromSqlString(sqlQueryValue);
+		return queries;
 	}
 
 	/**
@@ -421,7 +446,8 @@ public class SqlFileExecutionTool
 		else
 		{
 
-			throw new IllegalArgumentException("This method need an SqlExecutionObject with Single Query - multiple Queries can't receive a result Set!");
+			throw new IllegalArgumentException(
+					"This method need an SqlExecutionObject with Single Query - multiple Queries can't receive a result Set!");
 		}
 
 	}
@@ -446,7 +472,8 @@ public class SqlFileExecutionTool
 	 * Creation: 30.05.2017 by mst
 	 */
 	public static boolean executeQueryWithPreparedArguments(
-			SqlExecutionObject seo, String sqlQuery, Connection con, Object[] preparedArguments) throws IOException, SQLException, UnknownEnumException
+			SqlExecutionObject seo, String sqlQuery, Connection con, Object[] preparedArguments)
+			throws IOException, SQLException, UnknownEnumException
 	{
 		PreparedStatement ps = getFilledPreparedStatement(seo, sqlQuery, con, preparedArguments);
 
@@ -534,7 +561,8 @@ public class SqlFileExecutionTool
 	 * @throws SQLException         Creation: 19.06.2017 by mst
 	 */
 	public static PreparedStatement getFilledPreparedStatement(
-			SqlExecutionObject seo, String sqlQuery, Connection con, Object[] preparedArguments) throws UnknownEnumException, IOException, SQLException
+			SqlExecutionObject seo, String sqlQuery, Connection con, Object[] preparedArguments)
+			throws UnknownEnumException, IOException, SQLException
 	{
 		if (seo.isPreparedStatement())
 		{

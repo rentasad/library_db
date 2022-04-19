@@ -6,7 +6,7 @@
 	<parent>
 		<artifactId>rentasad.library.db</artifactId>
 		<groupId>rentasad.library</groupId>
-		<version>D2.2.1</version>
+		<version>D2.2.2</version>
 	</parent>
 	<groupId>rentasad</groupId>
 	<artifactId>rentasad.library.db.mysql</artifactId>
@@ -22,7 +22,7 @@
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-engine</artifactId>
-			<version>5.7.1</version>
+			<version>5.8.2</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -35,7 +35,7 @@
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<version>8.0.25</version>
+			<version>8.0.28</version>
 		</dependency>
 	</dependencies>
 	<build>
