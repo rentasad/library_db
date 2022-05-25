@@ -1,17 +1,5 @@
 package rentasad.library.db.sqlExecutionTool;
 
-import java.io.*;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.*;
-import java.util.stream.Collectors;
-
 import org.apache.commons.io.IOUtils;
 import rentasad.library.basicTools.dateTool.DateTools;
 import rentasad.library.configFileTool.ConfigFileToolException;
@@ -22,6 +10,13 @@ import rentasad.library.db.sqlExecutionTool.objects.SqlExecutionObject;
 import rentasad.library.tools.exceptions.UnknownEnumException;
 import rentasad.library.tools.exceptions.guiExceptions.AlertException;
 import rentasad.library.tools.fileOperator.FileOperator;
+
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.sql.Date;
+import java.sql.*;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Gustini GmbH (2017)
@@ -36,7 +31,7 @@ import rentasad.library.tools.fileOperator.FileOperator;
  */
 public class SqlFileExecutionTool
 {
-	private Map<String, Map<String, String>> configMapMap;
+	private final Map<String, Map<String, String>> configMapMap;
 	private Map<String, String> configMapGeneralSettings;
 	private List<SqlExecutionObject> sqlExecutionObjectList;
 	private List<String> sectionNameList;
@@ -46,9 +41,8 @@ public class SqlFileExecutionTool
 	public final static String CONFIG_PARAM_MULTIPLE_STATEMENTS = "MULTIPLE_STATEMENTS";
 	public final static String CONFIG_PARAM_IS_PREPARED_STATEMENT = "IS_PREPARED_STATEMENT";
 
-	private final String[] paramsToCheck =
-			{ CONFIG_PARAM_SQL_FILENAME, CONFIG_PARAM_QUERY_TYP, CONFIG_PARAM_MULTIPLE_STATEMENTS, CONFIG_PARAM_IS_PREPARED_STATEMENT
-			};
+	private final String[] paramsToCheck = { CONFIG_PARAM_SQL_FILENAME, CONFIG_PARAM_QUERY_TYP, CONFIG_PARAM_MULTIPLE_STATEMENTS, CONFIG_PARAM_IS_PREPARED_STATEMENT
+	};
 
 	// /**
 	// *
@@ -65,7 +59,7 @@ public class SqlFileExecutionTool
 
 	/**
 	 * @param configMapMap NEEDED GENERAL_SETTINGS;
-	 * @throws SqlExecutionToolException
+	 * @throws SqlExecutionToolException sql failure
 	 */
 	public SqlFileExecutionTool(Map<String, Map<String, String>> configMapMap) throws SqlExecutionToolException
 	{
@@ -86,7 +80,6 @@ public class SqlFileExecutionTool
 	 * Description:
 	 *
 	 * @param seo
-	 * @return Creation: 30.05.2017 by mst
 	 * @throws SQLException
 	 * @throws IOException
 	 * @throws AlertException
@@ -104,10 +97,11 @@ public class SqlFileExecutionTool
 		{
 			throw new SQLException("Can't execute ResultSetQuery in this context!");
 		}
+
 		String sqlFileName = seo.getSqlFileName();
 		if (seo.isMultiple_Statements())
 		{
-			String[] queries = getSqlQueriesFromSqlFile(sqlFileName);
+			String[] queries = getQueriesFromSqlExecutionObject(seo);
 			for (String query : queries)
 			{
 				QueryFunctions.executeUpdateQuery(con, query);
@@ -115,10 +109,54 @@ public class SqlFileExecutionTool
 		}
 		else
 		{
-			String query = getQueryFromSqlFile(sqlFileName);
+			String query = getQueryFromSqlExecutionObject(seo);
 			QueryFunctions.executeUpdateQuery(con, query);
 		}
 
+	}
+
+	/**
+	 * Returns Queries of SqlExecutionObject considering whether SQLFile (JAR) is stored in Resources or local file system.
+	 *
+	 * @param seo
+	 * @return
+	 * @throws IOException
+	 */
+	private static String[] getQueriesFromSqlExecutionObject(final SqlExecutionObject seo) throws IOException
+	{
+		String[] queries;
+		String sqlFileName = seo.getSqlFileName();
+		if (seo.isFileStoredInResources())
+		{
+			queries = getSqlQueriesFromSqlFileInResources(sqlFileName);
+		}
+		else
+		{
+			queries = getSqlQueriesFromSqlFile(sqlFileName);
+		}
+		return queries;
+	}
+
+	/**
+	 * Returns Query of SqlExecutionObject considering whether SQLFile (JAR) is stored in Resources or local file system.
+	 *
+	 * @param seo
+	 * @return
+	 * @throws IOException
+	 */
+	private static String getQueryFromSqlExecutionObject(final SqlExecutionObject seo) throws IOException
+	{
+		String query;
+		String sqlFileName = seo.getSqlFileName();
+		if (seo.isFileStoredInResources())
+		{
+			query = getQueryFromSqlFileInResources(sqlFileName);
+		}
+		else
+		{
+			query = getQueryFromSqlFile(sqlFileName);
+		}
+		return query;
 	}
 
 	/**
@@ -130,8 +168,7 @@ public class SqlFileExecutionTool
 	 * @throws IOException
 	 * @throws AlertException
 	 */
-	public static void executeExecutionQueryWithStringReplace(SqlExecutionObject seo, Connection con, String replaceRegex, String replaceValue)
-			throws SQLException, IOException, AlertException
+	public static void executeExecutionQueryWithStringReplace(SqlExecutionObject seo, Connection con, String replaceRegex, String replaceValue) throws SQLException, IOException, AlertException
 	{
 		/**
 		 * Check if SqlExecutionObject are valid for execution
@@ -144,10 +181,9 @@ public class SqlFileExecutionTool
 		{
 			throw new SQLException("Can't execute ResultSetQuery in this context!");
 		}
-		String sqlFileName = seo.getSqlFileName();
 		if (seo.isMultiple_Statements())
 		{
-			String[] queries = getSqlQueriesFromSqlFile(sqlFileName);
+			String[] queries = getQueriesFromSqlExecutionObject(seo);
 			for (String query : queries)
 			{
 				String replacedQuery = query.replaceAll(replaceRegex, replaceValue);
@@ -156,7 +192,7 @@ public class SqlFileExecutionTool
 		}
 		else
 		{
-			String query = getQueryFromSqlFile(sqlFileName);
+			String query = getQueryFromSqlExecutionObject(seo);
 			String replacedQuery = query.replaceAll(replaceRegex, replaceValue);
 			QueryFunctions.executeUpdateQuery(con, replacedQuery);
 		}
@@ -434,10 +470,9 @@ public class SqlFileExecutionTool
 		{
 			throw new IllegalArgumentException("Can't execute EXECUTION-Query in this context!");
 		}
-		String sqlFileName = seo.getSqlFileName();
 		if (!seo.isMultiple_Statements())
 		{
-			String query = getQueryFromSqlFile(sqlFileName);
+			String query = getQueryFromSqlExecutionObject(seo);
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 			// stmt.close();
@@ -446,8 +481,7 @@ public class SqlFileExecutionTool
 		else
 		{
 
-			throw new IllegalArgumentException(
-					"This method need an SqlExecutionObject with Single Query - multiple Queries can't receive a result Set!");
+			throw new IllegalArgumentException("This method need an SqlExecutionObject with Single Query - multiple Queries can't receive a result Set!");
 		}
 
 	}
@@ -472,8 +506,7 @@ public class SqlFileExecutionTool
 	 * Creation: 30.05.2017 by mst
 	 */
 	public static boolean executeQueryWithPreparedArguments(
-			SqlExecutionObject seo, String sqlQuery, Connection con, Object[] preparedArguments)
-			throws IOException, SQLException, UnknownEnumException
+			SqlExecutionObject seo, String sqlQuery, Connection con, Object[] preparedArguments) throws IOException, SQLException, UnknownEnumException
 	{
 		PreparedStatement ps = getFilledPreparedStatement(seo, sqlQuery, con, preparedArguments);
 
@@ -499,7 +532,7 @@ public class SqlFileExecutionTool
 		{
 			if (!seo.isMultiple_Statements())
 			{
-				String sqlQuery = SqlFileExecutionTool.getQueryFromSqlFile(seo.getSqlFileName());
+				String sqlQuery = SqlFileExecutionTool.getQueryFromSqlExecutionObject(seo);
 				PreparedStatement ps = con.prepareStatement(sqlQuery);
 				// pi = ParameterIndex
 				int pi = 1;
@@ -561,8 +594,7 @@ public class SqlFileExecutionTool
 	 * @throws SQLException         Creation: 19.06.2017 by mst
 	 */
 	public static PreparedStatement getFilledPreparedStatement(
-			SqlExecutionObject seo, String sqlQuery, Connection con, Object[] preparedArguments)
-			throws UnknownEnumException, IOException, SQLException
+			SqlExecutionObject seo, String sqlQuery, Connection con, Object[] preparedArguments) throws UnknownEnumException, IOException, SQLException
 	{
 		if (seo.isPreparedStatement())
 		{

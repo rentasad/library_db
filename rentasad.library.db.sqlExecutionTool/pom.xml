@@ -6,7 +6,7 @@
     <parent>
         <artifactId>rentasad.library.db</artifactId>
         <groupId>rentasad.library</groupId>
-        <version>D2.2.2</version>
+        <version>D2.3.0</version>
     </parent>
     <groupId>rentasad</groupId>
     <artifactId>rentasad.library.db.sqlExecutionTool</artifactId>
@@ -45,11 +45,31 @@
             <artifactId>rentasad.library.db.ads</artifactId>
             <version>${dbToolParentVersion}</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.22</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
     <build>
         <pluginManagement><!-- lock down plugins versions to avoid using Maven
 				defaults (may be moved to parent pom) -->
             <plugins>
+                <plugin>
+                    <groupId>org.projectlombok</groupId>
+                    <artifactId>lombok-maven-plugin</artifactId>
+                    <version>1.18.20.0</version>
+                    <executions>
+                        <execution>
+                            <phase>generate-sources</phase>
+                            <goals>
+                                <goal>delombok</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
                 <!-- clean lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle -->
                 <plugin>
                     <artifactId>maven-clean-plugin</artifactId>

@@ -1,5 +1,7 @@
 package rentasad.library.db.sqlExecutionTool.objects;
 
+import lombok.Data;
+
 /**
  * Gustini GmbH (2017)
  * Creation: 30.05.2017
@@ -11,6 +13,7 @@ package rentasad.library.db.sqlExecutionTool.objects;
  * <p>
  * Description:
  */
+@Data
 public class SqlExecutionObject
 {
 	/**
@@ -18,6 +21,7 @@ public class SqlExecutionObject
 	 * @param queryTypEnum        EXECUTION, QUERY (Mit Resultset)
 	 * @param multiple_Statements TRUE/FALSE - Gibt Auskunft darüber, ob in dem SQL-File mehrere oder nur ein SQL-Statement stehen
 	 */
+
 	public SqlExecutionObject(
 			String sqlFileName, QueryTypEnum queryTypEnum, boolean multiple_Statements, boolean isPreparedStatement)
 	{
@@ -26,6 +30,16 @@ public class SqlExecutionObject
 		this.queryTypEnum = queryTypEnum;
 		this.multiple_Statements = multiple_Statements;
 		this.isPreparedStatement = isPreparedStatement;
+		this.fileStoredInResources = false;
+	}
+
+	public SqlExecutionObject(String sqlFileName, QueryTypEnum queryTypEnum, boolean multiple_Statements, boolean isPreparedStatement, boolean fileStoredInResources)
+	{
+		this.sqlFileName = sqlFileName;
+		this.queryTypEnum = queryTypEnum;
+		this.multiple_Statements = multiple_Statements;
+		this.isPreparedStatement = isPreparedStatement;
+		this.fileStoredInResources = fileStoredInResources;
 	}
 
 	private final String sqlFileName;
@@ -33,53 +47,9 @@ public class SqlExecutionObject
 	private final boolean multiple_Statements;
 	private final boolean isPreparedStatement;
 	private String sectionName;
-
 	/**
-	 * @return the sqlFileName
+	 * If the file is stored in "Resources", the file access must be different than in the normal file system
 	 */
-	public String getSqlFileName()
-	{
-		return sqlFileName;
-	}
-
-	/**
-	 * @return the queryTypEnum
-	 */
-	public QueryTypEnum getQueryTypEnum()
-	{
-		return queryTypEnum;
-	}
-
-	/**
-	 * @return the multiple_Statements
-	 */
-	public boolean isMultiple_Statements()
-	{
-		return multiple_Statements;
-	}
-
-	/**
-	 * @return the isPreparedStatement
-	 */
-	public boolean isPreparedStatement()
-	{
-		return isPreparedStatement;
-	}
-
-	/**
-	 * @return the sectionName
-	 */
-	public String getSectionName()
-	{
-		return sectionName;
-	}
-
-	/**
-	 * @param sectionName the sectionName to set
-	 */
-	public void setSectionName(String sectionName)
-	{
-		this.sectionName = sectionName;
-	}
+	private boolean fileStoredInResources;
 
 }
