@@ -6,7 +6,7 @@
 	<parent>
 		<artifactId>rentasad.library.db</artifactId>
 		<groupId>rentasad.library</groupId>
-		<version>D2.2.2</version>
+		<version>D2.3.0</version>
 	</parent>
 	<groupId>rentasad</groupId>
 	<artifactId>rentasad.library.db.ads2mysqlTransfer</artifactId>
