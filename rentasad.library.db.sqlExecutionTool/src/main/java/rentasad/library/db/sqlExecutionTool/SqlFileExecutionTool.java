@@ -340,7 +340,6 @@ public class SqlFileExecutionTool
 	 */
 	public static String getQueryFromSqlFileInResources(String sqlFileName) throws IOException
 	{
-		byte[] bytes = IOUtils.toByteArray(SqlFileExecutionTool.class.getClassLoader().getResourceAsStream(sqlFileName));
 		InputStream inputStream = SqlFileExecutionTool.class.getClassLoader().getResourceAsStream(sqlFileName);
 		if (inputStream == null)
 		{
