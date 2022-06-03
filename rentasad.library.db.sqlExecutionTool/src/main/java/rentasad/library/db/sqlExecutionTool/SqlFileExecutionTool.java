@@ -1,6 +1,5 @@
 package rentasad.library.db.sqlExecutionTool;
 
-import org.apache.commons.io.IOUtils;
 import rentasad.library.basicTools.dateTool.DateTools;
 import rentasad.library.configFileTool.ConfigFileToolException;
 import rentasad.library.db.QueryFunctions;
@@ -91,26 +90,44 @@ public class SqlFileExecutionTool
 		 */
 		if (seo.isPreparedStatement())
 		{
-			throw new SQLException("Can't execute Prepeared Statement in this context!");
+			throw new IllegalArgumentException("Can't execute Prepeared Statement in this context!");
 		}
 		else if (seo.getQueryTypEnum() == QueryTypEnum.QUERY)
 		{
-			throw new SQLException("Can't execute ResultSetQuery in this context!");
+			throw new IllegalArgumentException("Can't execute ResultSetQuery in this context!");
 		}
 
-		String sqlFileName = seo.getSqlFileName();
-		if (seo.isMultiple_Statements())
+		if (seo.isFileused())
 		{
-			String[] queries = getQueriesFromSqlExecutionObject(seo);
-			for (String query : queries)
+
+			String sqlFileName = seo.getSqlFileName();
+			if (seo.isMultiple_Statements())
 			{
+				String[] queries = getQueriesFromSqlExecutionObject(seo);
+				for (String query : queries)
+				{
+					QueryFunctions.executeUpdateQuery(con, query);
+				}
+			}
+			else
+			{
+				String query = getQueryFromSqlExecutionObject(seo);
 				QueryFunctions.executeUpdateQuery(con, query);
 			}
 		}
 		else
 		{
-			String query = getQueryFromSqlExecutionObject(seo);
-			QueryFunctions.executeUpdateQuery(con, query);
+			if (seo.isMultiple_Statements())
+			{
+				for (String query : seo.getMultipleQuery())
+				{
+					QueryFunctions.executeUpdateQuery(con, query);
+				}
+			}
+			else
+			{
+				QueryFunctions.executeUpdateQuery(con, seo.getSingleQuery());
+			}
 		}
 
 	}
@@ -126,13 +143,20 @@ public class SqlFileExecutionTool
 	{
 		String[] queries;
 		String sqlFileName = seo.getSqlFileName();
-		if (seo.isFileStoredInResources())
+		if (seo.isFileused())
 		{
-			queries = getSqlQueriesFromSqlFileInResources(sqlFileName);
+			if (seo.isFileStoredInResources())
+			{
+				queries = getSqlQueriesFromSqlFileInResources(sqlFileName);
+			}
+			else
+			{
+				queries = getSqlQueriesFromSqlFile(sqlFileName);
+			}
 		}
 		else
 		{
-			queries = getSqlQueriesFromSqlFile(sqlFileName);
+			queries = seo.getMultipleQuery();
 		}
 		return queries;
 	}
@@ -148,14 +172,22 @@ public class SqlFileExecutionTool
 	{
 		String query;
 		String sqlFileName = seo.getSqlFileName();
-		if (seo.isFileStoredInResources())
+		if (seo.isFileused())
 		{
-			query = getQueryFromSqlFileInResources(sqlFileName);
+			if (seo.isFileStoredInResources())
+			{
+				query = getQueryFromSqlFileInResources(sqlFileName);
+			}
+			else
+			{
+				query = getQueryFromSqlFile(sqlFileName);
+			}
 		}
 		else
 		{
-			query = getQueryFromSqlFile(sqlFileName);
+			query = seo.getSingleQuery();
 		}
+
 		return query;
 	}
 
@@ -175,26 +207,50 @@ public class SqlFileExecutionTool
 		 */
 		if (seo.isPreparedStatement())
 		{
-			throw new SQLException("Can't execute Prepeared Statement in this context!");
+			throw new IllegalArgumentException("Can't execute PrepearedStatement in this context!");
 		}
 		else if (seo.getQueryTypEnum() == QueryTypEnum.QUERY)
 		{
-			throw new SQLException("Can't execute ResultSetQuery in this context!");
+			throw new IllegalArgumentException("Can't execute ResultSetQuery in this context!");
 		}
-		if (seo.isMultiple_Statements())
+		if (seo.isFileused())
 		{
-			String[] queries = getQueriesFromSqlExecutionObject(seo);
-			for (String query : queries)
+			if (seo.isMultiple_Statements())
 			{
+				String[] queries = getQueriesFromSqlExecutionObject(seo);
+				for (String query : queries)
+				{
+					String replacedQuery;
+					replacedQuery = query.replaceAll(replaceRegex, replaceValue);
+
+					QueryFunctions.executeUpdateQuery(con, replacedQuery);
+				}
+			}
+			else
+			{
+				String query = getQueryFromSqlExecutionObject(seo);
 				String replacedQuery = query.replaceAll(replaceRegex, replaceValue);
 				QueryFunctions.executeUpdateQuery(con, replacedQuery);
 			}
 		}
 		else
 		{
-			String query = getQueryFromSqlExecutionObject(seo);
-			String replacedQuery = query.replaceAll(replaceRegex, replaceValue);
-			QueryFunctions.executeUpdateQuery(con, replacedQuery);
+			if (seo.isMultiple_Statements())
+			{
+				String[] queries = seo.getMultipleQuery();
+				for (String query : queries)
+				{
+					String replacedQuery;
+					replacedQuery = query.replaceAll(replaceRegex, replaceValue);
+					QueryFunctions.executeUpdateQuery(con, replacedQuery);
+				}
+			}
+			else
+			{
+				String query = seo.getSingleQuery();
+				String replacedQuery = query.replaceAll(replaceRegex, replaceValue);
+				QueryFunctions.executeUpdateQuery(con, replacedQuery);
+			}
 		}
 
 	}
@@ -219,9 +275,8 @@ public class SqlFileExecutionTool
 
 				String sqlFileName = sqlMap.get(CONFIG_PARAM_SQL_FILENAME);
 				QueryTypEnum queryTypEnum = QueryTypEnum.valueOf(sqlMap.get(CONFIG_PARAM_QUERY_TYP));
-				boolean multiple_Statements = Boolean.valueOf(sqlMap.get(CONFIG_PARAM_MULTIPLE_STATEMENTS));
-				boolean isPreparedStatement = Boolean.valueOf(sqlMap.get(CONFIG_PARAM_IS_PREPARED_STATEMENT));
-
+				boolean multiple_Statements = Boolean.parseBoolean(sqlMap.get(CONFIG_PARAM_MULTIPLE_STATEMENTS));
+				boolean isPreparedStatement = Boolean.parseBoolean(sqlMap.get(CONFIG_PARAM_IS_PREPARED_STATEMENT));
 				SqlExecutionObject executionObject = new SqlExecutionObject(sqlFileName, queryTypEnum, multiple_Statements, isPreparedStatement);
 				executionObject.setSectionName(sectionName);
 				map.put(sectionName, executionObject);
@@ -531,7 +586,15 @@ public class SqlFileExecutionTool
 		{
 			if (!seo.isMultiple_Statements())
 			{
-				String sqlQuery = SqlFileExecutionTool.getQueryFromSqlExecutionObject(seo);
+				String sqlQuery;
+				if (seo.isFileused())
+				{
+					sqlQuery = SqlFileExecutionTool.getQueryFromSqlExecutionObject(seo);
+				}
+				else
+				{
+					sqlQuery = seo.getSingleQuery();
+				}
 				PreparedStatement ps = con.prepareStatement(sqlQuery);
 				// pi = ParameterIndex
 				int pi = 1;

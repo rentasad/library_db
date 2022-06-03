@@ -16,33 +16,12 @@ import lombok.Data;
 @Data
 public class SqlExecutionObject
 {
+
 	/**
-	 * @param sqlFileName         Dateiname der auszuführenden SQL-Datei
-	 * @param queryTypEnum        EXECUTION, QUERY (Mit Resultset)
-	 * @param multiple_Statements TRUE/FALSE - Gibt Auskunft darüber, ob in dem SQL-File mehrere oder nur ein SQL-Statement stehen
+	 * Is used to toggle if Query/Queries is given as file or as parameter
 	 */
-
-	public SqlExecutionObject(
-			String sqlFileName, QueryTypEnum queryTypEnum, boolean multiple_Statements, boolean isPreparedStatement)
-	{
-		super();
-		this.sqlFileName = sqlFileName;
-		this.queryTypEnum = queryTypEnum;
-		this.multiple_Statements = multiple_Statements;
-		this.isPreparedStatement = isPreparedStatement;
-		this.fileStoredInResources = false;
-	}
-
-	public SqlExecutionObject(String sqlFileName, QueryTypEnum queryTypEnum, boolean multiple_Statements, boolean isPreparedStatement, boolean fileStoredInResources)
-	{
-		this.sqlFileName = sqlFileName;
-		this.queryTypEnum = queryTypEnum;
-		this.multiple_Statements = multiple_Statements;
-		this.isPreparedStatement = isPreparedStatement;
-		this.fileStoredInResources = fileStoredInResources;
-	}
-
-	private final String sqlFileName;
+	private boolean isFileused = true;
+	private String sqlFileName;
 	private final QueryTypEnum queryTypEnum;
 	private final boolean multiple_Statements;
 	private final boolean isPreparedStatement;
@@ -52,4 +31,41 @@ public class SqlExecutionObject
 	 */
 	private boolean fileStoredInResources;
 
+	private String singleQuery;
+	private String[] multipleQuery;
+
+	/**
+	 * @param sqlFileName         Dateiname der auszuführenden SQL-Datei
+	 * @param queryTypEnum        EXECUTION, QUERY (Mit Resultset)
+	 * @param multiple_Statements TRUE/FALSE - Gibt Auskunft darüber, ob in dem SQL-File mehrere oder nur ein SQL-Statement stehen
+	 */
+
+	public SqlExecutionObject(
+			final String sqlFileName, final QueryTypEnum queryTypEnum, final boolean multiple_Statements, final boolean isPreparedStatement)
+	{
+		super();
+		this.sqlFileName = sqlFileName;
+		this.queryTypEnum = queryTypEnum;
+		this.multiple_Statements = multiple_Statements;
+		this.isPreparedStatement = isPreparedStatement;
+		this.fileStoredInResources = false;
+	}
+
+	public SqlExecutionObject(String singleQuery, QueryTypEnum queryTypEnum, boolean isPreparedStatement)
+	{
+		this.singleQuery = singleQuery;
+		this.queryTypEnum = queryTypEnum;
+		this.multiple_Statements = false;
+		this.isPreparedStatement = isPreparedStatement;
+		this.isFileused = false;
+	}
+
+	public SqlExecutionObject(String[] multipleQuery, QueryTypEnum queryTypEnum, boolean isPreparedStatement)
+	{
+		this.multipleQuery = multipleQuery;
+		this.queryTypEnum = queryTypEnum;
+		this.multiple_Statements = true;
+		this.isPreparedStatement = isPreparedStatement;
+		this.isFileused = false;
+	}
 }
