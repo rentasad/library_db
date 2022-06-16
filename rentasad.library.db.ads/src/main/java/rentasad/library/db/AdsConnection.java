@@ -1,4 +1,3 @@
-
 package rentasad.library.db;
 
 import java.io.IOException;
@@ -12,16 +11,16 @@ import rentasad.library.configFileTool.ConfigFileTool;
 import rentasad.library.configFileTool.ConfigFileToolException;
 
 /**
- * Gustini GmbH 
+ * Gustini GmbH
  * Creation: 15.12.2015 Library gustini.library.db
  * Last Update: 10.03.2020
- * 
+ * <p>
  * Changed from inline Connection String to Config File based Connection-String
+ *
  * @author Matthias Staud
- *
- *
- *         Description: Stellt eine Verbindung zur ADS-Datenbank her.
- *
+ * <p>
+ * <p>
+ * Description: Stellt eine Verbindung zur ADS-Datenbank her.
  */
 
 public class AdsConnection
@@ -41,7 +40,7 @@ public class AdsConnection
 	 * Type of locking to use. <br>
 	 * The valid values for this property are "proprietary" or "compatible". <br>
 	 * The default is "proprietary". <br>
-	 *
+	 * <p>
 	 * If the application is to be used with non-Advantage applications, then
 	 * "compatible" <br>
 	 * locking should be used. If the table will be used only by Advantage
@@ -53,7 +52,6 @@ public class AdsConnection
 	 * Advantage uses the appropriate style based on the table type. See Advantage
 	 * Locking Modes <br>
 	 * for more information.<br>
-	 *
 	 */
 	public static final String PARAMETER_NAME_ADS_LOCK_TYPE = "LOCK_TYPE";
 	/**
@@ -147,10 +145,7 @@ public class AdsConnection
 	private Map<String, String> configMap;
 
 	/**
-	 *
-	 * @param configMap
-	 *
-	 *                  if should contain the following keys:
+	 * @param configMap if should contain the following keys:
 	 *                  <code>gustini.library.db.AdsConnection.PARAMETER_NAME_ADS_HOST</code>
 	 *                  <code>gustini.library.db.AdsConnection.PARAMETER_NAME_ADS_SOCKET  (optional)</code>
 	 *                  <code>gustini.library.db.AdsConnection.PARAMETER_NAME_ADS_DATABASE_DICTIONARY</code>
@@ -160,11 +155,9 @@ public class AdsConnection
 	 *                  (optional)
 	 *                  <code>gustini.library.db.AdsConnection.PARAMETER_NAME_ADS_TABLE_TYPE</code>
 	 *                  (optional)
-	 *
+	 *                  <p>
 	 *                  of optional parameters not given, it was used default value.
-	 * @throws SQLException 
-	 *
-	 *
+	 * @throws SQLException
 	 */
 	public AdsConnection(final Map<String, String> configMap) throws SQLException
 	{
@@ -198,13 +191,11 @@ public class AdsConnection
 	}
 
 	/**
-	 *
 	 * Description: Stellt Verbindung unter Verwendung der uebergebenen
 	 * Konfiguration her
 	 *
 	 * @return Creation: 15.12.2015 by mst
 	 * @throws SQLException
-	 * @throws DbConnectionException
 	 */
 	public Connection getConnection() throws SQLException
 	{
@@ -212,11 +203,10 @@ public class AdsConnection
 	}
 
 	/**
-	 *
 	 * Description: gibt Default ConfigMap zurueck
 	 *
 	 * @return Creation: 15.12.2015 by mst
-	 * @throws SQLException 
+	 * @throws SQLException
 	 * @throws ConfigFileToolException
 	 * @throws IOException
 	 */
@@ -225,8 +215,7 @@ public class AdsConnection
 		Map<String, String> configMap;
 		try
 		{
-			configMap = ConfigFileTool.readConfiguration(DEFAULT_CONFIG_FILE_PATH,
-						DEFAULT_SECTION_NAME);
+			configMap = ConfigFileTool.readConfiguration(DEFAULT_CONFIG_FILE_PATH, DEFAULT_SECTION_NAME);
 			/**
 			 * ADD "//" to Hostname
 			 */
@@ -240,12 +229,10 @@ public class AdsConnection
 	}
 
 	/**
-	 *
 	 * Description:
 	 *
 	 * @param configMap Creation: 15.12.2015 by mst
 	 * @throws SQLException
-	 * @throws DbConnectionException
 	 */
 	public static Connection dbConnect(Map<String, String> configMap) throws SQLException
 	{
@@ -256,13 +243,12 @@ public class AdsConnection
 		String charType = configMap.get(PARAMETER_NAME_ADS_CHAR_TYPE);
 		String tableType = configMap.get(PARAMETER_NAME_ADS_TABLE_TYPE);
 		String dsnProperties = String.format(";LockType=%s;CharType=%s;TableType=%s", lockType, charType, tableType);
-		String connectionString = String.format("jdbc:extendedsystems:advantage:%s:%s%s%s", host, socket,
-					databaseDictionaty, dsnProperties);
+		String connectionString = String.format("jdbc:extendedsystems:advantage:%s:%s%s%s", host, socket, databaseDictionaty, dsnProperties);
 
 		try
 		{
 			initDriver();
-//            System.out.println(connectionString);
+			//            System.out.println(connectionString);
 			return DriverManager.getConnection(connectionString);
 		} catch (InstantiationException | IllegalAccessException | ClassNotFoundException | SQLException e)
 		{
@@ -275,7 +261,6 @@ public class AdsConnection
 	 * Verwendung der getDefaultConfigMap();
 	 *
 	 * @return Creation: 15.12.2015 by mst
-	 * @throws DbConnectionException
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 * @throws IllegalAccessException
@@ -287,20 +272,16 @@ public class AdsConnection
 	}
 
 	/**
-	 *
 	 * Description: Stellt zu einem bestimmten Datenverzeichnis Verbindung her
 	 * ergaenzend zum DefaultVerbindungspfad
 	 *
 	 * @return
 	 * @throws SQLException
-	 * @throws DbConnectionException Creation: 23.02.2016 by mst
 	 */
 	public static Connection dbConnectToDictionary(final String appendConnectionDirectoryString) throws SQLException
 	{
 		Map<String, String> configMap = getDefaultConfigMap();
-		configMap.put(PARAMETER_NAME_ADS_DATABASE_DICTIONARY, configMap.get(PARAMETER_NAME_ADS_DATABASE_DICTIONARY)
-					+ appendConnectionDirectoryString
-						+ "/");
+		configMap.put(PARAMETER_NAME_ADS_DATABASE_DICTIONARY, configMap.get(PARAMETER_NAME_ADS_DATABASE_DICTIONARY) + appendConnectionDirectoryString + "/");
 		return dbConnect(configMap);
 	}
 
@@ -312,7 +293,7 @@ public class AdsConnection
 		String tableType = configMap.get(PARAMETER_NAME_ADS_TABLE_TYPE);
 		String dsnProperties = String.format(";LockType=%s;CharType=%s;TableType=%s", lockType, charType, tableType);
 		String connectionString = String.format("%s%s", fullConnectionUrl, dsnProperties);
-//        System.out.println(connectionString);
+		//        System.out.println(connectionString);
 		try
 		{
 			initDriver();
@@ -324,13 +305,11 @@ public class AdsConnection
 	}
 
 	/**
-	 *
 	 * Description:
 	 *
 	 * @param vs4MandantString
 	 * @return
 	 * @throws SQLException
-	 * @throws DbConnectionException
 	 * @throws InstantiationException
 	 * @throws IllegalAccessException
 	 * @throws ClassNotFoundException Creation: 15.12.2015 by mst
@@ -343,12 +322,9 @@ public class AdsConnection
 		return dbConnect(configMap);
 	}
 
-	
-	
 	/**
-	 *
 	 * Description:
-	 *
+	 * <p>
 	 * Creation: 15.12.2015 by mst
 	 *
 	 * @throws ClassNotFoundException
