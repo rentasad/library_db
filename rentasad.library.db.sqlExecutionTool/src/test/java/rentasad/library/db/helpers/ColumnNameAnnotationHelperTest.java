@@ -10,7 +10,7 @@ public class ColumnNameAnnotationHelperTest
 {
 
 	@Test
-	public void testGetOrderColumnameFromOrdersAnnotation() throws NoSuchFieldException, SecurityException
+	public void testGetOrderColumnNameFromOrdersAnnotation() throws NoSuchFieldException, SecurityException
 	{
 		Field columNameActual = ColumnNameAnnotationHelperTestObject.class.getDeclaredField("lastName");
 		String actualColumName = ColumnNameAnnotationHelper.getAnnotationFromSingleField(columNameActual);
