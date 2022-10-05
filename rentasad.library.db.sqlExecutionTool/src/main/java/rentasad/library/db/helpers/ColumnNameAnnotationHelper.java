@@ -1,6 +1,5 @@
 package rentasad.library.db.helpers;
 
-import jdk.internal.util.xml.impl.Input;
 
 import java.io.InputStream;
 import java.lang.reflect.Field;
@@ -159,8 +158,7 @@ public class ColumnNameAnnotationHelper
 		else if (type == InputStream.class)
 		{
 			Blob blob = rs.getBlob(columnName);
-			InputStream is = blob.getBinaryStream();
-			return is;
+			return blob.getBinaryStream();
 		}
 		else if (Enum.class.isAssignableFrom(type))
 		{
