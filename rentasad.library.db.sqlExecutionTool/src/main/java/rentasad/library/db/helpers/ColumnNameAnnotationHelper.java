@@ -1,13 +1,12 @@
 package rentasad.library.db.helpers;
 
+import jdk.internal.util.xml.impl.Input;
+
 import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.sql.Date;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Timestamp;
+import java.sql.*;
 import java.util.Calendar;
 
 /**
@@ -159,7 +158,9 @@ public class ColumnNameAnnotationHelper
 		}
 		else if (type == InputStream.class)
 		{
-			return rs.getBlob(columnName);
+			Blob blob = rs.getBlob(columnName);
+			InputStream is = blob.getBinaryStream();
+			return is;
 		}
 		else if (Enum.class.isAssignableFrom(type))
 		{
