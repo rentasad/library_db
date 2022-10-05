@@ -34,12 +34,14 @@ public class SqlExecutionObject
 	private String singleQuery;
 	private String[] multipleQuery;
 
-	/**
-	 * @param sqlFileName         Dateiname der auszuführenden SQL-Datei
-	 * @param queryTypEnum        EXECUTION, QUERY (Mit Resultset)
-	 * @param multiple_Statements TRUE/FALSE - Gibt Auskunft darüber, ob in dem SQL-File mehrere oder nur ein SQL-Statement stehen
-	 */
 
+	/**
+	 *
+	 * @param sqlFileName Dateiname der auszuführenden SQL-Datei
+	 * @param queryTypEnum EXECUTION (UPDATE or INSERT), QUERY (Mit Resultset)
+	 * @param multiple_Statements  TRUE/FALSE - Gibt Auskunft darüber, ob in dem SQL-File mehrere oder nur ein SQL-Statement stehen
+	 * @param isPreparedStatement
+	 */
 	public SqlExecutionObject(
 			final String sqlFileName, final QueryTypEnum queryTypEnum, final boolean multiple_Statements, final boolean isPreparedStatement)
 	{
