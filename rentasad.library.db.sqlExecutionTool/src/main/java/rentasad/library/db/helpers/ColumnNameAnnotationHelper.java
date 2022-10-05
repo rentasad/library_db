@@ -1,7 +1,6 @@
 package rentasad.library.db.helpers;
 
-import lombok.val;
-
+import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -11,6 +10,22 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Calendar;
 
+/**
+ * //	EXAMPLE USE
+ * //	/**
+ * //	 * Extract ColumnName Annotation Value from OrderObject
+ * //	 *
+ * //	 * @param orderFieldName
+ * //	 * @return
+ * //	 * @throws NoSuchFieldException
+ * //	 * @throws SecurityException
+ * //
+ * //	public static String getOrderColumnNameFromOrdersAnnotation(String orderFieldName) throws NoSuchFieldException, SecurityException
+ * //	{
+ * //		val fieldSingle = Order.class.getDeclaredField(orderFieldName);
+ * //		return getAnnotationFromSingleField(fieldSingle);
+ * //	}
+ */
 public class ColumnNameAnnotationHelper
 {
 	//	EXAMPLE USE
@@ -27,7 +42,6 @@ public class ColumnNameAnnotationHelper
 	//		val fieldSingle = Order.class.getDeclaredField(orderFieldName);
 	//		return getAnnotationFromSingleField(fieldSingle);
 	//	}
-
 
 	/**
 	 * @param fieldSingle
@@ -142,6 +156,10 @@ public class ColumnNameAnnotationHelper
 		else if (type == Date.class)
 		{
 			return rs.getDate(columnName);
+		}
+		else if (type == InputStream.class)
+		{
+			return rs.getBlob(columnName);
 		}
 		else if (Enum.class.isAssignableFrom(type))
 		{
