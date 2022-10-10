@@ -6,7 +6,7 @@
     <parent>
         <artifactId>rentasad.library.db</artifactId>
         <groupId>rentasad.library</groupId>
-        <version>D2.5.2</version>
+        <version>D2.5.3</version>
     </parent>
     <groupId>rentasad</groupId>
     <artifactId>rentasad.library.db.sqlExecutionTool</artifactId>
@@ -29,7 +29,6 @@
             <artifactId>commons-io</artifactId>
             <version>2.11.0</version>
         </dependency>
-
         <dependency>
             <groupId>rentasad</groupId>
             <artifactId>rentasad.library.basicTools.dateTools</artifactId>

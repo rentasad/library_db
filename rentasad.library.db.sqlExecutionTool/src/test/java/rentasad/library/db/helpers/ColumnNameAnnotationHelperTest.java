@@ -7,9 +7,10 @@ import org.junit.jupiter.api.Test;
 import rentasad.library.configFileTool.ConfigFileTool;
 import rentasad.library.configFileTool.ConfigFileToolException;
 import rentasad.library.db.MYSQLConnection;
-import sun.security.provider.ConfigFile;
+import rentasad.library.db.helpers.testClasses.ColumnNameAnnotationHelperTestObject;
+import rentasad.library.db.helpers.testClasses.StatusEnum;
+import rentasad.library.db.helpers.testClasses.TestObject;
 
-import javax.swing.plaf.nimbus.State;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.sql.Connection;
@@ -60,6 +61,7 @@ private Connection mySqlConnection = null;
 				assertEquals(1100000016, testObject.getVs4CustomerNumber());
 				assertEquals(319123874, testObject.getVs4OrderNumber());
 				assertEquals(22, testObject.getId());
+				assertEquals(StatusEnum.NEW, testObject.getStatus());
 
 			}
 		}
