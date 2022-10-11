@@ -6,7 +6,7 @@
 	<parent>
 		<artifactId>rentasad.library.db</artifactId>
 		<groupId>rentasad.library</groupId>
-		<version>D2.5.0</version>
+		<version>D2.5.3</version>
 	</parent>
 	<groupId>rentasad</groupId>
 	<artifactId>rentasad.library.db.ads2mysqlTransfer</artifactId>
@@ -22,7 +22,7 @@
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-engine</artifactId>
-			<version>5.8.2</version>
+			<version>5.9.0</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
