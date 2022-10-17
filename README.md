@@ -1,4 +1,4 @@
 # library_db - Connection and Toolkit for 
-- MySql
+- MySQL / MariaDB
 - MSSQL 
 - Advantage Database Server Connections
