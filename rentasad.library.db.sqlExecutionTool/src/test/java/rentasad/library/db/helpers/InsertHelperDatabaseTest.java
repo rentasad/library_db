@@ -1,6 +1,7 @@
 package rentasad.library.db.helpers;
 
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import rentasad.library.configFileTool.ConfigFileTool;
@@ -28,7 +29,7 @@ public class InsertHelperDatabaseTest
 	private Connection mySqlConnection = null;
 
 	@BeforeEach
-	public void beforeEach() throws IOException, ConfigFileToolException, SQLException
+	public void init() throws IOException, ConfigFileToolException, SQLException
 	{
 		if (this.mySqlConnection ==
 			null)
@@ -47,7 +48,7 @@ public class InsertHelperDatabaseTest
 
 	private void deleteTestItem(long id) throws SQLException
 	{
-		String query = "DELETE FROM greetingcards WHERE order_number=10000100443520";
+		String query = "DELETE FROM test_objects WHERE order_number=10000100443520";
 		try (Statement stmt = this.mySqlConnection.createStatement())
 		{
 			stmt.executeUpdate(query);
@@ -66,7 +67,7 @@ public class InsertHelperDatabaseTest
 	@Test
 	void fromResultSet() throws SQLException
 	{
-		String query = "SELECT * FROM greetingcards WHERE id=22";
+		String query = "SELECT * FROM test_objects WHERE id=22";
 		try (Statement stmt = this.mySqlConnection.createStatement())
 		{
 			ResultSet rs = stmt.executeQuery(query);
@@ -92,7 +93,7 @@ public class InsertHelperDatabaseTest
 		TestObject testObject = getTestObject();
 		new InsertHelper<>(testObject).insertIntoDatabase(this.mySqlConnection);
 		// CHECK INSERT RESULT
-		String query = "SELECT * FROM greetingcards WHERE id=23";
+		String query = "SELECT * FROM test_objects WHERE id=23";
 		try (Statement stmt = this.mySqlConnection.createStatement())
 		{
 			ResultSet rs = stmt.executeQuery(query);
@@ -120,7 +121,7 @@ public class InsertHelperDatabaseTest
 		TestObject to = new TestObject();
 		to.setId(23L);
 		to.setOrderNumber(10000100443520L);
-		to.setStatus(StatusEnum.BOUGHT_VOUCHERS_NOT_TRANSFERRED.BOUGHT_VOUCHERS_NOT_TRANSFERRED);
+		to.setStatus(StatusEnum.OLD);
 		to.setManuallyProvided(true);
 		to.setVs4CustomerNumber(1100000017L);
 		to.setVs4InvoiceNumber(518505329L);

@@ -48,7 +48,7 @@ private Connection mySqlConnection = null;
 
 	@Test void fromResultSet() throws SQLException
 	{
-		String query = "SELECT * FROM greetingcards WHERE id=22";
+		String query = "SELECT * FROM test_objects WHERE id=22";
 		try (Statement stmt = this.mySqlConnection.createStatement())
 		{
 			ResultSet rs = stmt.executeQuery(query);

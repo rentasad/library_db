@@ -343,7 +343,11 @@ public class InsertHelper<T>
 			int index = 1;
 			for (final FieldValue fieldValue : lastValues)
 			{
-				stmt.setObject(index, fieldValue.value, fieldValue.sqlType);
+				//workaround. In some obscure cases, the jdbc implementation does not automatically do this.
+				if(Enum.class.isAssignableFrom(fieldValue.value.getClass()))
+					stmt.setObject(index, ((Enum)fieldValue.value).name(), fieldValue.sqlType);
+				else
+					stmt.setObject(index, fieldValue.value, fieldValue.sqlType);
 				index++;
 			}
 		} finally
