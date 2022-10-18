@@ -1,6 +1,6 @@
 #! /bin/bash
 
-mvn versions:set -DnewVersion=D2.4.0
+mvn versions:set -DnewVersion=D2.5.4
 
 #If you made a mistake, do
 #  mvn versions:revert
