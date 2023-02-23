@@ -8,7 +8,7 @@
         <groupId>rentasad.library</groupId>
         <version>D2.5.4</version>
     </parent>
-    <groupId>rentasad</groupId>
+    <groupId>rentasad.library</groupId>
     <artifactId>rentasad.library.db.sqlExecutionTool</artifactId>
     <name>rentasad.library.db.sqlExecutionTool</name>
     <properties>
@@ -30,22 +30,22 @@
             <version>2.11.0</version>
         </dependency>
         <dependency>
-            <groupId>rentasad</groupId>
+            <groupId>rentasad.library</groupId>
             <artifactId>rentasad.library.basicTools.dateTools</artifactId>
             <version>${basicToolParentVersion}</version>
         </dependency>
         <dependency>
-            <groupId>rentasad</groupId>
+            <groupId>rentasad.library</groupId>
             <artifactId>rentasad.library.basicTools.fileOperator</artifactId>
             <version>${basicToolParentVersion}</version>
         </dependency>
         <dependency>
-            <groupId>rentasad</groupId>
+            <groupId>rentasad.library</groupId>
             <artifactId>rentasad.library.db.ads</artifactId>
             <version>${dbToolParentVersion}</version>
         </dependency>
         <dependency>
-            <groupId>rentasad</groupId>
+            <groupId>rentasad.library</groupId>
             <artifactId>rentasad.library.db.mysql</artifactId>
             <version>${dbToolParentVersion}</version>
         </dependency>

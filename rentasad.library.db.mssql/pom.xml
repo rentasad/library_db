@@ -8,7 +8,7 @@
 		<groupId>rentasad.library</groupId>
 		<version>D2.5.4</version>
 	</parent>
-	<groupId>rentasad</groupId>
+	<groupId>rentasad.library</groupId>
 	<artifactId>rentasad.library.db.mssql</artifactId>
 	<name>rentasad.library.db.mssql</name>
 	<!-- FIXME change it to the project's website -->

@@ -8,13 +8,13 @@
 		<groupId>rentasad.library</groupId>
 		<version>D2.5.4</version>
 	</parent>
-	<groupId>rentasad</groupId>
+	<groupId>rentasad.library</groupId>
 	<artifactId>rentasad.library.db.ads</artifactId>
 	<name>rentasad.library.db.ads</name>
 	
 	<!-- Copy & Paste:
 	<dependency>
-		<groupId>rentasad</groupId>
+		<groupId>rentasad.library</groupId>
 		<artifactId>rentasad.library.db.ads</artifactId>
 		<version>${dbToolParentVersion}</version>
 	</dependency>
@@ -27,7 +27,7 @@
 	</properties>
 	<dependencies>
 		<dependency>
-			<groupId>rentasad</groupId>
+			<groupId>rentasad.library</groupId>
 		<artifactId>rentasad.library.basicTools.configFileTool</artifactId>
 			<version>${basicToolParentVersion}</version>
 		</dependency>

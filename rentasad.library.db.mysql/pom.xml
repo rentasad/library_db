@@ -8,7 +8,7 @@
 		<groupId>rentasad.library</groupId>
 		<version>D2.5.4</version>
 	</parent>
-	<groupId>rentasad</groupId>
+	<groupId>rentasad.library</groupId>
 	<artifactId>rentasad.library.db.mysql</artifactId>
 	<name>rentasad.library.db.mysql</name>
 	<!-- FIXME change it to the project's website -->
@@ -26,7 +26,7 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>rentasad</groupId>
+			<groupId>rentasad.library</groupId>
 			<artifactId>rentasad.library.basicTools.stringTools</artifactId>
 			<version>${basicToolParentVersion}</version>
 		</dependency>
