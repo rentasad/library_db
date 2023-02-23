@@ -13,8 +13,8 @@
     <packaging>pom</packaging>
     <properties>
         <project.build.sourceEncoding>Cp1252</project.build.sourceEncoding>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
         <!-- DEPENDENCIES VERSIONS -->
         <maven-clean-plugin>3.1.0</maven-clean-plugin>
         <maven-resources-plugin>3.2.0</maven-resources-plugin>
@@ -36,17 +36,17 @@
 
     <!-- Copy & Paste:
 <dependency>
-    <groupId>rentasad</groupId>
+    <groupId>rentasad.library</groupId>
     <artifactId>rentasad.library.db.ads</artifactId>
     <version>${dbToolParentVersion}</version>
 </dependency>
     <dependency>
-    <groupId>rentasad</groupId>
+    <groupId>rentasad.library</groupId>
     <artifactId>rentasad.library.db.mysql</artifactId>
     <version>${dbToolParentVersion}</version>
 </dependency>
 <dependency>
-    <groupId>rentasad</groupId>
+    <groupId>rentasad.library</groupId>
     <artifactId>rentasad.library.db.mssql</artifactId>
     <version>${dbToolParentVersion}</version>
 </dependency>
@@ -61,12 +61,12 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>rentasad</groupId>
+            <groupId>rentasad.library</groupId>
             <artifactId>rentasad.library.basicTools.configFileTool</artifactId>
             <version>${basicToolParentVersion}</version>
         </dependency>
         <dependency>
-            <groupId>rentasad</groupId>
+            <groupId>rentasad.library</groupId>
             <artifactId>rentasad.library.basicTools.exceptions</artifactId>
             <version>${basicToolParentVersion}</version>
         </dependency>
