@@ -6,15 +6,15 @@
     <parent>
         <artifactId>rentasad.library.db</artifactId>
         <groupId>rentasad.library</groupId>
-        <version>D2.5.4</version>
+        <version>D2.6.0</version>
     </parent>
     <groupId>rentasad</groupId>
     <artifactId>rentasad.library.db.sqlExecutionTool</artifactId>
     <name>rentasad.library.db.sqlExecutionTool</name>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
     </properties>
     <dependencies>
         <dependency>
@@ -30,12 +30,12 @@
             <version>2.11.0</version>
         </dependency>
         <dependency>
-            <groupId>rentasad</groupId>
+            <groupId>rentasad.library</groupId>
             <artifactId>rentasad.library.basicTools.dateTools</artifactId>
             <version>${basicToolParentVersion}</version>
         </dependency>
         <dependency>
-            <groupId>rentasad</groupId>
+            <groupId>rentasad.library</groupId>
             <artifactId>rentasad.library.basicTools.fileOperator</artifactId>
             <version>${basicToolParentVersion}</version>
         </dependency>

@@ -1,2 +1,2 @@
-call mvn clean package -Dmaven.test.skip=true -U	
+call mvn clean package -DskipTests
 pause

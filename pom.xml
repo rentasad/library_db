@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>rentasad.library</groupId>
     <artifactId>rentasad.library.db</artifactId>
-    <version>D2.5.4</version>
+    <version>D2.6.0</version>
 
     <name>rentasad.library.db</name>
     <!-- FIXME change it to the project's website -->
@@ -13,8 +13,8 @@
     <packaging>pom</packaging>
     <properties>
         <project.build.sourceEncoding>Cp1252</project.build.sourceEncoding>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
         <!-- DEPENDENCIES VERSIONS -->
         <maven-clean-plugin>3.1.0</maven-clean-plugin>
         <maven-resources-plugin>3.2.0</maven-resources-plugin>
@@ -27,8 +27,8 @@
         <mavenProjectInfoReportsPlugin>3.1.2</mavenProjectInfoReportsPlugin>
         <!-- VERSION PROPERTY -->
         <!-- USING WITH ${basicToolParentVersion} -->
-        <basicToolParentVersion>B2.5.2</basicToolParentVersion>
-        <dbToolParentVersion>D2.5.4</dbToolParentVersion>
+        <basicToolParentVersion>B2.6.0</basicToolParentVersion>
+        <dbToolParentVersion>D2.6.0</dbToolParentVersion>
         <!--
         <version>${dbToolParentVersion}</version>
         -->
@@ -61,12 +61,12 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>rentasad</groupId>
+            <groupId>rentasad.library</groupId>
             <artifactId>rentasad.library.basicTools.configFileTool</artifactId>
             <version>${basicToolParentVersion}</version>
         </dependency>
         <dependency>
-            <groupId>rentasad</groupId>
+            <groupId>rentasad.library</groupId>
             <artifactId>rentasad.library.basicTools.exceptions</artifactId>
             <version>${basicToolParentVersion}</version>
         </dependency>

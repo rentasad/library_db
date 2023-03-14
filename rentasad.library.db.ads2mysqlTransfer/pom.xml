@@ -6,7 +6,7 @@
 	<parent>
 		<artifactId>rentasad.library.db</artifactId>
 		<groupId>rentasad.library</groupId>
-		<version>D2.5.4</version>
+		<version>D2.6.0</version>
 	</parent>
 	<groupId>rentasad</groupId>
 	<artifactId>rentasad.library.db.ads2mysqlTransfer</artifactId>
@@ -15,8 +15,8 @@
 	<url>http://www.example.com</url>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<maven.compiler.source>8</maven.compiler.source>
-		<maven.compiler.target>8</maven.compiler.target>
+		<maven.compiler.source>17</maven.compiler.source>
+		<maven.compiler.target>17</maven.compiler.target>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -26,12 +26,12 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>rentasad</groupId>
+			<groupId>rentasad.library</groupId>
 			<artifactId>rentasad.library.basicTools.stringTools</artifactId>
 			<version>${basicToolParentVersion}</version>
 		</dependency>
 		<dependency>
-			<groupId>rentasad</groupId>
+			<groupId>rentasad.library</groupId>
 			<artifactId>rentasad.library.basicTools.dateTools</artifactId>
 			<version>${basicToolParentVersion}</version>
 		</dependency>
