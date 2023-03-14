@@ -4,13 +4,8 @@ import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.sql.Connection;
+import java.sql.*;
 import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Time;
-import java.sql.Timestamp;
-import java.sql.Types;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
@@ -200,7 +195,7 @@ public class InsertHelper<T>
 		{
 			return Types.TIMESTAMP;
 		}
-		else if (fieldType == Double.class)
+		else if (fieldType == double.class || Double.class.isAssignableFrom(fieldType))
 		{
 			return Types.DOUBLE;
 		}
@@ -211,6 +206,9 @@ public class InsertHelper<T>
 		else if (fieldType == InputStream.class)
 		{
 			return Types.BLOB;
+		}else if ( Character.class.isAssignableFrom(fieldType))
+		{
+			return Types.VARCHAR;
 		}
 
 		else
@@ -327,6 +325,24 @@ public class InsertHelper<T>
 		{
 			setValuesInStatement(preparedStatement);
 			return preparedStatement.executeUpdate();
+		}
+	}
+
+	@Synchronized("updateValueMonitor")
+	public Long insertIntoDatabaseReturnGeneratedKeys(@NonNull final Connection conn) throws SQLException
+	{
+		Long last_inserted_id = null;
+		String insertStatement = getInsertStatement();
+		try (final PreparedStatement preparedStatement = conn.prepareStatement(insertStatement, Statement.RETURN_GENERATED_KEYS))
+		{
+			setValuesInStatement(preparedStatement);
+			preparedStatement.executeUpdate();
+			ResultSet rs = preparedStatement.getGeneratedKeys();
+			if(rs.next())
+			{
+				last_inserted_id = rs.getLong(1);
+			}
+			return last_inserted_id;
 		}
 	}
 
