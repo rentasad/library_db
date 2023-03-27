@@ -28,7 +28,7 @@
         <!-- VERSION PROPERTY -->
         <!-- USING WITH ${basicToolParentVersion} -->
         <basicToolParentVersion>B2.6.0</basicToolParentVersion>
-        <dbToolParentVersion>D2.6.0</dbToolParentVersion>
+        <dbToolParentVersion>D2.6.3</dbToolParentVersion>
         <!--
         <version>${dbToolParentVersion}</version>
         -->
