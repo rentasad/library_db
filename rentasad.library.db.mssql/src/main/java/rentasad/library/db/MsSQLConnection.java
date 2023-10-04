@@ -131,6 +131,8 @@ public class MsSQLConnection
             ds.setDatabaseName(databaseName);
             ds.setUser(dbUserid);
             ds.setPassword(dbPassword);
+            // disable ssl encryption
+            ds.setEncrypt("false");
             connection = ds.getConnection();
 
             System.out.println("connected");

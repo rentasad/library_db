@@ -6,13 +6,11 @@
 	<parent>
 		<artifactId>rentasad.library.db</artifactId>
 		<groupId>rentasad.library</groupId>
-		<version>D2.6.3</version>
+		<version>D2.6.4</version>
 	</parent>
 	<groupId>rentasad</groupId>
 	<artifactId>rentasad.library.db.mssql</artifactId>
 	<name>rentasad.library.db.mssql</name>
-	<!-- FIXME change it to the project's website -->
-	<url>http://www.example.com</url>
 	<properties>
 		<project.build.sourceEncoding>CP1252</project.build.sourceEncoding>
 		<maven.compiler.source>17</maven.compiler.source>
@@ -22,7 +20,7 @@
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-engine</artifactId>
-			<version>5.9.0</version>
+			<version>5.9.2</version>
 			<scope>test</scope>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/com.microsoft.sqlserver/mssql-jdbc 
@@ -37,7 +35,7 @@
 		<dependency>
 			<groupId>com.microsoft.sqlserver</groupId>
 			<artifactId>mssql-jdbc</artifactId>
-			<version>11.2.1.jre8</version>
+			<version>11.2.2.jre17</version>
 		</dependency>
 
 
