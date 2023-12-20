@@ -6,7 +6,7 @@
 	<parent>
 		<artifactId>rentasad.library.db</artifactId>
 		<groupId>rentasad.library</groupId>
-		<version>D2.6.4</version>
+		<version>D2.6.7</version>
 	</parent>
 	<groupId>rentasad</groupId>
 	<artifactId>rentasad.library.db.ads</artifactId>
@@ -26,17 +26,6 @@
 		<maven.compiler.target>17</maven.compiler.target>
 	</properties>
 	<dependencies>
-		<dependency>
-			<groupId>rentasad.library</groupId>
-		<artifactId>rentasad.library.basicTools.configFileTool</artifactId>
-			<version>${basicToolParentVersion}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.junit.jupiter</groupId>
-			<artifactId>junit-jupiter-engine</artifactId>
-			<version>5.9.0</version>
-			<scope>test</scope>
-		</dependency>
 		<dependency>
 			<groupId>com.extendedsystems.jdbc.advantage</groupId>
 			<artifactId>adsjdbc</artifactId>
