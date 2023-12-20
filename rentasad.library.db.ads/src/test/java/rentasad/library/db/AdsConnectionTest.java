@@ -81,8 +81,8 @@ public class AdsConnectionTest
 			String normalFieldValue = rs.getString(fieldName);
 			byte[] textBytes = rs.getString(fieldName).getBytes("Cp1252");
 			String actualText = new String(textBytes, "Cp1252");
-			assertEquals(actualText, expected);
-			assertEquals(normalFieldValue, expected);
+			assertEquals(expected, actualText);
+			assertEquals(expected, normalFieldValue );
 			System.out.println(actualText);
 		}
 	}
