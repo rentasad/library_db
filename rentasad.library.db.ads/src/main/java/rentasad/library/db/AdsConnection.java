@@ -1,6 +1,10 @@
 package rentasad.library.db;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;
@@ -25,7 +29,9 @@ import rentasad.library.configFileTool.ConfigFileToolException;
 
 public class AdsConnection
 {
+	public static final String ADS_CONNECTION_VERSION = "D2.6.6-SNAPSHOT";
 	public static final String DEFAULT_CONFIG_FILE_PATH = "resources/config/adsConnection.ini";
+	public static final String DEFAULT_CONFIG_FILE_PATH_IN_RESOURCES = "config/adsConnection.ini";
 	public static final String DEFAULT_SECTION_NAME = "ADS_CONNECTION";
 	/**
 	 *
@@ -203,19 +209,33 @@ public class AdsConnection
 	}
 
 	/**
-	 * Description: gibt Default ConfigMap zurueck
+	 * Retrieves the default configuration map for AdsConnection.
 	 *
-	 * @return Creation: 15.12.2015 by mst
-	 * @throws SQLException
-	 * @throws ConfigFileToolException
-	 * @throws IOException
+	 * @return The default configuration map.
+	 * @throws SQLException if an error occurs while retrieving the configuration map.
 	 */
 	public static Map<String, String> getDefaultConfigMap() throws SQLException
 	{
+		System.out.printf("AdsConnection %s%n", ADS_CONNECTION_VERSION);
 		Map<String, String> configMap;
 		try
 		{
-			configMap = ConfigFileTool.readConfiguration(DEFAULT_CONFIG_FILE_PATH, DEFAULT_SECTION_NAME);
+			Path defaultConfigFilePath = Paths.get(DEFAULT_CONFIG_FILE_PATH);
+			if (Files.exists(defaultConfigFilePath))
+			{
+				System.out.println("read Configmap from local path_: " + DEFAULT_CONFIG_FILE_PATH);
+				configMap = ConfigFileTool.readConfiguration(DEFAULT_CONFIG_FILE_PATH, DEFAULT_SECTION_NAME);
+			}else if (AdsConnection.class.getResource("/" + DEFAULT_CONFIG_FILE_PATH_IN_RESOURCES) != null)
+			{
+				System.out.println("read Configmap from resources: " + DEFAULT_CONFIG_FILE_PATH_IN_RESOURCES);
+				configMap = ConfigFileTool.readConfigurationFromResources(DEFAULT_CONFIG_FILE_PATH_IN_RESOURCES, DEFAULT_SECTION_NAME);
+			}else
+			{
+				String errorText = String.format("Config File for Ads connection not found: \n %s \n\n In Resources is also no config file found: %s", DEFAULT_CONFIG_FILE_PATH, DEFAULT_CONFIG_FILE_PATH_IN_RESOURCES);
+				System.out.println(errorText);
+				throw new FileNotFoundException(errorText);
+			}
+
 			/**
 			 * ADD "//" to Hostname
 			 */

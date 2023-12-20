@@ -151,7 +151,7 @@ public class MYSQLConnection
 	 *                                MYSQL_PASSWORD
 	 *
 	 * @return
-	 * @throws DbConnectionException
+	 * 
 	 * @throws InstantiationException
 	 * @throws IllegalAccessException
 	 * @throws ClassNotFoundException
@@ -289,7 +289,7 @@ public class MYSQLConnection
 	 * @param dbUserid
 	 * @param dbPassword
 	 * @return
-	 * @throws DbConnectionException
+	 * 
 	 * @throws SQLException
 	 * @throws InstantiationException
 	 * @throws IllegalAccessException
@@ -398,7 +398,7 @@ public class MYSQLConnection
 	 * @param db_userid
 	 * @param db_password
 	 * @return
-	 * @throws DbConnectionException
+	 * 
 	 * @throws SQLException
 	 * @throws InstantiationException
 	 * @throws IllegalAccessException

@@ -1,0 +1,46 @@
+[ADS_CONNECTION]
+# HOST to Database Server Given with 
+ADS_HOST=hostname or IP_Adress
+
+# Parameter fuer Verbindungsport zur Datenbank.
+# Default-Value: 6262
+ADS_SOCKET=6262
+
+# connection Path to DB-Tables
+DATABASE_DICTIONARY=/directory/to/Tables
+
+
+# Type of locking to use. 
+# The valid values for this property are "proprietary" or "compatible". 
+# The default is "proprietary". 
+# If the application is to be used with non-Advantage applications, then "compatible" 
+# locking should be used. If the table will be used only by Advantage applications, then 
+# "proprietary" locking should be used. When the TableType property is "adt", this property 
+# is ignored and "proprietary" locking is always used. When "compatible" locking is chosen, 
+# Advantage uses the appropriate style based on the table type. See Advantage Locking Modes 
+# for more information.
+LOCK_TYPE=proprietary
+
+# Type of character data in the table. 
+# The valid values for this property are 
+# "ansi", 
+# "oem" or a known collation name, such as 
+# GERMAN_VFP_CI_AS_1252. 
+# See AdsSetCollation for additional information. 
+# The default is "ansi". 
+# 
+# This property indicates the type of character data to be stored in the table and how comparisons of character strings are performed. 
+# If the property is set to "ansi" or "oem", the default ansi or oem collation of the server will be used. 
+# For compatibility with DOS-based CA-Clipper applications, "oem" should be specified. 
+# When TableType property is "adt", oem collation is never used When opening a database table, i.e., 
+# table that is part of the Advantage Data Dictionary specified in the Catalog property, this parameter is ignored.
+#
+# The Advantage Server will use the information stored in the data dictionary to resolve the character data type.
+CHAR_TYPE=OEM
+
+# Type of table. The valid values for this property are "adt", "vfp", "cdx" or "ntx".
+# If the catalog property specifies the path of a Advantage Data Dictionary,
+# this property is ignored except for executing the SQL statement "CREATE TABLE ... ".
+# If the catalog property specifies a directory where free tables are located,
+# this property applies to tables used in all SQL Statements.
+TABLE_TYPE=cdx

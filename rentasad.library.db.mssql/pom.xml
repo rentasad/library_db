@@ -6,7 +6,7 @@
 	<parent>
 		<artifactId>rentasad.library.db</artifactId>
 		<groupId>rentasad.library</groupId>
-		<version>D2.6.4</version>
+		<version>D2.6.7</version>
 	</parent>
 	<groupId>rentasad</groupId>
 	<artifactId>rentasad.library.db.mssql</artifactId>
@@ -17,13 +17,7 @@
 		<maven.compiler.target>17</maven.compiler.target>
 	</properties>
 	<dependencies>
-		<dependency>
-			<groupId>org.junit.jupiter</groupId>
-			<artifactId>junit-jupiter-engine</artifactId>
-			<version>5.9.2</version>
-			<scope>test</scope>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/com.microsoft.sqlserver/mssql-jdbc 
+		<!-- https://mvnrepository.com/artifact/com.microsoft.sqlserver/mssql-jdbc
 			JDK 11 -->
 <!--JRE 11		<dependency>
 			<groupId>com.microsoft.sqlserver</groupId>
