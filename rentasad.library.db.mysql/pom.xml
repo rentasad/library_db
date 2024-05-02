@@ -6,7 +6,7 @@
 	<parent>
 		<artifactId>rentasad.library.db</artifactId>
 		<groupId>rentasad.library</groupId>
-		<version>D2.6.7</version>
+		<version>D2.6.8</version>
 	</parent>
 	<groupId>rentasad</groupId>
 	<artifactId>rentasad.library.db.mysql</artifactId>
@@ -30,13 +30,14 @@
 			<artifactId>rentasad.library.basicTools.stringTools</artifactId>
 			<version>${basicToolParentVersion}</version>
 		</dependency>
-		<!-- UPDATE 20.09.2018 Update nach Fehler in ServerTimeZone -> Fallback 
-			zu alter Version https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+		<!-- Update to new Connector
+		https://mvnrepository.com/artifact/com.mysql/mysql-connector-j -->
 		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<version>8.0.33</version>
+			<groupId>com.mysql</groupId>
+			<artifactId>mysql-connector-j</artifactId>
+			<version>8.4.0</version>
 		</dependency>
+
 	</dependencies>
 	<build>
 		<pluginManagement><!-- lock down plugins versions to avoid using Maven 
