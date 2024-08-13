@@ -8,21 +8,19 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * 
  * Gustini GmbH (2017) Creation: 03.03.2017 UPDATE 15.08.2018 Switch to MySql
  * Connector 8 Library gustini.library.db
- * 
+ *
  * @author Matthias Staud
- *
- *
- *         Description: ENCODING TABLE: MySQL Character Set Name Java-Style
- *         Character Encoding Name ascii US-ASCII big5 Big5 gbk GBK sjis SJIS
- *         (or Cp932 or MS932 for MySQL Server < 4.1.11) cp932 Cp932 or MS932
- *         (MySQL Server > 4.1.11) gb2312 EUC_CN ujis EUC_JP euckr EUC_KR latin1
- *         Cp1252 latin2 ISO8859_2 greek ISO8859_7 hebrew ISO8859_8 cp866 Cp866
- *         tis620 TIS620 cp1250 Cp1250 cp1251 Cp1251 cp1257 Cp1257 macroman
- *         MacRoman macce MacCentralEurope utf8 UTF-8 ucs2 UnicodeBig
- *
+ * <p>
+ * <p>
+ * Description: ENCODING TABLE: MySQL Character Set Name Java-Style
+ * Character Encoding Name ascii US-ASCII big5 Big5 gbk GBK sjis SJIS
+ * (or Cp932 or MS932 for MySQL Server < 4.1.11) cp932 Cp932 or MS932
+ * (MySQL Server > 4.1.11) gb2312 EUC_CN ujis EUC_JP euckr EUC_KR latin1
+ * Cp1252 latin2 ISO8859_2 greek ISO8859_7 hebrew ISO8859_8 cp866 Cp866
+ * tis620 TIS620 cp1250 Cp1250 cp1251 Cp1251 cp1257 Cp1257 macroman
+ * MacRoman macce MacCentralEurope utf8 UTF-8 ucs2 UnicodeBig
  */
 public class MYSQLConnection
 {
@@ -46,9 +44,8 @@ public class MYSQLConnection
 	private boolean driverWasInit = false;
 
 	/**
-	 * 
 	 * Description: init MySQl Driver on static access if not loaded
-	 * 
+	 *
 	 * @throws InstantiationException
 	 * @throws IllegalAccessException
 	 * @throws ClassNotFoundException Creation: 20.08.2018 by mst
@@ -63,9 +60,8 @@ public class MYSQLConnection
 	}
 
 	/**
-	 * 
 	 * Description: init MySQl Driver on insctance access if not loaded
-	 * 
+	 *
 	 * @throws InstantiationException
 	 * @throws IllegalAccessException
 	 * @throws ClassNotFoundException Creation: 20.08.2018 by mst
@@ -80,17 +76,20 @@ public class MYSQLConnection
 	}
 
 	/**
-	 * 
 	 * Description:
-	 * 
+	 *
 	 * @return Creation: 14.02.2018 by mst
 	 */
 	public static boolean isInit()
 	{
 		if (instance == null)
+		{
 			return false;
+		}
 		else
+		{
 			return true;
+		}
 	}
 
 	public static void initInstance(Map<String, String> connectionParametersMap) throws SQLException
@@ -110,7 +109,8 @@ public class MYSQLConnection
 			}
 			instance.setConnection(MYSQLConnection.dbConnect(connectionParametersMap));
 			instance.setConnectionParametersMap(connectionParametersMap);
-		} else
+		}
+		else
 		{
 			if (debug)
 			{
@@ -120,10 +120,9 @@ public class MYSQLConnection
 	}
 
 	/**
-	 * 
 	 * Description: GetInstance Class for Managing Connection (and Reconnection
 	 * after Close and Timeout
-	 * 
+	 *
 	 * @return
 	 * @throws SQLException Creation: 14.02.2018 by mst
 	 */
@@ -132,7 +131,8 @@ public class MYSQLConnection
 		if (instance == null)
 		{
 			throw new SQLException("MySqlConnection Instance not initialized");
-		} else
+		}
+		else
 		{
 			return instance;
 		}
@@ -140,7 +140,6 @@ public class MYSQLConnection
 	}
 
 	/**
-	 *
 	 * Description:
 	 *
 	 * @param connectionParametersMap Map<String, String> mit folgenden Parametern:
@@ -149,9 +148,7 @@ public class MYSQLConnection
 	 *                                MYSQL_DATABASE <br>
 	 *                                MYSQL_USER <br>
 	 *                                MYSQL_PASSWORD
-	 *
 	 * @return
-	 * 
 	 * @throws InstantiationException
 	 * @throws IllegalAccessException
 	 * @throws ClassNotFoundException
@@ -174,11 +171,12 @@ public class MYSQLConnection
 		/*
 		 * Add Connecting TCP Port
 		 */
-		Integer mySqlDbPort;
+		int mySqlDbPort;
 		if (connectionParametersMap.containsKey(MYSQL_PORT))
 		{
-			mySqlDbPort = Integer.valueOf(connectionParametersMap.get(MYSQL_PORT));
-		} else
+			mySqlDbPort = Integer.parseInt(connectionParametersMap.get(MYSQL_PORT));
+		}
+		else
 		{
 			mySqlDbPort = MYSQL_DEFAULT_PORT_VALUE_INT;
 		}
@@ -186,21 +184,19 @@ public class MYSQLConnection
 		if (connectionParametersMap.containsKey("MYSQL_ENCODING"))
 		{
 			String mySqlEncoding = connectionParametersMap.get("MYSQL_ENCODING");
-			return MYSQLConnection.dbConnect(mySqlServerHostname, mySqlDbPort, mySqlDatabaseName, mySqlDbUserid,
-					mySqlDbPassword, mySqlEncoding);
-		} else
+			return MYSQLConnection.dbConnect(mySqlServerHostname, mySqlDbPort, mySqlDatabaseName, mySqlDbUserid, mySqlDbPassword, mySqlEncoding);
+		}
+		else
 		{
 
-			return MYSQLConnection.dbConnect(mySqlServerHostname, mySqlDbPort, mySqlDatabaseName, mySqlDbUserid,
-					mySqlDbPassword);
+			return MYSQLConnection.dbConnect(mySqlServerHostname, mySqlDbPort, mySqlDatabaseName, mySqlDbUserid, mySqlDbPassword);
 		}
 
 	}
 
 	/**
-	 * 
 	 * Description:Connect with parameter serverTimezone=UTC
-	 * 
+	 *
 	 * @param mySqlConfigMap
 	 * @return
 	 * @throws SQLException Creation: 20.09.2018 by mst
@@ -241,30 +237,28 @@ public class MYSQLConnection
 		{
 			mySqlDbPort = mySqlConfigMap.get(MYSQL_PORT);
 			connectionProperties.put("port", mySqlDbPort);
-		} else
+		}
+		else
 		{
 			mySqlDbPort = MYSQL_DEFAULT_PORT_VALUE;
 			connectionProperties.put("port", mySqlDbPort);
 		}
 
 		String paramString = getParamStringFromConnectionPropertiesMap(connectionProperties);
-		String connectionString = String.format("jdbc:mysql://%s/%s?%s", mySqlServerUrl, mySqlDatabaseName,
-				paramString);
+		String connectionString = String.format("jdbc:mysql://%s/%s?%s", mySqlServerUrl, mySqlDatabaseName, paramString);
 		return DriverManager.getConnection(connectionString, mySqlDbUserid, mySqlDbPassword);
 
 	}
 
 	/**
-	 * 
 	 * Description:
-	 * 
+	 *
 	 * @param mySqlDatabaseName
 	 * @param connectionParametersMap
 	 * @return
 	 * @throws SQLException Creation: 14.02.2018 by mst
 	 */
-	public static Connection dbConnect(String mySqlDatabaseName, Map<String, String> connectionParametersMap)
-			throws SQLException
+	public static Connection dbConnect(String mySqlDatabaseName, Map<String, String> connectionParametersMap) throws SQLException
 	{
 		try
 		{
@@ -289,14 +283,12 @@ public class MYSQLConnection
 	 * @param dbUserid
 	 * @param dbPassword
 	 * @return
-	 * 
 	 * @throws SQLException
 	 * @throws InstantiationException
 	 * @throws IllegalAccessException
 	 * @throws ClassNotFoundException
 	 */
-	public static Connection dbConnect(String dbHost, String databaseName, String dbUserid, String dbPassword)
-			throws SQLException
+	public static Connection dbConnect(String dbHost, String databaseName, String dbUserid, String dbPassword) throws SQLException
 	{
 
 		try
@@ -315,9 +307,8 @@ public class MYSQLConnection
 	}
 
 	/**
-	 * 
 	 * Description:
-	 * 
+	 *
 	 * @param dbHost
 	 * @param databaseName
 	 * @param dbUserid
@@ -326,8 +317,8 @@ public class MYSQLConnection
 	 * @return
 	 * @throws SQLException Creation: 14.02.2015 by mst
 	 */
-	public static Connection dbConnect(String dbHost, String databaseName, String dbUserid, String dbPassword,
-			String encoding) throws SQLException
+	public static Connection dbConnect(
+			String dbHost, String databaseName, String dbUserid, String dbPassword, String encoding) throws SQLException
 	{
 		try
 		{
@@ -344,7 +335,6 @@ public class MYSQLConnection
 	}
 
 	/**
-	 * 
 	 * @param dbHost
 	 * @param connectionPort (default = 3306)
 	 * @param databaseName
@@ -354,8 +344,8 @@ public class MYSQLConnection
 	 * @return
 	 * @throws SQLException
 	 */
-	public static Connection dbConnect(String dbHost, Integer connectionPort, String databaseName, String dbUserid,
-			String dbPassword) throws SQLException
+	public static Connection dbConnect(
+			String dbHost, Integer connectionPort, String databaseName, String dbUserid, String dbPassword) throws SQLException
 	{
 		try
 		{
@@ -366,13 +356,12 @@ public class MYSQLConnection
 		}
 		Map<String, String> connectionProperties = getDefaultConnectionPropertiesMap();
 		String paramString = getParamStringFromConnectionPropertiesMap(connectionProperties);
-		String connectionString = String.format("jdbc:mysql://%s:%s/%s?%s", dbHost, connectionPort.toString(),
-				databaseName, paramString);
+		String connectionString = String.format("jdbc:mysql://%s:%s/%s?%s", dbHost, connectionPort.toString(), databaseName, paramString);
 		return DriverManager.getConnection(connectionString, dbUserid, dbPassword);
 	}
 
-	public static Connection dbConnect(String dbHost, Integer connectionPort, String databaseName, String dbUserid,
-			String dbPassword, String encoding) throws SQLException
+	public static Connection dbConnect(
+			String dbHost, Integer connectionPort, String databaseName, String dbUserid, String dbPassword, String encoding) throws SQLException
 	{
 		try
 		{
@@ -384,13 +373,11 @@ public class MYSQLConnection
 		Map<String, String> connectionProperties = getDefaultConnectionPropertiesMap();
 		connectionProperties.put("characterEncoding", encoding);
 		String paramString = getParamStringFromConnectionPropertiesMap(connectionProperties);
-		String connectionString = String.format("jdbc:mysql://%s:%s/%s?%s", dbHost, connectionPort.toString(),
-				databaseName, paramString);
+		String connectionString = String.format("jdbc:mysql://%s:%s/%s?%s", dbHost, connectionPort.toString(), databaseName, paramString);
 		return DriverManager.getConnection(connectionString, dbUserid, dbPassword);
 	}
 
 	/**
-	 *
 	 * Description: Default Connection without any additional Params
 	 *
 	 * @param dbHost
@@ -398,14 +385,13 @@ public class MYSQLConnection
 	 * @param db_userid
 	 * @param db_password
 	 * @return
-	 * 
 	 * @throws SQLException
 	 * @throws InstantiationException
 	 * @throws IllegalAccessException
 	 * @throws ClassNotFoundException Creation: 01.10.2015 by mst
 	 */
-	public static Connection dbConnectWithoutEncoding(String dbHost, String databaseName, String db_userid,
-			String db_password) throws SQLException
+	public static Connection dbConnectWithoutEncoding(
+			String dbHost, String databaseName, String db_userid, String db_password) throws SQLException
 	{
 		try
 		{
@@ -414,20 +400,17 @@ public class MYSQLConnection
 		{
 			throw new SQLException(e);
 		}
-		return DriverManager.getConnection(
-				String.format("jdbc:mysql://%s/%s?user=%s&password=%s", dbHost, databaseName, db_userid, db_password));
+		return DriverManager.getConnection(String.format("jdbc:mysql://%s/%s?user=%s&password=%s", dbHost, databaseName, db_userid, db_password));
 	}
 
 	/**
-	 * 
 	 * Description:
-	 * 
+	 *
 	 * @param connectionParametersMap
 	 * @return
 	 * @throws SQLException Creation: 14.02.2015 by mst
 	 */
-	public static Connection dbConnectWithoutEncoding(final Map<String, String> connectionParametersMap)
-			throws SQLException
+	public static Connection dbConnectWithoutEncoding(final Map<String, String> connectionParametersMap) throws SQLException
 	{
 		try
 		{
@@ -440,14 +423,12 @@ public class MYSQLConnection
 		String mySqlDbUserid = connectionParametersMap.get(MYSQL_USER);
 		String mySqlDbPassword = connectionParametersMap.get(MYSQL_PASSWORD);
 		String mySqlDbName = connectionParametersMap.get(MYSQL_DATABASE);
-		return DriverManager.getConnection(String.format("jdbc:mysql://%s/%s?user=%s&password=%s", mySqlServerUrl,
-				mySqlDbName, mySqlDbUserid, mySqlDbPassword));
+		return DriverManager.getConnection(String.format("jdbc:mysql://%s/%s?user=%s&password=%s", mySqlServerUrl, mySqlDbName, mySqlDbUserid, mySqlDbPassword));
 	}
 
 	/**
-	 * 
 	 * Description:
-	 * 
+	 *
 	 * @return Creation: 14.02.2018 by mst
 	 * @throws SQLException
 	 */
@@ -456,7 +437,8 @@ public class MYSQLConnection
 		if (this.connection.isValid(4))
 		{
 			return this.connection;
-		} else
+		}
+		else
 		{
 			this.connection = MYSQLConnection.dbConnect(this.connectionParametersMap);
 			return this.connection;
@@ -465,13 +447,12 @@ public class MYSQLConnection
 	}
 
 	/**
-	 * 
 	 * Description: Return default Connection Properties Map with hard coded
 	 * Defaults
-	 * 
+	 * <p>
 	 * allowMultiQueries = true zeroDateTimeBehavior = CONVERT_TO_NULL useUnicode =
 	 * true
-	 * 
+	 *
 	 * @return Creation: 15.08.2018 by mst
 	 */
 	public static Map<String, String> getDefaultConnectionPropertiesMap()
@@ -500,15 +481,14 @@ public class MYSQLConnection
 		/**
 		 * Zeitzone UTC sorgte für das Einfügen des falschen Datums
 		 */
-//        connectionPropertiesMap.put("serverTimezone", "UTC");
+		//        connectionPropertiesMap.put("serverTimezone", "UTC");
 
 		return connectionPropertiesMap;
 	}
 
 	/**
-	 * 
 	 * Description:
-	 * 
+	 *
 	 * @param connectionPropertiesMap
 	 * @return Creation: 15.08.2018 by mst
 	 */
@@ -533,9 +513,8 @@ public class MYSQLConnection
 	}
 
 	/**
-	 * 
 	 * Description:
-	 * 
+	 *
 	 * @param connection Creation: 14.02.2018 by mst
 	 */
 	public void setConnection(Connection connection)
