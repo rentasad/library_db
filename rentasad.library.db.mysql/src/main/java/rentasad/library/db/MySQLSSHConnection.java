@@ -16,6 +16,13 @@ public class MySQLSSHConnection {
 	private static HikariDataSource dataSource;
 //	private static final Slf4JLogger log = LoggerFactory.getLogger(MySQLSSHConnection.class);
 
+	/**
+	 * Establishes an SSH session and connects to a remote MySQL database using HikariCP connection pooling.
+	 *
+	 * @param connectionInfo the ConnectionInfo object containing the SSH and database connection details
+	 * @throws JSchException if an SSH session could not be established
+	 * @throws SQLException if a database connection could not be established
+	 */
 	public static void connectWithSSH(ConnectionInfo connectionInfo) throws JSchException, SQLException {
 		if (sshSession == null || !sshSession.isConnected()) {
 			JSch jsch = new JSch();
