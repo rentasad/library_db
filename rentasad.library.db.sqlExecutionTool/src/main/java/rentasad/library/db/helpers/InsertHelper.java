@@ -46,6 +46,8 @@ import lombok.Synchronized;
 
 public class InsertHelper<T> {
 
+    private static final String INSERT_HELPER_VERSION = "D2.8.3, 16.08.2024 17:40";
+
     public enum PersistFields {
         ALL,
         ONLY_ANNOTATED
@@ -81,7 +83,10 @@ public class InsertHelper<T> {
     }
 
 
-
+    public static void printInsertHelperVersion()
+    {
+        System.out.printf("InserHelper Version: %s", INSERT_HELPER_VERSION);
+    }
 
     private void readStructure(final ClassMarker classMarker) {
         String tableName = tableNames.get(classMarker);
@@ -294,6 +299,12 @@ public class InsertHelper<T> {
         }
     }
 
+    /**
+     * Sets the values of a PreparedStatement object based on the lastValues list.
+     *
+     * @param stmt the PreparedStatement object to set the values for
+     * @throws SQLException if a database access error occurs
+     */
     public void setValuesInStatement(final PreparedStatement stmt) throws SQLException {
         try {
             if (lastValues == null) {
@@ -306,6 +317,12 @@ public class InsertHelper<T> {
                 //workaround. In some obscure cases, the jdbc implementation does not automatically do this.
                 if (Enum.class.isAssignableFrom(fieldValue.value.getClass()))
                     stmt.setObject(index, ((Enum) fieldValue.value).name(), fieldValue.sqlType);
+                else if (fieldValue.value instanceof Character)
+                {
+                    // Konvertieren Sie Character zu String
+                    stmt.setObject(index, fieldValue.value.toString(), fieldValue.sqlType);
+
+                }
                 else
                     stmt.setObject(index, fieldValue.value, fieldValue.sqlType);
                 index++;

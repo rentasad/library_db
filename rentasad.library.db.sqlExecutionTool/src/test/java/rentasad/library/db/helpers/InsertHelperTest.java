@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.Queue;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -13,6 +15,7 @@ import org.junit.jupiter.api.Test;
 
 import lombok.AllArgsConstructor;
 import lombok.NonNull;
+import org.mockito.Mockito;
 
 public class InsertHelperTest
 {
@@ -160,6 +163,27 @@ public class InsertHelperTest
 
 	// TODO Test database methods
 
+	@AllArgsConstructor
+	public static class DataWithChar {
+		@DBPersisted
+		Character c;
+	}
 
+	@Test
+	void setValuesInStatementShouldConvertCharacterToString() throws SQLException
+	{
+		// Arrange
+		DataWithChar data = new DataWithChar('a');
+		InsertHelper<DataWithChar> helper = new InsertHelper<>(data);
+		String insertStatement = helper.getInsertStatement();
+
+		PreparedStatement preparedStatement = Mockito.mock(PreparedStatement.class);
+
+		// Act
+		helper.setValuesInStatement(preparedStatement);
+
+		// Assert
+		Mockito.verify(preparedStatement, Mockito.times(1)).setObject(Mockito.anyInt(), Mockito.eq("a"), Mockito.anyInt());
+	}
 
 }
