@@ -10,7 +10,6 @@ import java.util.HashMap;
 import java.util.Vector;
 
 import rentasad.library.db.dataObjects.PreparedDataTypesEnum;
-import rentasad.library.tools.exceptions.guiExceptions.AlertException;
 import rentasad.library.tools.fileOperator.FileOperator;
 
 public class QueryFunctions
@@ -64,7 +63,7 @@ public class QueryFunctions
 
     /**
      * 
-     * @param adsConnection
+     * @param connection
      * @param tableNameString
      * @param whereClausel
      *            Zum Beispiel "WHERE ..."
@@ -88,6 +87,13 @@ public class QueryFunctions
         return numberOfEntries;
     }
 
+    /**
+     * Retrieves the names of all tables in a database.
+     *
+     * @param connection The database connection.
+     * @return An array of table names.
+     * @throws SQLException if a database access error occurs.
+     */
     public static String[] getTableNamesFromDatabase(Connection connection) throws SQLException
     {
         String tableQuery = "SHOW TABLES";
@@ -103,12 +109,11 @@ public class QueryFunctions
     }
 
     /**
-     * 
-     * Description:Return PlaceholderString (for example "(?,?)")
-     * 
-     * @param objectArray
-     * @return
-     *         Creation: 08.11.2016 by mst
+     * Returns the prepared insert placeholder string for an array of a given size.
+     * The placeholder string is in the format "(?,?,...,?)" where the number of question marks corresponds to the array size.
+     *
+     * @param objectArray The array for which the placeholder string is needed.
+     * @return The prepared insert placeholder string.
      */
     public static String getPreparedInsertPlaceholderStringFromArray(Object[] objectArray)
     {
@@ -122,14 +127,13 @@ public class QueryFunctions
         placeHolderString += ")";
         return placeHolderString;
     }
-    
+
     /**
-     * 
-     * Description:Return PlaceholderString (for example "(?,?)")
-     * 
-     * @param objectArray
-     * @return
-     *         Creation: 08.11.2016 by mst
+     * Returns the prepared insert placeholder string for an array of a given size.
+     * The placeholder string is in the format "(?,?,...,?)" where the number of question marks corresponds to the array size.
+     *
+     * @param arraySize The size of the array for which the placeholder string is needed.
+     * @return The prepared insert placeholder string.
      */
     public static String getPreparedInsertPlaceholderStringFromArray(int arraySize)
     {
@@ -208,9 +212,8 @@ public class QueryFunctions
      * @return true if query has no ResultSet and execution was successfull
      *         Creation: 30.05.2017 by mst
      * @throws SQLException
-     * @throws AlertException 
      */
-    public static boolean executeUpdateQuery(Connection con, String query) throws AlertException
+    public static boolean executeUpdateQuery(Connection con, String query)
     {
         try
         {
@@ -221,7 +224,7 @@ public class QueryFunctions
         } catch (Exception e)
         {
             System.err.println("Query: " + query);
-            throw new AlertException(e);
+            throw new RuntimeException(e);
         } 
         
         
