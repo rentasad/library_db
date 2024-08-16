@@ -1,13 +1,10 @@
 package rentasad.library.db.sqlExecutionTool;
 
 import rentasad.library.basicTools.dateTool.DateTools;
-import rentasad.library.configFileTool.ConfigFileToolException;
 import rentasad.library.db.QueryFunctions;
 import rentasad.library.db.dataObjects.PreparedDataTypesEnum;
 import rentasad.library.db.sqlExecutionTool.objects.QueryTypEnum;
 import rentasad.library.db.sqlExecutionTool.objects.SqlExecutionObject;
-import rentasad.library.tools.exceptions.UnknownEnumException;
-import rentasad.library.tools.exceptions.guiExceptions.AlertException;
 import rentasad.library.tools.fileOperator.FileOperator;
 
 import java.io.*;
@@ -81,9 +78,8 @@ public class SqlFileExecutionTool
 	 * @param seo
 	 * @throws SQLException
 	 * @throws IOException
-	 * @throws AlertException
 	 */
-	public static void executeExecutionQuery(SqlExecutionObject seo, Connection con) throws SQLException, IOException, AlertException
+	public static void executeExecutionQuery(SqlExecutionObject seo, Connection con) throws IOException
 	{
 		/**
 		 * Check if SqlExecutionObject are valid for execution
@@ -198,9 +194,8 @@ public class SqlFileExecutionTool
 	 * @return Creation: 30.05.2017 by mst
 	 * @throws SQLException
 	 * @throws IOException
-	 * @throws AlertException
 	 */
-	public static void executeExecutionQueryWithStringReplace(SqlExecutionObject seo, Connection con, String replaceRegex, String replaceValue) throws SQLException, IOException, AlertException
+	public static void executeExecutionQueryWithStringReplace(SqlExecutionObject seo, Connection con, String replaceRegex, String replaceValue) throws SQLException, IOException
 	{
 		/**
 		 * Check if SqlExecutionObject are valid for execution
@@ -261,7 +256,6 @@ public class SqlFileExecutionTool
 	 * @param sqlConfigIniSectionsList
 	 * @return
 	 * @throws SqlExecutionToolException
-	 * @throws ConfigFileToolException   Creation: 30.05.2017 by mst
 	 */
 	private Map<String, SqlExecutionObject> getSqlExecutionObjectMap(List<String> sqlConfigIniSectionsList) throws SqlExecutionToolException
 	{
@@ -291,7 +285,6 @@ public class SqlFileExecutionTool
 	 * @param sqlConfigIniSectionsList
 	 * @return
 	 * @throws SqlExecutionToolException
-	 * @throws ConfigFileToolException   Creation: 16.06.2017 by mst
 	 */
 	protected List<SqlExecutionObject> getSqlExecutionObjectList(List<String> sqlConfigIniSectionsList) throws SqlExecutionToolException
 	{
@@ -305,7 +298,6 @@ public class SqlFileExecutionTool
 	 * Description: Check Validity of Given SQLConfigSections
 	 *
 	 * @return Creation: 30.05.2017 by mst
-	 * @throws ConfigFileToolException
 	 */
 	private boolean isSqlExecConfigMapValid(String sectionName) throws SqlExecutionToolException
 	{
@@ -340,7 +332,6 @@ public class SqlFileExecutionTool
 	 * Description:Read SQLConfigSections-Param-Value from config map
 	 *
 	 * @throws SqlExecutionToolException
-	 * @throws ConfigFileToolException   Creation: 30.05.2017 by mst
 	 */
 	private List<String> getSqlExecutionConfigIniSectionsFromConfig() throws SqlExecutionToolException
 	{
@@ -488,14 +479,12 @@ public class SqlFileExecutionTool
 	 * @return
 	 * @throws IOException
 	 * @throws SQLException
-	 * @throws UnknownEnumException Creation: 30.05.2017 by mst
 	 */
 	public ResultSet getResultSetQueryWithPreparedStatements(
-			SqlExecutionObject seo, Connection con, Object[] preparedArguments) throws IOException, SQLException, UnknownEnumException
+			SqlExecutionObject seo, Connection con, Object[] preparedArguments) throws IOException, SQLException
 	{
 		PreparedStatement ps = getFilledPreparedStatement(seo, con, preparedArguments);
-		ResultSet rs = ps.executeQuery();
-		return rs;
+		return ps.executeQuery();
 
 	}
 
@@ -546,7 +535,7 @@ public class SqlFileExecutionTool
 	 * Creation: 30.05.2017 by mst
 	 */
 	public static boolean executeQueryWithPreparedArguments(
-			SqlExecutionObject seo, Connection con, Object[] preparedArguments) throws IOException, SQLException, UnknownEnumException
+			SqlExecutionObject seo, Connection con, Object[] preparedArguments) throws IOException, SQLException
 	{
 		PreparedStatement ps = getFilledPreparedStatement(seo, con, preparedArguments);
 
@@ -560,7 +549,7 @@ public class SqlFileExecutionTool
 	 * Creation: 30.05.2017 by mst
 	 */
 	public static boolean executeQueryWithPreparedArguments(
-			SqlExecutionObject seo, String sqlQuery, Connection con, Object[] preparedArguments) throws IOException, SQLException, UnknownEnumException
+			SqlExecutionObject seo, String sqlQuery, Connection con, Object[] preparedArguments) throws IOException, SQLException
 	{
 		PreparedStatement ps = getFilledPreparedStatement(seo, sqlQuery, con, preparedArguments);
 
@@ -580,7 +569,7 @@ public class SqlFileExecutionTool
 	 * @throws SQLException         Creation: 19.06.2017 by mst
 	 */
 	public static PreparedStatement getFilledPreparedStatement(
-			SqlExecutionObject seo, Connection con, Object[] preparedArguments) throws UnknownEnumException, IOException, SQLException
+			SqlExecutionObject seo, Connection con, Object[] preparedArguments) throws IOException, SQLException
 	{
 		if (seo.isPreparedStatement())
 		{
@@ -626,7 +615,7 @@ public class SqlFileExecutionTool
 						ps.setLong(pi++, (Long) pa);
 						break;
 					default:
-						throw new UnknownEnumException(psTyp.name());
+						throw new IllegalArgumentException(psTyp.name());
 					}
 				}
 				return ps;
@@ -651,12 +640,11 @@ public class SqlFileExecutionTool
 	 * @param con
 	 * @param preparedArguments
 	 * @return
-	 * @throws UnknownEnumException
 	 * @throws IOException
 	 * @throws SQLException         Creation: 19.06.2017 by mst
 	 */
 	public static PreparedStatement getFilledPreparedStatement(
-			SqlExecutionObject seo, String sqlQuery, Connection con, Object[] preparedArguments) throws UnknownEnumException, IOException, SQLException
+			SqlExecutionObject seo, String sqlQuery, Connection con, Object[] preparedArguments) throws IOException, SQLException
 	{
 		if (seo.isPreparedStatement())
 		{
@@ -693,7 +681,7 @@ public class SqlFileExecutionTool
 						ps.setLong(pi++, (Long) pa);
 						break;
 					default:
-						throw new UnknownEnumException(psTyp.name());
+						throw new IllegalArgumentException(psTyp.name());
 					}
 				}
 				return ps;
