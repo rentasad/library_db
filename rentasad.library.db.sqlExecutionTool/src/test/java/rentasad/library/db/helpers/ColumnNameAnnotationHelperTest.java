@@ -1,7 +1,5 @@
 package rentasad.library.db.helpers;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import rentasad.library.configFileTool.ConfigFileTool;
@@ -18,6 +16,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Map;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ColumnNameAnnotationHelperTest
 {
