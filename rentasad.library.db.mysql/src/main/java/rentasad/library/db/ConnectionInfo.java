@@ -63,6 +63,24 @@ public class ConnectionInfo
 		return builder.build();
 
 	}
+
+	/**
+	 * Retrieves a ConnectionInfo object from a map of connection parameters.
+	 *
+	 * This method takes a map of connection parameters and a SSH key file path as input.
+	 * It adds the SSH key file path to the connection parameters map and then calls
+	 * the getConnectionInfoFromConfigMap method to retrieve a ConnectionInfo object.
+	 *
+	 * @param connectionParametersMap A map of connection parameters.
+	 * @param sshKeyFilePath The SSH key file path to be added to the connection parameters map.
+	 * @return A ConnectionInfo object containing the connection information.
+	 */
+	public static ConnectionInfo getConnectionInfoFromConfigMap(Map<String, String> connectionParametersMap, final String sshKeyFilePath)
+	{
+		connectionParametersMap.put(ConnectionInfoParameter.SSH_KEY_FILE_PATH.configParameterString,  sshKeyFilePath);
+		return getConnectionInfoFromConfigMap(connectionParametersMap);
+
+	}
 }
 
 
