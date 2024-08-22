@@ -1,6 +1,5 @@
 package rentasad.library.db;
 
-import com.extendedsystems.jdbc.advantage.ADSConnection;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
