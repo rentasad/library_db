@@ -16,8 +16,11 @@ public class MYSQLConnectionTest
 	{
 		Map<String, String> connectionPropertiesMap = MYSQLConnection.getDefaultConnectionPropertiesMap();
 
-		assertEquals(MYSQLConnection.getParamStringFromConnectionPropertiesMap(connectionPropertiesMap),
-				"useUnicode=true&useJDBCCompliantTimezoneShift=true&allowPublicKeyRetrieval=true&serverTimezone=Europe/Berlin&allowMultiQueries=true&zeroDateTimeBehavior=convertToNull&useLegacyDatetimeCode=false&useSSL=false");
+		final String expects = "rewriteBatchedStatements=true&useUnicode=true&useJDBCCompliantTimezoneShift=true&serverTimezone=Europe/Berlin&allowMultiQueries=true&zeroDateTimeBehavior=convertToNull&useLegacyDatetimeCode=false&useSSL=false";
+
+
+		assertEquals(MYSQLConnection.getParamStringFromConnectionPropertiesMap(connectionPropertiesMap), expects);
+
 	}
 
 	@Test
