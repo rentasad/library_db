@@ -1,7 +1,6 @@
 package rentasad.library.db.helpers;
 
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import rentasad.library.configFileTool.ConfigFileTool;
@@ -31,8 +30,7 @@ public class InsertHelperDatabaseTest
 	@BeforeEach
 	public void init() throws IOException, ConfigFileToolException, SQLException
 	{
-		if (this.mySqlConnection ==
-			null)
+		if (this.mySqlConnection == null)
 		{
 			Map<String, String> configMap = ConfigFileTool.readConfiguration(CONFIG_FILE_NAME, CONFIG_FILE_SECTION);
 			mySqlConnection = MYSQLConnection.dbConnect(configMap);
@@ -99,13 +97,14 @@ public class InsertHelperDatabaseTest
 			ResultSet rs = stmt.executeQuery(query);
 			if (rs.next())
 			{
-				assertEquals(testObject.getOrderNumber()		,rs.getLong("order_number"));
-				assertEquals(testObject.getManuallyProvided()	,rs.getBoolean("manually_provided"));
-				assertEquals(testObject.getVs4InvoiceNumber()	,rs.getLong("vs4_invoice_number"));
-				assertEquals(testObject.getVs4CustomerNumber()	,rs.getLong("vs4_customer_number"));
-				assertEquals(testObject.getVs4OrderNumber()		,rs.getLong("vs4_order_number"));
-				assertEquals(testObject.getId()					,rs.getLong("id"));
-				assertEquals(testObject.getStatus().name()		,rs.getString("status"));
+				assertEquals(testObject.getOrderNumber(), rs.getLong("order_number"));
+				assertEquals(testObject.getManuallyProvided(), rs.getBoolean("manually_provided"));
+				assertEquals(testObject.getVs4InvoiceNumber(), rs.getLong("vs4_invoice_number"));
+				assertEquals(testObject.getVs4CustomerNumber(), rs.getLong("vs4_customer_number"));
+				assertEquals(testObject.getVs4OrderNumber(), rs.getLong("vs4_order_number"));
+				assertEquals(testObject.getId(), rs.getLong("id"));
+				assertEquals(testObject.getStatus()
+									   .name(), rs.getString("status"));
 
 			}
 		}
@@ -113,7 +112,6 @@ public class InsertHelperDatabaseTest
 	}
 
 	/**
-	 *
 	 * @return
 	 */
 	private static TestObject getTestObject()

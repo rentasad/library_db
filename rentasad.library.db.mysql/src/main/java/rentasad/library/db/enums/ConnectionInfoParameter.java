@@ -1,4 +1,4 @@
-package rentasad.library.db;
+package rentasad.library.db.enums;
 
 /**
  * Enum class for defining connection information parameters.

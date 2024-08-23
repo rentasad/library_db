@@ -2,3 +2,4 @@ target/
 .settings/
 resources/config/adsConnection.ini
 .idea/
+.ssh/

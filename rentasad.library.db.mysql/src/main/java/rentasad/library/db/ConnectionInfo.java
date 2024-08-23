@@ -2,6 +2,7 @@ package rentasad.library.db;
 
 import lombok.Builder;
 import lombok.Getter;
+import rentasad.library.db.enums.ConnectionInfoParameter;
 
 import java.util.Map;
 
