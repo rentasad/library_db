@@ -1,5 +1,11 @@
 package rentasad.library.db;
 
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
+import lombok.extern.slf4j.Slf4j;
+import rentasad.library.configFileTool.ConfigFileTool;
+import rentasad.library.configFileTool.ConfigFileToolException;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -7,12 +13,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.Driver;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Map;
-
-import rentasad.library.configFileTool.ConfigFileTool;
-import rentasad.library.configFileTool.ConfigFileToolException;
 
 /**
  * Gustini GmbH
@@ -26,13 +28,15 @@ import rentasad.library.configFileTool.ConfigFileToolException;
  * <p>
  * Description: Stellt eine Verbindung zur ADS-Datenbank her.
  */
-
+@Slf4j
 public class AdsConnection
 {
-	public static final String ADS_CONNECTION_VERSION = "D2.6.6-SNAPSHOT";
+	public static final String ADS_CONNECTION_VERSION = "D2.9.0";
 	public static final String DEFAULT_CONFIG_FILE_PATH = "resources/config/adsConnection.ini";
 	public static final String DEFAULT_CONFIG_FILE_PATH_IN_RESOURCES = "config/adsConnection.ini";
 	public static final String DEFAULT_SECTION_NAME = "ADS_CONNECTION";
+	public static final String DRIVER_CLASS_NAME = "com.extendedsystems.jdbc.advantage.ADSDriver";
+
 	/**
 	 *
 	 */
@@ -148,7 +152,9 @@ public class AdsConnection
 	 */
 	public static final String PARAMETER_NAME_ADS_DATABASE_DICTIONARY = "DATABASE_DICTIONARY";
 	private static Driver driver = null;
-	private Map<String, String> configMap;
+	private static Map<String, String> configMap;
+	private HikariDataSource dataSource;
+	private static AdsConnection instance;
 
 	/**
 	 * @param configMap if should contain the following keys:
@@ -165,35 +171,64 @@ public class AdsConnection
 	 *                  of optional parameters not given, it was used default value.
 	 * @throws SQLException
 	 */
-	public AdsConnection(final Map<String, String> configMap) throws SQLException
+	private AdsConnection(final Map<String, String> configMap) throws SQLException
 	{
 		if (isConfigMapValid(configMap))
 		{
-			if (!configMap.containsKey(PARAMETER_NAME_ADS_SOCKET))
-			{
-				configMap.put(PARAMETER_NAME_ADS_SOCKET, getDefaultConfigMap().get(PARAMETER_NAME_ADS_SOCKET));
-			}
-			if (!configMap.containsKey(PARAMETER_NAME_ADS_LOCK_TYPE))
-			{
-				configMap.put(PARAMETER_NAME_ADS_LOCK_TYPE, getDefaultConfigMap().get(PARAMETER_NAME_ADS_LOCK_TYPE));
-			}
-			if (!configMap.containsKey(PARAMETER_NAME_ADS_CHAR_TYPE))
-			{
-				configMap.put(PARAMETER_NAME_ADS_CHAR_TYPE, getDefaultConfigMap().get(PARAMETER_NAME_ADS_CHAR_TYPE));
-			}
-			if (!configMap.containsKey(PARAMETER_NAME_ADS_TABLE_TYPE))
-			{
-				configMap.put(PARAMETER_NAME_ADS_TABLE_TYPE, getDefaultConfigMap().get(PARAMETER_NAME_ADS_TABLE_TYPE));
-			}
+			fillConfigMapWithDefaultValues(configMap);
+			this.configMap = configMap;
+			initializeDataSource(configMap);
 		}
-		this.configMap = configMap;
+
+	}
+
+	private void initializeDataSource(Map<String, String> configMap)
+	{
+		HikariConfig hikariConfig = new HikariConfig();
+		String host = configMap.get(PARAMETER_NAME_ADS_HOST);
+		String socket = configMap.get(PARAMETER_NAME_ADS_SOCKET);
+		String databaseDictionary = configMap.get(PARAMETER_NAME_ADS_DATABASE_DICTIONARY);
+		String lockType = configMap.get(PARAMETER_NAME_ADS_LOCK_TYPE);
+		String charType = configMap.get(PARAMETER_NAME_ADS_CHAR_TYPE);
+		String tableType = configMap.get(PARAMETER_NAME_ADS_TABLE_TYPE);
+
+		String dsnProperties = String.format(";LockType=%s;CharType=%s;TableType=%s", lockType, charType, tableType);
+		String jdbcUrl = String.format("jdbc:extendedsystems:advantage:%s:%s%s%s", host, socket, databaseDictionary, dsnProperties);
+		hikariConfig.setDriverClassName(DRIVER_CLASS_NAME);
+		hikariConfig.setJdbcUrl(jdbcUrl);
+		hikariConfig.setMaximumPoolSize(10);  // Beispielhafte Poolgröße
+		hikariConfig.setPoolName("AdsConnectionPool");
+		hikariConfig.setConnectionTestQuery("SELECT 1 FROM gustini\\cotest");
+		// Initialisieren des HikariCP DataSource
+		this.dataSource = new HikariDataSource(hikariConfig);
+
+	}
+
+	private void fillConfigMapWithDefaultValues(final Map<String, String> configMap) throws SQLException
+	{
+		if (!configMap.containsKey(PARAMETER_NAME_ADS_SOCKET))
+		{
+			configMap.put(PARAMETER_NAME_ADS_SOCKET, getDefaultConfigMap().get(PARAMETER_NAME_ADS_SOCKET));
+		}
+		if (!configMap.containsKey(PARAMETER_NAME_ADS_LOCK_TYPE))
+		{
+			configMap.put(PARAMETER_NAME_ADS_LOCK_TYPE, getDefaultConfigMap().get(PARAMETER_NAME_ADS_LOCK_TYPE));
+		}
+		if (!configMap.containsKey(PARAMETER_NAME_ADS_CHAR_TYPE))
+		{
+			configMap.put(PARAMETER_NAME_ADS_CHAR_TYPE, getDefaultConfigMap().get(PARAMETER_NAME_ADS_CHAR_TYPE));
+		}
+		if (!configMap.containsKey(PARAMETER_NAME_ADS_TABLE_TYPE))
+		{
+			configMap.put(PARAMETER_NAME_ADS_TABLE_TYPE, getDefaultConfigMap().get(PARAMETER_NAME_ADS_TABLE_TYPE));
+		}
 	}
 
 	public boolean isConfigMapValid(final Map<String, String> configMap)
 	{
-		boolean hostIsAvaible = configMap.containsKey(PARAMETER_NAME_ADS_HOST);
-		boolean dictionaryIsAvaible = configMap.containsKey(PARAMETER_NAME_ADS_DATABASE_DICTIONARY);
-		return hostIsAvaible && dictionaryIsAvaible;
+		boolean hostIsAvailable = configMap.containsKey(PARAMETER_NAME_ADS_HOST);
+		boolean dictionaryIsAvailable = configMap.containsKey(PARAMETER_NAME_ADS_DATABASE_DICTIONARY);
+		return hostIsAvailable && dictionaryIsAvailable;
 	}
 
 	/**
@@ -217,30 +252,35 @@ public class AdsConnection
 	public static Map<String, String> getDefaultConfigMap() throws SQLException
 	{
 		System.out.printf("AdsConnection %s%n", ADS_CONNECTION_VERSION);
-		Map<String, String> configMap;
-		try
-		{
-			Path defaultConfigFilePath = Paths.get(DEFAULT_CONFIG_FILE_PATH);
-			if (Files.exists(defaultConfigFilePath))
-			{
-				System.out.println("read Configmap from local path_: " + DEFAULT_CONFIG_FILE_PATH);
-				configMap = ConfigFileTool.readConfiguration(DEFAULT_CONFIG_FILE_PATH, DEFAULT_SECTION_NAME);
-			}else if (AdsConnection.class.getResource("/" + DEFAULT_CONFIG_FILE_PATH_IN_RESOURCES) != null)
-			{
-				System.out.println("read Configmap from resources: " + DEFAULT_CONFIG_FILE_PATH_IN_RESOURCES);
-				configMap = ConfigFileTool.readConfigurationFromResources(DEFAULT_CONFIG_FILE_PATH_IN_RESOURCES, DEFAULT_SECTION_NAME);
-			}else
-			{
-				String errorText = String.format("Config File for Ads connection not found: \n %s \n\n In Resources is also no config file found: %s", DEFAULT_CONFIG_FILE_PATH, DEFAULT_CONFIG_FILE_PATH_IN_RESOURCES);
-				System.out.println(errorText);
-				throw new FileNotFoundException(errorText);
-			}
 
+			try
+			{
+				if (configMap == null)
+				{
+					Path defaultConfigFilePath = Paths.get(DEFAULT_CONFIG_FILE_PATH);
+					if (Files.exists(defaultConfigFilePath))
+					{
+						System.out.println("read Configmap from local path_: " + DEFAULT_CONFIG_FILE_PATH);
+						configMap = ConfigFileTool.readConfiguration(DEFAULT_CONFIG_FILE_PATH, DEFAULT_SECTION_NAME);
+					}
+					else if (AdsConnection.class.getResource("/" + DEFAULT_CONFIG_FILE_PATH_IN_RESOURCES) != null)
+					{
+						System.out.println("read Configmap from resources: " + DEFAULT_CONFIG_FILE_PATH_IN_RESOURCES);
+						configMap = ConfigFileTool.readConfigurationFromResources(DEFAULT_CONFIG_FILE_PATH_IN_RESOURCES, DEFAULT_SECTION_NAME);
+					}
+					else
+					{
+						String errorText = String.format("Config File for Ads connection not found: \n %s \n\n In Resources is also no config file found: %s", DEFAULT_CONFIG_FILE_PATH,
+														 DEFAULT_CONFIG_FILE_PATH_IN_RESOURCES);
+						System.out.println(errorText);
+						throw new FileNotFoundException(errorText);
+					}
+				}
 			/**
 			 * ADD "//" to Hostname
 			 */
 			configMap.put(PARAMETER_NAME_ADS_HOST, "//" + configMap.get(PARAMETER_NAME_ADS_HOST));
-		} catch (IOException | ConfigFileToolException e)
+		} catch(IOException | ConfigFileToolException e)
 		{
 			throw new SQLException(e);
 		}
@@ -256,24 +296,11 @@ public class AdsConnection
 	 */
 	public static Connection dbConnect(Map<String, String> configMap) throws SQLException
 	{
-		String host = configMap.get(PARAMETER_NAME_ADS_HOST);
-		String socket = configMap.get(PARAMETER_NAME_ADS_SOCKET);
-		String databaseDictionaty = configMap.get(PARAMETER_NAME_ADS_DATABASE_DICTIONARY);
-		String lockType = configMap.get(PARAMETER_NAME_ADS_LOCK_TYPE);
-		String charType = configMap.get(PARAMETER_NAME_ADS_CHAR_TYPE);
-		String tableType = configMap.get(PARAMETER_NAME_ADS_TABLE_TYPE);
-		String dsnProperties = String.format(";LockType=%s;CharType=%s;TableType=%s", lockType, charType, tableType);
-		String connectionString = String.format("jdbc:extendedsystems:advantage:%s:%s%s%s", host, socket, databaseDictionaty, dsnProperties);
-
-		try
+		if (instance == null)
 		{
-			initDriver();
-			//            System.out.println(connectionString);
-			return DriverManager.getConnection(connectionString);
-		} catch (InstantiationException | IllegalAccessException | ClassNotFoundException | SQLException e)
-		{
-			throw new SQLException(e);
+			instance = new AdsConnection(configMap);
 		}
+		return instance.dataSource.getConnection();
 	}
 
 	/**
@@ -313,12 +340,14 @@ public class AdsConnection
 		String tableType = configMap.get(PARAMETER_NAME_ADS_TABLE_TYPE);
 		String dsnProperties = String.format(";LockType=%s;CharType=%s;TableType=%s", lockType, charType, tableType);
 		String connectionString = String.format("%s%s", fullConnectionUrl, dsnProperties);
-		//        System.out.println(connectionString);
 		try
 		{
-			initDriver();
-			return DriverManager.getConnection(connectionString);
-		} catch (InstantiationException | IllegalAccessException | ClassNotFoundException | SQLException e)
+			if (instance == null)
+			{
+				instance = new AdsConnection(configMap);
+			}
+			return instance.getConnection();
+		} catch (SQLException e)
 		{
 			throw new SQLException(e);
 		}

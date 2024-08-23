@@ -5,17 +5,23 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.HashMap;
-
+import ch.qos.logback.classic.LoggerContext;
+import ch.qos.logback.core.util.StatusPrinter;
+import ch.qos.logback.core.util.StatusPrinter2;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.slf4j.LoggerFactory;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
+@Slf4j
 public class AdsConnectionTest
 {
 
 	@Test public void testDbConnection() throws Exception
 	{
+
+		log.info("testDbConnection");
 		Connection con = AdsConnection.dbConnect();
 		con.close();
 
@@ -38,7 +44,10 @@ public class AdsConnectionTest
 		configMap.put(AdsConnection.PARAMETER_NAME_ADS_CHAR_TYPE, charType);
 		configMap.put(AdsConnection.PARAMETER_NAME_ADS_TABLE_TYPE, tableType);
 
-		Connection con = AdsConnection.dbConnect(configMap);
+
+
+
+		Connection con = AdsConnection.dbConnect();
 		con.close();
 
 	}
