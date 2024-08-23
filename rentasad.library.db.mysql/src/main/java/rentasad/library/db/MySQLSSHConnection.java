@@ -1,8 +1,11 @@
-package rentasad.library.db.sshConnections;
+package rentasad.library.db;
 
 import lombok.extern.slf4j.Slf4j;
 import rentasad.library.db.ConnectionInfo;
 import rentasad.library.db.enums.SSHLibraryEnum;
+import rentasad.library.db.sshConnections.JSchSSHConnection;
+import rentasad.library.db.sshConnections.SSHConnection;
+import rentasad.library.db.sshConnections.SSHJConnection;
 
 import java.io.IOException;
 import java.sql.Connection;
