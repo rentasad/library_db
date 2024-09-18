@@ -3,3 +3,4 @@ target/
 resources/config/adsConnection.ini
 .idea/
 .ssh/
+diff.txt
