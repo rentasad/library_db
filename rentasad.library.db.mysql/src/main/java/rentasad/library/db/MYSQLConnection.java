@@ -90,6 +90,7 @@ public class MYSQLConnection {
 		hikariConfig.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
 		hikariConfig.addDataSourceProperty("useServerPrepStmts", "true");
 		hikariConfig.setPoolName("HikariPool-" + poolName);
+		hikariConfig.setMaximumPoolSize(2);
 
 		this.dataSource = new HikariDataSource(hikariConfig);
 	}

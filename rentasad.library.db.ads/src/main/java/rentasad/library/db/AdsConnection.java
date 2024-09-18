@@ -36,7 +36,7 @@ public class AdsConnection
 	public static final String DEFAULT_CONFIG_FILE_PATH_IN_RESOURCES = "config/adsConnection.ini";
 	public static final String DEFAULT_SECTION_NAME = "ADS_CONNECTION";
 	public static final String DRIVER_CLASS_NAME = "com.extendedsystems.jdbc.advantage.ADSDriver";
-
+	public static final int POOL_SIZE = 2;
 	/**
 	 *
 	 */
@@ -196,7 +196,7 @@ public class AdsConnection
 		String jdbcUrl = String.format("jdbc:extendedsystems:advantage:%s:%s%s%s", host, socket, databaseDictionary, dsnProperties);
 		hikariConfig.setDriverClassName(DRIVER_CLASS_NAME);
 		hikariConfig.setJdbcUrl(jdbcUrl);
-		hikariConfig.setMaximumPoolSize(10);  // Beispielhafte Poolgröße
+		hikariConfig.setMaximumPoolSize(POOL_SIZE);  // max poolsize
 		hikariConfig.setPoolName("AdsConnectionPool");
 		hikariConfig.setConnectionTestQuery("SELECT 1 FROM gustini\\cotest");
 		// Initialisieren des HikariCP DataSource
