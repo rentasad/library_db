@@ -12,9 +12,9 @@ public class SQLScriptExecutor {
 			// ScriptRunner verwenden, um das SQL-Skript auszuführen
 			ScriptRunner scriptRunner = new ScriptRunner(connection);
 
-			// Optional: Logging deaktivieren, falls es nicht benötigt wird
-			scriptRunner.setLogWriter(null); // Deaktiviert den Log-Ausgabe
-			scriptRunner.setErrorLogWriter(null); // Deaktiviert den Fehlerlog
+//			// Optional: Logging deaktivieren, falls es nicht benötigt wird
+//			scriptRunner.setLogWriter(null); // Deaktiviert den Log-Ausgabe
+//			scriptRunner.setErrorLogWriter(null); // Deaktiviert den Fehlerlog
 
 			// Das SQL-Skript aus einem StringReader ausführen
 			try (StringReader reader = new StringReader(sqlScript)) {
