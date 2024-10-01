@@ -1,5 +1,5 @@
 #! /bin/bash
-
+cd ..
 mvn versions:set -DnewVersion=D2.5.4
 
 #If you made a mistake, do
