@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>rentasad.library</groupId>
     <artifactId>rentasad.library.db</artifactId>
-    <version>D2.9.3</version>
+    <version>D2.9.4</version>
 
     <name>rentasad.library.db</name>
     <!-- FIXME change it to the project's website -->
@@ -28,7 +28,7 @@
         <!-- VERSION PROPERTY -->
         <!-- USING WITH ${basicToolParentVersion} -->
         <basicToolParentVersion>B2.6.0</basicToolParentVersion>
-        <dbToolParentVersion>D2.9.3</dbToolParentVersion>
+        <dbToolParentVersion>D2.9.4</dbToolParentVersion>
         <!--
         <version>${dbToolParentVersion}</version>
         -->
@@ -137,6 +137,38 @@
                             <phase>clean</phase>
                             <goals>
                                 <goal>clean</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+
+                <!-- Source Plugin for all modules -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-source-plugin</artifactId>
+                    <version>3.2.1</version>
+                    <executions>
+                        <execution>
+                            <id>attach-sources</id>
+                            <phase>package</phase> <!-- Damit es in der package-Phase läuft -->
+                            <goals>
+                                <goal>jar</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+
+                <!-- Javadoc Plugin for all modules (optional) -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>3.4.0</version>
+                    <executions>
+                        <execution>
+                            <id>attach-javadocs</id>
+                            <phase>package</phase> <!-- Damit es in der package-Phase läuft -->
+                            <goals>
+                                <goal>jar</goal>
                             </goals>
                         </execution>
                     </executions>

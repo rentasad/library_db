@@ -49,7 +49,8 @@ public class JSchSSHConnection implements SSHConnection
 	@Override
 	public void close() {
 		if (dataSource != null) {
-			dataSource.close();
+			if (dataSource.isRunning())
+				dataSource.close();
 		}
 		if (sshSession != null && sshSession.isConnected()) {
 			sshSession.disconnect();
