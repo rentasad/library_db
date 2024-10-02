@@ -292,8 +292,8 @@ public class MySQLTransfer2
         }
         ISQLTableColumnsDescriptionInterface[] tableColumnDescriptions = MySQLTableUtility.getMySQLTableColumnDescription(conSource, tableName);
 
-        String selectQueryAds = "SELECT ";
-        String selectQueryMySql = "SELECT ";
+        String selectQueryAds = "SELECT DISTINCT ";
+        String selectQueryMySql = "SELECT DISTINCT ";
         String columnList = "";
         String mySQLColumnList = "";
         String columnPlaceHolder = "(";
