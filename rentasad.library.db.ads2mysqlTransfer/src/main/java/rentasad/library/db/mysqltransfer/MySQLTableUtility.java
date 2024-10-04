@@ -1,13 +1,13 @@
 package rentasad.library.db.mysqltransfer;
 
+import lombok.Setter;
 import rentasad.library.basicTools.StringTool;
 import rentasad.library.basicTools.dateTool.DateTools;
-import rentasad.library.db.dataObjects.ISQLTableColumnsDescriptionInterface;
-import rentasad.library.db.dataObjects.IsqlTableDescriptionInterface;
-import rentasad.library.db.dataObjects.MySQLTableColumnDescription;
-import rentasad.library.db.dataObjects.MySQLTableDescription;
+import rentasad.library.db.ProgressDisplay;
+import rentasad.library.db.dataObjects.*;
 import rentasad.library.tools.exceptions.WrongDataTypeException;
 
+import java.math.BigDecimal;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Date;
@@ -26,17 +26,23 @@ import java.util.Map;
 /**
  * The MySQLTableUtility class provides utility methods for working with MySQL tables.
  * Fuer richtiges Encoding muss im MySQL-Connection-String folgende Variable
- *  angegeben werden: ?characterEncoding=cp1250
+ * angegeben werden: ?characterEncoding=cp1250
  */
 public class MySQLTableUtility
 {
-
+	private static final String COLUMN_QUOTE = "`";
+	private static final String COLUMN_PLACEHOLDER = " ? ";
 	private Map<String, String> configMap;
+	private final int BATCH_SIZE = 500;
+	private final ProgressDisplay progressDisplay;
+	@Setter private final boolean debug;
 
 	public MySQLTableUtility(Map<String, String> configMap)
 	{
 		super();
 		this.configMap = configMap;
+		this.debug = false;
+		this.progressDisplay = new ProgressDisplay(60);
 	}
 
 	/**
@@ -69,164 +75,84 @@ public class MySQLTableUtility
 		return entriesCount;
 	}
 
-
 	/**
 	 * Transfers data from an ADS table to a MySQL table.
-	 *  Fuer richtiges Encoding muss im MySQL-Connection-String folgende
-	 * 	 * Variable angegeben werden: ?characterEncoding=cp1250
-	 * @param mySQLConnection The connection to the MySQL database.
-	 * @param adsConnection The connection to the ADS database.
+	 * Fuer richtiges Encoding muss im MySQL-Connection-String folgende
+	 * * Variable angegeben werden: ?characterEncoding=cp1250
+	 *
+	 * @param mySQLConnection       The connection to the MySQL database.
+	 * @param adsConnection         The connection to the ADS database.
 	 * @param mySQLTableDescription The description of the MySQL table.
 	 * @return The number of rows transferred.
-	 * @throws SQLException If an error occurs while executing SQL statements.
+	 * @throws SQLException           If an error occurs while executing SQL statements.
 	 * @throws WrongDataTypeException If an unknown or undefined data type is encountered.
 	 */
 	public int transferTableFromAdsToMySQL(
 			final Connection mySQLConnection, final Connection adsConnection, final IsqlTableDescriptionInterface mySQLTableDescription) throws SQLException, WrongDataTypeException
 	{
-
-		boolean debug = false;
+		progressDisplay.startProgress();
 		String tableName = mySQLTableDescription.getName();
 		ISQLTableColumnsDescriptionInterface[] tableColumnDescriptions = MySQLTableUtility.getMySQLTableColumnDescription(mySQLConnection, tableName);
 		if (debug)
 		{
 			System.out.println("Anzahl Spalten: " + tableColumnDescriptions.length);
 		}
-		String truncateQuery = "truncate " + tableName;
-
 		/*
 		 * Erstellen des SELECT- und INSERT-Querys
 		 */
-
-		String selectQuery = "SELECT ";
-		String columnListString = "";
-		String mySQLColumnListString = "";
-		String columnPlaceHolder = "(";
-		for (int i = 0; i < tableColumnDescriptions.length; i++)
-		{
-			// Liste der Spalten, wird fuer SELCT und INSERT verwendet
-			columnListString += tableColumnDescriptions[i].getField();
-			mySQLColumnListString += "`" + tableColumnDescriptions[i].getField() + "`";
-			// Wird fuer PreparedStatement verwendet. Anzahl Spalten entspricht
-			// Anzahl der Platzhalter
-			columnPlaceHolder += "\n ?";
-			if (i < (tableColumnDescriptions.length - 1))
-			{
-				columnListString += ",";
-				mySQLColumnListString += ",";
-				columnPlaceHolder += ",";
-			}
-			// columnList += "\n";
-		}
-		String adsTabellenPfad = "";
-		// tableName = tableName.toLowerCase();
-		// if (tableName.equalsIgnoreCase("v4haupt"))
-		// {
-		// System.out.println("STOP");
-		// }
-
-		if (this.configMap.containsKey(tableName))
-		{
-			adsTabellenPfad = this.configMap.get(tableName) + "\\";
-		}
-		columnPlaceHolder += ")";
-		selectQuery += columnListString + "\n FROM " + adsTabellenPfad + tableName;
-		if (debug)
-		{
-			selectQuery += "\n WHERE NUMMER > '70000'";
-		}
-
-		// System.out.println(selectQuery);
-
+		TableSelectObject tableSelectObject = getTableSelectObject(tableColumnDescriptions, tableName);
+		String selectQuery = tableSelectObject.getSelectString();
 		/*
 		 * Erzeugen und Ausfuehren der SQL-Statements
 		 */
 		// Leeren der mySQL-Tabelle vor Import
-		Statement truncateStatement = mySQLConnection.createStatement();
-		truncateStatement.execute(truncateQuery);
-		truncateStatement.close();
-
+		truncateTable(tableName, mySQLConnection);
 		Statement adsSelectStatement = adsConnection.createStatement();
 		ResultSet adsSelectResultSet = adsSelectStatement.executeQuery(selectQuery);
 
-		int zeile = 0;
+		int zeile = 1;
 
 		if (debug)
 		{// Im DEBUG-Modus werden die INSERT-Queries von hand erzeugt, um Fehler
-			// in der Erzeugung zu erkennen.
-
-			while (adsSelectResultSet.next())
-			{
-				String insertQueryString = String.format("INSERT INTO %s \n(%s) \n VALUES \n ", tableName, mySQLColumnListString);
-				Statement insertStatement = mySQLConnection.createStatement();
-				String insertValueRow = "(";
-				for (int i = 0; i < tableColumnDescriptions.length; i++)
-				{
-					String columnString = "";
-					int colNumber = i + 1;
-					ISQLTableColumnsDescriptionInterface column = tableColumnDescriptions[i];
-					int objektTypInt = column.getJavaDatatypeFromISQLTyp(column.getType());
-					switch (objektTypInt)
-					{
-					case ISQLTableColumnsDescriptionInterface.OBJECT_DATA_TYPE_BOOLEAN:
-						columnString = Boolean.valueOf(adsSelectResultSet.getBoolean(column.getField()))
-											  .toString();
-						break;
-					case ISQLTableColumnsDescriptionInterface.OBJECT_DATA_TYPE_DATE:
-
-						Date date = adsSelectResultSet.getDate(column.getField());
-						if (date == null)
-						{
-							columnString = "null";
-						}
-						else
-						{
-							columnString = "'" + DateTools.getSQLTimeStampFromDate(date) + "'";
-						}
-
-						break;
-					case ISQLTableColumnsDescriptionInterface.OBJECT_DATA_TYPE_DOUBLE:
-						columnString = Double.valueOf(adsSelectResultSet.getDouble(column.getField()))
-											 .toString();
-						break;
-					case ISQLTableColumnsDescriptionInterface.OBJECT_DATA_TYPE_FLOAT:
-						columnString = Float.valueOf(adsSelectResultSet.getFloat(column.getField()))
-											.toString();
-						break;
-					case ISQLTableColumnsDescriptionInterface.OBJECT_DATA_TYPE_INT:
-						columnString = Integer.valueOf(adsSelectResultSet.getInt(column.getField()))
-											  .toString();
-						break;
-					case ISQLTableColumnsDescriptionInterface.OBJECT_DATA_TYPE_STRING:
-						columnString = "'" + adsSelectResultSet.getString(column.getField()) + "'";
-						break;
-
-					default:
-						throw new WrongDataTypeException("Unbekannter nicht definierter Datentyp: " + objektTypInt);
-					}
-					if (colNumber > 1)
-					{
-						insertValueRow += ",";
-					}
-					insertValueRow += "\n" + columnString + "/*" + column.getField() + "*/";
-
-				}
-				insertValueRow += ")";
-				insertQueryString = insertQueryString + insertValueRow;
-				System.out.println("insertQueryString: " + insertQueryString);
-				insertStatement.execute(insertQueryString);
-				insertStatement.close();
-			}
+			// in der Erzeugung zu erkennen. (Ohne Prepared Statement)
+			zeile = insertValuesWithoutPreparedStatements(adsSelectResultSet, adsConnection, mySQLConnection, tableColumnDescriptions, tableSelectObject, tableName);
 		}
 		else
 		{
-			// im NICHT-DEBUG-Modus wird mit Prepared Statements gearbeitet.
-			String preparedInsertQueryString = String.format("INSERT INTO %s \n(%s) \n VALUES \n %s ", tableName, mySQLColumnListString, columnPlaceHolder);
-			PreparedStatement insertPreparedStatement = mySQLConnection.prepareStatement(preparedInsertQueryString);
+			zeile = insertValuesWithPreparedStatements(adsSelectResultSet, adsConnection, mySQLConnection, tableColumnDescriptions, tableSelectObject, tableName);
+		}
+
+		return zeile;
+	}
+
+	/**
+	 * Inserts values from a given ResultSet into a MySQL table using prepared statements.
+	 *
+	 * @param adsSelectResultSet      The ResultSet holding the data to be inserted.
+	 * @param adsConnection           The Connection object for the original database.
+	 * @param mySQLConnection         The Connection object for the target MySQL database.
+	 * @param tableColumnDescriptions Descriptions of the table columns to determine data types.
+	 * @param tableSelectObject       An object containing metadata like column names and placeholders for the prepared statement.
+	 * @param tableName               The name of the table into which data is to be inserted.
+	 * @return The number of rows processed.
+	 * @throws SQLException           If a database access error occurs or the SQL statement is incorrect.
+	 * @throws WrongDataTypeException If an unknown or undefined data type is encountered.
+	 */
+	private int insertValuesWithPreparedStatements(
+			ResultSet adsSelectResultSet, Connection adsConnection, Connection mySQLConnection, ISQLTableColumnsDescriptionInterface[] tableColumnDescriptions, TableSelectObject tableSelectObject,
+			String tableName) throws SQLException, WrongDataTypeException
+	{
+		int zeile = 1;
+		// im NICHT-DEBUG-Modus wird mit Prepared Statements gearbeitet.
+		String preparedInsertQueryString = String.format("INSERT INTO %s \n(%s) \n VALUES \n %s ", tableName, tableSelectObject.getColumnListString(), tableSelectObject.getColumnPlaceHolder());
+		try (PreparedStatement insertPreparedStatement = mySQLConnection.prepareStatement(preparedInsertQueryString))
+		{
+			int rowNumbers = getNumberOfEntriesFromAdsTableName(adsConnection, tableName);
 			// insertPreparedStatement.set
+			progressDisplay.setMessage(tableName);
 			while (adsSelectResultSet.next())
 			{
-
+				progressDisplay.displayProgressBarWithAbsolute(BigDecimal.valueOf(zeile), BigDecimal.valueOf(rowNumbers));
 				for (int i = 0; i < tableColumnDescriptions.length; i++)
 				{
 					int colNumber = i + 1;
@@ -267,16 +193,167 @@ public class MySQLTableUtility
 					}
 				}
 
-				//				insertPreparedStatement.executeUpdate();
 				insertPreparedStatement.addBatch();
+				if (zeile % BATCH_SIZE == 0)
+				{
+					insertPreparedStatement.executeBatch();
+				}
 				//
 				zeile++;
 			} // Ende der Datensätze
 			insertPreparedStatement.executeBatch();
-			insertPreparedStatement.close();
+		}
+		return zeile;
+	}
+
+	/**
+	 * Inserts values into a MySQL table without using prepared statements. This method generates and executes
+	 * an SQL INSERT statement based on the data retrieved from an ADS database and the column descriptions.
+	 * It's only used for debug cases to determine insert errors
+	 *
+	 * @param adsSelectResultSet      The ResultSet obtained from querying the ADS database, containing the data to be inserted.
+	 * @param adsConnection           The connection to the ADS (Advantage Database Server) database.
+	 * @param mySQLConnection         The connection to the MySQL database.
+	 * @param tableColumnDescriptions An array of ISQLTableColumnsDescriptionInterface objects, representing the column descriptions of the target MySQL table.
+	 * @param tableSelectObject       A TableSelectObject, containing various details such as the column list string used in the insertion.
+	 * @param tableName               The name of the target MySQL table into which the data will be inserted.
+	 * @throws SQLException           If an error occurs while executing SQL statements.
+	 * @throws WrongDataTypeException If an unknown or undefined data type is encountered during the data insertion process.
+	 */
+	private int insertValuesWithoutPreparedStatements(
+			ResultSet adsSelectResultSet, Connection adsConnection, Connection mySQLConnection, ISQLTableColumnsDescriptionInterface[] tableColumnDescriptions, TableSelectObject tableSelectObject,
+			String tableName) throws SQLException, WrongDataTypeException
+	{
+		int rowNumbers = getNumberOfEntriesFromAdsTableName(adsConnection, tableName);
+		int zeile = 1;
+		while (adsSelectResultSet.next())
+		{
+			progressDisplay.displayAbsoluteProgress(zeile, rowNumbers);
+			String insertQueryString = String.format("INSERT INTO %s \n(%s) \n VALUES \n ", tableName, tableSelectObject.getColumnListString());
+			Statement insertStatement = mySQLConnection.createStatement();
+			String insertValueRow = "(";
+			for (int i = 0; i < tableColumnDescriptions.length; i++)
+			{
+				String columnString = "";
+				int colNumber = i + 1;
+				ISQLTableColumnsDescriptionInterface column = tableColumnDescriptions[i];
+				int objektTypInt = column.getJavaDatatypeFromISQLTyp(column.getType());
+				switch (objektTypInt)
+				{
+				case ISQLTableColumnsDescriptionInterface.OBJECT_DATA_TYPE_BOOLEAN:
+					columnString = Boolean.valueOf(adsSelectResultSet.getBoolean(column.getField()))
+										  .toString();
+					break;
+				case ISQLTableColumnsDescriptionInterface.OBJECT_DATA_TYPE_DATE:
+
+					Date date = adsSelectResultSet.getDate(column.getField());
+					if (date == null)
+					{
+						columnString = "null";
+					}
+					else
+					{
+						columnString = "'" + DateTools.getSQLTimeStampFromDate(date) + "'";
+					}
+
+					break;
+				case ISQLTableColumnsDescriptionInterface.OBJECT_DATA_TYPE_DOUBLE:
+					columnString = Double.valueOf(adsSelectResultSet.getDouble(column.getField()))
+										 .toString();
+					break;
+				case ISQLTableColumnsDescriptionInterface.OBJECT_DATA_TYPE_FLOAT:
+					columnString = Float.valueOf(adsSelectResultSet.getFloat(column.getField()))
+										.toString();
+					break;
+				case ISQLTableColumnsDescriptionInterface.OBJECT_DATA_TYPE_INT:
+					columnString = Integer.valueOf(adsSelectResultSet.getInt(column.getField()))
+										  .toString();
+					break;
+				case ISQLTableColumnsDescriptionInterface.OBJECT_DATA_TYPE_STRING:
+					columnString = "'" + adsSelectResultSet.getString(column.getField()) + "'";
+					break;
+
+				default:
+					throw new WrongDataTypeException("Unbekannter nicht definierter Datentyp: " + objektTypInt);
+				}
+				if (colNumber > 1)
+				{
+					insertValueRow += ",";
+				}
+				insertValueRow += "\n" + columnString + "/*" + column.getField() + "*/";
+
+			}
+			insertValueRow += ")";
+			insertQueryString = insertQueryString + insertValueRow;
+			if (debug)
+			{
+				System.out.println("insertQueryString: " + insertQueryString);
+			}
+			insertStatement.execute(insertQueryString);
+			insertStatement.close();
+		}
+		return zeile;
+	}
+
+	/**
+	 * @param tableName
+	 */
+	private void truncateTable(String tableName, Connection mySQLConnection) throws SQLException
+	{
+		String truncateQuery = String.format("truncate %s", tableName);
+		try (Statement truncateStatement = mySQLConnection.createStatement())
+		{
+			truncateStatement.execute(truncateQuery);
+		}
+	}
+
+	/**
+	 * Constructs a select SQL query string using the provided table column descriptions and table name.
+	 *
+	 * @param tableColumnDescriptions An array of ISQLTableColumnsDescriptionInterface representing the columns of the table.
+	 * @param tableName               The name of the table for which the select query is constructed.
+	 * @return A string representing the SELECT SQL query.
+	 */
+	private TableSelectObject getTableSelectObject(ISQLTableColumnsDescriptionInterface[] tableColumnDescriptions, String tableName)
+	{
+		String selectQuery = "SELECT ";
+		StringBuilder columnListString = new StringBuilder();
+		StringBuilder quotedColumnListString = new StringBuilder();
+		StringBuilder columnPlaceHolder = new StringBuilder("(");
+		TableSelectObject tableSelectObject = TableSelectObject.builder()
+															   .build();
+		for (int i = 0; i < tableColumnDescriptions.length; i++)
+		{
+			String field = tableColumnDescriptions[i].getField();
+			columnListString.append(field);
+			quotedColumnListString.append(COLUMN_QUOTE)
+								  .append(field)
+								  .append(COLUMN_QUOTE);
+
+			columnPlaceHolder.append(COLUMN_PLACEHOLDER);
+
+			if (i < (tableColumnDescriptions.length - 1))
+			{
+				columnListString.append(",");
+				quotedColumnListString.append(",");
+				columnPlaceHolder.append(",");
+			}
 		}
 
-		return zeile;
+		String adsTabellenPfad = "";
+		if (this.configMap.containsKey(tableName))
+		{
+			adsTabellenPfad = this.configMap.get(tableName) + "\\";
+		}
+
+		columnPlaceHolder.append(")");
+		selectQuery += columnListString + "\n FROM " + adsTabellenPfad + tableName;
+
+		tableSelectObject.setColumnPlaceHolder(columnPlaceHolder.toString());
+		tableSelectObject.setColumnListString(columnListString.toString());
+		tableSelectObject.setQuotedColumnListString(quotedColumnListString.toString());
+		tableSelectObject.setSelectString(selectQuery);
+		return tableSelectObject;
 	}
 
 	/**
@@ -308,9 +385,9 @@ public class MySQLTableUtility
 	 * Retrieves the column descriptions of a MySQL table.
 	 *
 	 * @param connection The connection to the MySQL database.
-	 * @param tableName The name of the table.
+	 * @param tableName  The name of the table.
 	 * @return An array of ISQLTableColumnsDescriptionInterface containing the column descriptions.
-	 * @throws SQLException If an error occurs while executing SQL statements.
+	 * @throws SQLException           If an error occurs while executing SQL statements.
 	 * @throws WrongDataTypeException If an unknown or undefined data type is encountered.
 	 */
 	public static ISQLTableColumnsDescriptionInterface[] getMySQLTableColumnDescription(
@@ -412,12 +489,11 @@ public class MySQLTableUtility
 		return yesNoString.equalsIgnoreCase("yes");
 	}
 
-
 	/**
 	 * Retrieves the descriptions of all MySQL tables in the specified database.
 	 *
 	 * @param connection The connection to the MySQL database.
-	 * @param dbName The name of the database.
+	 * @param dbName     The name of the database.
 	 * @return An array of IsqlTableDescriptionInterface containing the table descriptions.
 	 * @throws SQLException If an error occurs while executing SQL statements.
 	 */
@@ -459,8 +535,8 @@ public class MySQLTableUtility
 	 * Retrieves the description of a specific MySQL table in the specified database.
 	 *
 	 * @param connection The connection to the MySQL database.
-	 * @param dbName The name of the database.
-	 * @param tableName The name of the table.
+	 * @param dbName     The name of the database.
+	 * @param tableName  The name of the table.
 	 * @return An array of IsqlTableDescriptionInterface containing the table description.
 	 * @throws SQLException If an error occurs while executing SQL statements.
 	 */
@@ -477,7 +553,7 @@ public class MySQLTableUtility
 	 * The method takes in a Connection object and the name of the table as parameters.
 	 *
 	 * @param connection The Connection object representing the connection to the MySQL database.
-	 * @param tableName The name of the table to retrieve the description for.
+	 * @param tableName  The name of the table to retrieve the description for.
 	 * @return An array of IsqlTableDescriptionInterface objects containing the table description.
 	 * @throws SQLException If an error occurs while executing SQL statements.
 	 */
@@ -520,7 +596,7 @@ public class MySQLTableUtility
 	 * Retrieves the description of a specific MySQL table and returns it as an instance of IsqlTableDescriptionInterface.
 	 *
 	 * @param connection The Connection object representing the connection to the MySQL database.
-	 * @param tableName The name of the table to retrieve the description for.
+	 * @param tableName  The name of the table to retrieve the description for.
 	 * @return An instance of IsqlTableDescriptionInterface containing the table description, or null if the table does not exist.
 	 * @throws SQLException If an error occurs while executing SQL statements.
 	 */
