@@ -11,15 +11,13 @@ import java.sql.SQLException;
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-
 class UpdateHelperTest {
 	private Connection connection;
 	private PreparedStatement preparedStatement;
 	private Customer customer;
 
 	@BeforeEach
-	void setUp() throws SQLException
-	{
+	void setUp() throws SQLException {
 		connection = Mockito.mock(Connection.class);
 		preparedStatement = Mockito.mock(PreparedStatement.class);
 		when(connection.prepareStatement(anyString())).thenReturn(preparedStatement);
@@ -34,7 +32,7 @@ class UpdateHelperTest {
 	void testUpdate() throws SQLException, IllegalAccessException {
 		UpdateHelper.update(connection, customer);
 
-		verify(connection).prepareStatement("UPDATE Customer SET name = ?, age = ? WHERE id = ?");
+		verify(connection).prepareStatement("UPDATE CustomerTable SET name = ?, age = ? WHERE id = ?");
 		verify(preparedStatement).setObject(1, "Jane Doe");
 		verify(preparedStatement).setObject(2, 25);
 		verify(preparedStatement).setObject(3, 1);
@@ -58,7 +56,7 @@ class UpdateHelperTest {
 		assertEquals("No primary key field found in class " + NoPrimaryKeyCustomer.class.getName(), thrown.getMessage());
 	}
 
-	@DBPersisted
+	@DBPersisted("CustomerTable")
 	class Customer {
 		@PrimaryKey
 		private int id;

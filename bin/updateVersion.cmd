@@ -1,6 +1,6 @@
 @echo off
 cd ..
-call mvn versions:set -DnewVersion=D2.9.8
+call mvn versions:set -DnewVersion=D2.9.9
 
 ::If you made a mistake, do
 :: mvn versions:revert

@@ -7,11 +7,34 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UpdateHelper {
+public class UpdateHelper
+{
+	/**
+	 * Updates the record in the database corresponding to the given data object.
+	 *
+	 * @param connection the database connection to use for the update
+	 * @param dataObject the object containing the data to be updated; fields marked with
+	 *                   {@link DBPersisted} are included in the update,
+	 *                   and the field marked with {@link PrimaryKey} is used as the identifier
+	 * @throws SQLException if a database access error occurs or the SQL statement is invalid
+	 * @throws IllegalAccessException if the data object's fields are not accessible
+	 * @throws IllegalArgumentException if the data object does not contain a field marked with {@link PrimaryKey}
+	 */
 	public static void update(Connection connection, Object dataObject) throws SQLException, IllegalAccessException {
 		Class<?> clazz = dataObject.getClass();
+		String tableName;
+
+		// Prüfen, ob die Klasse die Annotation @DBPersisted hat und den Tabellenname extrahieren
+		if (clazz.isAnnotationPresent(DBPersisted.class)) {
+			DBPersisted dbPersisted = clazz.getAnnotation(DBPersisted.class);
+			tableName = dbPersisted.value().isEmpty() ? clazz.getSimpleName() : dbPersisted.value();
+		} else {
+			tableName = clazz.getSimpleName();
+		}
+
 		StringBuilder sql = new StringBuilder("UPDATE ");
-		sql.append(clazz.getSimpleName()).append(" SET ");
+		sql.append(tableName)
+		   .append(" SET ");
 
 		List<Object> values = new ArrayList<>();
 		String whereClause = null;
@@ -24,7 +47,10 @@ public class UpdateHelper {
 				whereClause = field.getName() + " = ?";
 				primaryKeyValue = field.get(dataObject);
 			} else if (field.isAnnotationPresent(DBPersisted.class)) {
-				sql.append(field.getName()).append(" = ?, ");
+				DBPersisted fieldAnnotation = field.getAnnotation(DBPersisted.class);
+				String columnName = fieldAnnotation.value().isEmpty() ? field.getName() : fieldAnnotation.value();
+				sql.append(columnName)
+				   .append(" = ?, ");
 				values.add(field.get(dataObject));
 			}
 		}
@@ -33,9 +59,10 @@ public class UpdateHelper {
 			throw new IllegalArgumentException("No primary key field found in class " + clazz.getName());
 		}
 
-		// Remove the trailing comma and space
+		// Entfernen des letzten Kommas und Leerzeichens
 		sql.setLength(sql.length() - 2);
-		sql.append(" WHERE ").append(whereClause);
+		sql.append(" WHERE ")
+		   .append(whereClause);
 
 		try (PreparedStatement statement = connection.prepareStatement(sql.toString())) {
 			int index = 1;
@@ -43,12 +70,11 @@ public class UpdateHelper {
 				statement.setObject(index++, value);
 			}
 			statement.setObject(index, primaryKeyValue);
-
 			statement.executeUpdate();
 		}
 	}
-}
 
+}
 
 //// Example usage:
 //class DBPersisted {
