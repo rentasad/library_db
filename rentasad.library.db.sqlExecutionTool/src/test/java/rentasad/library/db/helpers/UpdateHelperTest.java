@@ -29,10 +29,11 @@ class UpdateHelperTest {
 	}
 
 	@Test
-	void testUpdate() throws SQLException, IllegalAccessException {
+	void testUpdate() throws SQLException, IllegalAccessException, SQLException
+	{
 		UpdateHelper.update(connection, customer);
 
-		verify(connection).prepareStatement("UPDATE CustomerTable SET name = ?, age = ? WHERE id = ?");
+		verify(connection).prepareStatement("UPDATE customer_table SET customer_name = ?, customer_age = ? WHERE customer_id = ?");
 		verify(preparedStatement).setObject(1, "Jane Doe");
 		verify(preparedStatement).setObject(2, 25);
 		verify(preparedStatement).setObject(3, 1);
@@ -42,7 +43,7 @@ class UpdateHelperTest {
 	@Test
 	void testNoPrimaryKey() {
 		class NoPrimaryKeyCustomer {
-			@DBPersisted
+			@DBPersisted("customer_name")
 			private String name;
 		}
 
@@ -56,13 +57,15 @@ class UpdateHelperTest {
 		assertEquals("No primary key field found in class " + NoPrimaryKeyCustomer.class.getName(), thrown.getMessage());
 	}
 
-	@DBPersisted("CustomerTable")
+	// Example usage:
+	@DBPersisted("customer_table")
 	class Customer {
 		@PrimaryKey
+		@DBPersisted("customer_id")
 		private int id;
-		@DBPersisted
+		@DBPersisted("customer_name")
 		private String name;
-		@DBPersisted
+		@DBPersisted("customer_age")
 		private int age;
 
 		// Getters and setters...
@@ -90,4 +93,5 @@ class UpdateHelperTest {
 			this.age = age;
 		}
 	}
+
 }
