@@ -31,12 +31,12 @@ import java.util.Map;
 @Slf4j
 public class AdsConnection
 {
-	public static final String ADS_CONNECTION_VERSION = "D2.9.6";
+	public static final String ADS_CONNECTION_VERSION = "D2.9.10-SNAPSHOT";
 	public static final String DEFAULT_CONFIG_FILE_PATH = "resources/config/adsConnection.ini";
 	public static final String DEFAULT_CONFIG_FILE_PATH_IN_RESOURCES = "config/adsConnection.ini";
 	public static final String DEFAULT_SECTION_NAME = "ADS_CONNECTION";
 	public static final String DRIVER_CLASS_NAME = "com.extendedsystems.jdbc.advantage.ADSDriver";
-	public static final int POOL_SIZE = 2;
+	public static final int POOL_SIZE = 8;
 	/**
 	 *
 	 */
