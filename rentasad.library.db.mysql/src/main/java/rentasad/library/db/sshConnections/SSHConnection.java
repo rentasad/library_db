@@ -1,5 +1,6 @@
 package rentasad.library.db.sshConnections;
 
+import com.jcraft.jsch.JSchException;
 import rentasad.library.db.ConnectionInfo;
 
 import java.sql.Connection;

@@ -1,7 +1,6 @@
 package rentasad.library.db;
 
 import lombok.extern.slf4j.Slf4j;
-import rentasad.library.db.ConnectionInfo;
 import rentasad.library.db.enums.SSHLibraryEnum;
 import rentasad.library.db.sshConnections.JSchSSHConnection;
 import rentasad.library.db.sshConnections.SSHConnection;
@@ -44,12 +43,13 @@ public class MySQLSSHConnection implements AutoCloseable {
 	 *                       This includes SSH host, port, user, key file path,
 	 *                       remote host, port, database user, password, and name.
 	 */
-	public MySQLSSHConnection(ConnectionInfo connectionInfo) {
+	public MySQLSSHConnection(ConnectionInfo connectionInfo) throws SQLException
+	{
 		try {
 			sshConnection = initializeSSHConnection();
 			sshConnection.connect(connectionInfo);
 		} catch (Exception e) {
-			throw new RuntimeException("Failed to set up SSH connection", e);
+			throw new SQLException("Failed to set up SSH connection", e);
 		}
 	}
 
@@ -83,8 +83,10 @@ public class MySQLSSHConnection implements AutoCloseable {
 	 * @return The database connection.
 	 * @throws SQLException If the connection pool is not initialized or any SQL error occurs.
 	 */
-	public Connection getConnection() throws SQLException {
-		return sshConnection.getDatabaseConnection();
+	public Connection getConnection() throws SQLException
+	{
+		Connection connection = sshConnection.getDatabaseConnection();
+		return connection;
 	}
 
 	/**
@@ -96,7 +98,16 @@ public class MySQLSSHConnection implements AutoCloseable {
 	public void close() throws IOException
 	{
 		if (sshConnection != null) {
-			sshConnection.close();
+			try
+			{
+				boolean closed = sshConnection.getDatabaseConnection()
+											  .isClosed();
+				sshConnection.close();
+			} catch (SQLException e)
+			{
+				throw new RuntimeException(e);
+			}
+
 		}
 	}
 }

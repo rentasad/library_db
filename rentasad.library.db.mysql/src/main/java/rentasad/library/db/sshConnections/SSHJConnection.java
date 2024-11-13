@@ -5,6 +5,7 @@ import lombok.SneakyThrows;
 import net.schmizz.sshj.SSHClient;
 import net.schmizz.sshj.connection.channel.direct.LocalPortForwarder;
 import net.schmizz.sshj.connection.channel.direct.Parameters;
+import net.schmizz.sshj.transport.TransportException;
 import net.schmizz.sshj.transport.verification.PromiscuousVerifier;
 import rentasad.library.db.ConnectionInfo;
 
@@ -96,7 +97,25 @@ public class SSHJConnection implements SSHConnection
 		{
 			throw new SQLException("Connection pool is not initialized.");
 		}
-		return dataSource.getConnection();
+		try {
+			// Die Verbindung wird hier aufgebaut (SSH und MySQL).
+			Connection connection = dataSource.getConnection();
+			if (connection.isValid(1000) && !connection.isClosed())
+			{
+				return connection;
+			}
+			else
+			{
+				throw new SQLException("SSH connection failed: ");
+			}
+		} catch (SQLException e) {
+			// Wenn der Fehler mit SSH zu tun hat, kannst du eine spezifischere Exception werfen.
+			if (e.getMessage().contains("SSH") || e.getMessage().contains("Could not connect")) {
+				throw new SQLException("SSH connection failed: " + e.getMessage(), e);
+			}
+			// Andernfalls die ursprüngliche SQLException weitergeben.
+			throw e;
+		}
 	}
 
 	@SneakyThrows

@@ -1,0 +1,34 @@
+services:
+  ssh_server:
+    build:
+      context: ./sshd
+      dockerfile: Dockerfile
+    container_name: ssh_server
+    ports:
+      - "2222:22"
+    environment:
+      - ROOT_PASSWORD=sshPassword
+    command: /bin/bash -c "rsyslogd &&/usr/sbin/sshd -D"
+    networks:
+      - internal_network
+
+  mysql:
+    image: mysql:5.7
+    container_name: mysql_db
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: testdb
+      MYSQL_USER: dbUser
+      MYSQL_PASSWORD: dbPassword
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - internal_network
+
+volumes:
+  mysql_data:
+    driver: local
+networks:
+  internal_network:
+    driver: bridge
+
