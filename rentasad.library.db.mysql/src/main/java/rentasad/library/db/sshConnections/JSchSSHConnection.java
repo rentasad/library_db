@@ -39,11 +39,31 @@ public class JSchSSHConnection implements SSHConnection
 	}
 
 	@Override
-	public Connection getDatabaseConnection() throws SQLException {
+	public Connection getDatabaseConnection() throws SQLException
+	{
 		if (dataSource == null) {
 			throw new SQLException("Connection pool is not initialized.");
 		}
-		return dataSource.getConnection();
+
+		try {
+			// Die Verbindung wird hier aufgebaut (SSH und MySQL).
+
+			Connection sshConnection = dataSource.getConnection();
+			if (sshConnection.isValid(1000)) {
+				return sshConnection;
+			}else
+			{
+				throw new SQLException("SSH connection failed: ");
+			}
+
+		} catch (SQLException e) {
+			// Wenn der Fehler mit SSH zu tun hat, kannst du eine spezifischere Exception werfen.
+			if (e.getMessage().contains("SSH") || e.getMessage().contains("Could not connect")) {
+				throw new SQLException("SSH connection failed: " + e.getMessage(), e);
+			}
+			// Andernfalls die ursprüngliche SQLException weitergeben.
+			throw e;
+		}
 	}
 
 	@Override

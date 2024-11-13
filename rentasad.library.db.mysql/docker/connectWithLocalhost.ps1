@@ -1,0 +1,1 @@
+ssh -i .\id_rsa_ssh_server -p 2222 root@localhost -o StrictHostKeyChecking=no

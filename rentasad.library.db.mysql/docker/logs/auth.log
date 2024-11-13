@@ -1,0 +1,342 @@
+2024-11-13T19:46:40.414894+00:00 518a3654da20 sshd[1]: debug3: oom_adjust_setup
+2024-11-13T19:46:40.414894+00:00 518a3654da20 sshd[1]: debug3: oom_adjust_setup
+2024-11-13T19:46:40.414937+00:00 518a3654da20 sshd[1]: debug1: Set /proc/self/oom_score_adj from 0 to -1000
+2024-11-13T19:46:40.414956+00:00 518a3654da20 sshd[1]: debug2: fd 3 setting O_NONBLOCK
+2024-11-13T19:46:40.414965+00:00 518a3654da20 sshd[1]: debug1: Bind to port 22 on 0.0.0.0.
+2024-11-13T19:46:40.414977+00:00 518a3654da20 sshd[1]: Server listening on 0.0.0.0 port 22.
+2024-11-13T19:46:40.414988+00:00 518a3654da20 sshd[1]: debug2: fd 4 setting O_NONBLOCK
+2024-11-13T19:46:40.414995+00:00 518a3654da20 sshd[1]: debug3: sock_set_v6only: set socket 4 IPV6_V6ONLY
+2024-11-13T19:46:40.415004+00:00 518a3654da20 sshd[1]: debug1: Bind to port 22 on ::.
+2024-11-13T19:46:40.415013+00:00 518a3654da20 sshd[1]: Server listening on :: port 22.
+2024-11-13T19:46:40.414937+00:00 518a3654da20 sshd[1]: debug1: Set /proc/self/oom_score_adj from 0 to -1000
+2024-11-13T19:46:40.414956+00:00 518a3654da20 sshd[1]: debug2: fd 3 setting O_NONBLOCK
+2024-11-13T19:46:40.414965+00:00 518a3654da20 sshd[1]: debug1: Bind to port 22 on 0.0.0.0.
+2024-11-13T19:46:40.414977+00:00 518a3654da20 sshd[1]: Server listening on 0.0.0.0 port 22.
+2024-11-13T19:46:40.414988+00:00 518a3654da20 sshd[1]: debug2: fd 4 setting O_NONBLOCK
+2024-11-13T19:46:40.414995+00:00 518a3654da20 sshd[1]: debug3: sock_set_v6only: set socket 4 IPV6_V6ONLY
+2024-11-13T19:46:40.415004+00:00 518a3654da20 sshd[1]: debug1: Bind to port 22 on ::.
+2024-11-13T19:46:40.415013+00:00 518a3654da20 sshd[1]: Server listening on :: port 22.
+2024-11-13T19:46:48.663056+00:00 518a3654da20 sshd[1]: debug3: fd 5 is not O_NONBLOCK
+2024-11-13T19:46:48.663056+00:00 518a3654da20 sshd[1]: debug3: fd 5 is not O_NONBLOCK
+2024-11-13T19:46:48.663305+00:00 518a3654da20 sshd[1]: debug1: Forked child 11.
+2024-11-13T19:46:48.663305+00:00 518a3654da20 sshd[1]: debug1: Forked child 11.
+2024-11-13T19:46:48.663393+00:00 518a3654da20 sshd[11]: debug3: oom_adjust_restore
+2024-11-13T19:46:48.663393+00:00 518a3654da20 sshd[11]: debug3: oom_adjust_restore
+2024-11-13T19:46:48.663455+00:00 518a3654da20 sshd[11]: debug1: Set /proc/self/oom_score_adj to 0
+2024-11-13T19:46:48.663455+00:00 518a3654da20 sshd[11]: debug1: Set /proc/self/oom_score_adj to 0
+2024-11-13T19:46:48.663587+00:00 518a3654da20 sshd[11]: debug3: process_channel_timeouts: setting 0 timeouts
+2024-11-13T19:46:48.663619+00:00 518a3654da20 sshd[11]: debug3: channel_clear_timeouts: clearing
+2024-11-13T19:46:48.663587+00:00 518a3654da20 sshd[11]: debug3: process_channel_timeouts: setting 0 timeouts
+2024-11-13T19:46:48.663619+00:00 518a3654da20 sshd[11]: debug3: channel_clear_timeouts: clearing
+2024-11-13T19:46:48.663706+00:00 518a3654da20 sshd[11]: Connection from 172.18.0.1 port 34470 on 172.18.0.3 port 22 rdomain ""
+2024-11-13T19:46:48.663706+00:00 518a3654da20 sshd[11]: Connection from 172.18.0.1 port 34470 on 172.18.0.3 port 22 rdomain ""
+2024-11-13T19:46:48.663791+00:00 518a3654da20 sshd[11]: debug1: Local version string SSH-2.0-OpenSSH_9.6p1 Ubuntu-3ubuntu13.5
+2024-11-13T19:46:48.663791+00:00 518a3654da20 sshd[11]: debug1: Local version string SSH-2.0-OpenSSH_9.6p1 Ubuntu-3ubuntu13.5
+2024-11-13T19:46:48.664763+00:00 518a3654da20 sshd[11]: debug1: Remote protocol version 2.0, remote software version OpenSSH_for_Windows_9.5
+2024-11-13T19:46:48.664797+00:00 518a3654da20 sshd[11]: debug1: compat_banner: match: OpenSSH_for_Windows_9.5 pat OpenSSH* compat 0x04000000
+2024-11-13T19:46:48.664807+00:00 518a3654da20 sshd[11]: debug2: fd 5 setting O_NONBLOCK
+2024-11-13T19:46:48.664763+00:00 518a3654da20 sshd[11]: debug1: Remote protocol version 2.0, remote software version OpenSSH_for_Windows_9.5
+2024-11-13T19:46:48.664797+00:00 518a3654da20 sshd[11]: debug1: compat_banner: match: OpenSSH_for_Windows_9.5 pat OpenSSH* compat 0x04000000
+2024-11-13T19:46:48.664807+00:00 518a3654da20 sshd[11]: debug2: fd 5 setting O_NONBLOCK
+2024-11-13T19:46:48.664833+00:00 518a3654da20 sshd[11]: debug3: ssh_sandbox_init: preparing seccomp filter sandbox
+2024-11-13T19:46:48.664833+00:00 518a3654da20 sshd[11]: debug3: ssh_sandbox_init: preparing seccomp filter sandbox
+2024-11-13T19:46:48.665004+00:00 518a3654da20 sshd[11]: debug2: Network child is on pid 12
+2024-11-13T19:46:48.665040+00:00 518a3654da20 sshd[11]: debug3: preauth child monitor started
+2024-11-13T19:46:48.665004+00:00 518a3654da20 sshd[11]: debug2: Network child is on pid 12
+2024-11-13T19:46:48.665040+00:00 518a3654da20 sshd[11]: debug3: preauth child monitor started
+2024-11-13T19:46:48.665429+00:00 518a3654da20 sshd[11]: debug3: privsep user:group 102:65534 [preauth]
+2024-11-13T19:46:48.665472+00:00 518a3654da20 sshd[11]: debug1: permanently_set_uid: 102/65534 [preauth]
+2024-11-13T19:46:48.665429+00:00 518a3654da20 sshd[11]: debug3: privsep user:group 102:65534 [preauth]
+2024-11-13T19:46:48.665472+00:00 518a3654da20 sshd[11]: debug1: permanently_set_uid: 102/65534 [preauth]
+2024-11-13T19:46:48.665485+00:00 518a3654da20 sshd[11]: debug3: ssh_sandbox_child: setting PR_SET_NO_NEW_PRIVS [preauth]
+2024-11-13T19:46:48.665494+00:00 518a3654da20 sshd[11]: debug3: ssh_sandbox_child: attaching seccomp filter program [preauth]
+2024-11-13T19:46:48.665485+00:00 518a3654da20 sshd[11]: debug3: ssh_sandbox_child: setting PR_SET_NO_NEW_PRIVS [preauth]
+2024-11-13T19:46:48.665494+00:00 518a3654da20 sshd[11]: debug3: ssh_sandbox_child: attaching seccomp filter program [preauth]
+2024-11-13T19:46:48.665839+00:00 518a3654da20 sshd[11]: debug1: list_hostkey_types: rsa-sha2-512,rsa-sha2-256,ssh-rsa,ecdsa-sha2-nistp256,ssh-ed25519 [preauth]
+2024-11-13T19:46:48.665870+00:00 518a3654da20 sshd[11]: debug3: send packet: type 20 [preauth]
+2024-11-13T19:46:48.665879+00:00 518a3654da20 sshd[11]: debug1: SSH2_MSG_KEXINIT sent [preauth]
+2024-11-13T19:46:48.665839+00:00 518a3654da20 sshd[11]: debug1: list_hostkey_types: rsa-sha2-512,rsa-sha2-256,ssh-rsa,ecdsa-sha2-nistp256,ssh-ed25519 [preauth]
+2024-11-13T19:46:48.665870+00:00 518a3654da20 sshd[11]: debug3: send packet: type 20 [preauth]
+2024-11-13T19:46:48.665879+00:00 518a3654da20 sshd[11]: debug1: SSH2_MSG_KEXINIT sent [preauth]
+2024-11-13T19:46:48.667723+00:00 518a3654da20 sshd[11]: debug3: receive packet: type 20 [preauth]
+2024-11-13T19:46:48.667758+00:00 518a3654da20 sshd[11]: debug1: SSH2_MSG_KEXINIT received [preauth]
+2024-11-13T19:46:48.667769+00:00 518a3654da20 sshd[11]: debug2: local server KEXINIT proposal [preauth]
+2024-11-13T19:46:48.667723+00:00 518a3654da20 sshd[11]: debug3: receive packet: type 20 [preauth]
+2024-11-13T19:46:48.667758+00:00 518a3654da20 sshd[11]: debug1: SSH2_MSG_KEXINIT received [preauth]
+2024-11-13T19:46:48.667769+00:00 518a3654da20 sshd[11]: debug2: local server KEXINIT proposal [preauth]
+2024-11-13T19:46:48.667785+00:00 518a3654da20 sshd[11]: debug2: KEX algorithms: sntrup761x25519-sha512@openssh.com,curve25519-sha256,curve25519-sha256@libssh.org,ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,diffie-hellman-group-exchange-sha256,diffie-hellman-group16-sha512,diffie-hellman-group18-sha512,diffie-hellman-group14-sha256,ext-info-s,kex-strict-s-v00@openssh.com [preauth]
+2024-11-13T19:46:48.667817+00:00 518a3654da20 sshd[11]: debug2: host key algorithms: rsa-sha2-512,rsa-sha2-256,ssh-rsa,ecdsa-sha2-nistp256,ssh-ed25519 [preauth]
+2024-11-13T19:46:48.667830+00:00 518a3654da20 sshd[11]: debug2: ciphers ctos: chacha20-poly1305@openssh.com,aes128-ctr,aes192-ctr,aes256-ctr,aes128-gcm@openssh.com,aes256-gcm@openssh.com [preauth]
+2024-11-13T19:46:48.667785+00:00 518a3654da20 sshd[11]: debug2: KEX algorithms: sntrup761x25519-sha512@openssh.com,curve25519-sha256,curve25519-sha256@libssh.org,ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,diffie-hellman-group-exchange-sha256,diffie-hellman-group16-sha512,diffie-hellman-group18-sha512,diffie-hellman-group14-sha256,ext-info-s,kex-strict-s-v00@openssh.com [preauth]
+2024-11-13T19:46:48.667817+00:00 518a3654da20 sshd[11]: debug2: host key algorithms: rsa-sha2-512,rsa-sha2-256,ssh-rsa,ecdsa-sha2-nistp256,ssh-ed25519 [preauth]
+2024-11-13T19:46:48.667830+00:00 518a3654da20 sshd[11]: debug2: ciphers ctos: chacha20-poly1305@openssh.com,aes128-ctr,aes192-ctr,aes256-ctr,aes128-gcm@openssh.com,aes256-gcm@openssh.com [preauth]
+2024-11-13T19:46:48.667840+00:00 518a3654da20 sshd[11]: debug2: ciphers stoc: chacha20-poly1305@openssh.com,aes128-ctr,aes192-ctr,aes256-ctr,aes128-gcm@openssh.com,aes256-gcm@openssh.com [preauth]
+2024-11-13T19:46:48.667840+00:00 518a3654da20 sshd[11]: debug2: ciphers stoc: chacha20-poly1305@openssh.com,aes128-ctr,aes192-ctr,aes256-ctr,aes128-gcm@openssh.com,aes256-gcm@openssh.com [preauth]
+2024-11-13T19:46:48.667873+00:00 518a3654da20 sshd[11]: debug2: MACs ctos: umac-64-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-256-etm@openssh.com,hmac-sha2-512-etm@openssh.com,hmac-sha1-etm@openssh.com,umac-64@openssh.com,umac-128@openssh.com,hmac-sha2-256,hmac-sha2-512,hmac-sha1 [preauth]
+2024-11-13T19:46:48.667906+00:00 518a3654da20 sshd[11]: debug2: MACs stoc: umac-64-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-256-etm@openssh.com,hmac-sha2-512-etm@openssh.com,hmac-sha1-etm@openssh.com,umac-64@openssh.com,umac-128@openssh.com,hmac-sha2-256,hmac-sha2-512,hmac-sha1 [preauth]
+2024-11-13T19:46:48.667916+00:00 518a3654da20 sshd[11]: debug2: compression ctos: none,zlib@openssh.com [preauth]
+2024-11-13T19:46:48.667873+00:00 518a3654da20 sshd[11]: debug2: MACs ctos: umac-64-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-256-etm@openssh.com,hmac-sha2-512-etm@openssh.com,hmac-sha1-etm@openssh.com,umac-64@openssh.com,umac-128@openssh.com,hmac-sha2-256,hmac-sha2-512,hmac-sha1 [preauth]
+2024-11-13T19:46:48.667906+00:00 518a3654da20 sshd[11]: debug2: MACs stoc: umac-64-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-256-etm@openssh.com,hmac-sha2-512-etm@openssh.com,hmac-sha1-etm@openssh.com,umac-64@openssh.com,umac-128@openssh.com,hmac-sha2-256,hmac-sha2-512,hmac-sha1 [preauth]
+2024-11-13T19:46:48.667916+00:00 518a3654da20 sshd[11]: debug2: compression ctos: none,zlib@openssh.com [preauth]
+2024-11-13T19:46:48.667926+00:00 518a3654da20 sshd[11]: debug2: compression stoc: none,zlib@openssh.com [preauth]
+2024-11-13T19:46:48.667957+00:00 518a3654da20 sshd[11]: debug2: languages ctos:  [preauth]
+2024-11-13T19:46:48.667968+00:00 518a3654da20 sshd[11]: debug2: languages stoc:  [preauth]
+2024-11-13T19:46:48.667926+00:00 518a3654da20 sshd[11]: debug2: compression stoc: none,zlib@openssh.com [preauth]
+2024-11-13T19:46:48.667957+00:00 518a3654da20 sshd[11]: debug2: languages ctos:  [preauth]
+2024-11-13T19:46:48.667968+00:00 518a3654da20 sshd[11]: debug2: languages stoc:  [preauth]
+2024-11-13T19:46:48.667977+00:00 518a3654da20 sshd[11]: debug2: first_kex_follows 0  [preauth]
+2024-11-13T19:46:48.668009+00:00 518a3654da20 sshd[11]: debug2: reserved 0  [preauth]
+2024-11-13T19:46:48.668019+00:00 518a3654da20 sshd[11]: debug2: peer client KEXINIT proposal [preauth]
+2024-11-13T19:46:48.667977+00:00 518a3654da20 sshd[11]: debug2: first_kex_follows 0  [preauth]
+2024-11-13T19:46:48.668009+00:00 518a3654da20 sshd[11]: debug2: reserved 0  [preauth]
+2024-11-13T19:46:48.668019+00:00 518a3654da20 sshd[11]: debug2: peer client KEXINIT proposal [preauth]
+2024-11-13T19:46:48.668030+00:00 518a3654da20 sshd[11]: debug2: KEX algorithms: curve25519-sha256,curve25519-sha256@libssh.org,ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,diffie-hellman-group-exchange-sha256,diffie-hellman-group16-sha512,diffie-hellman-group18-sha512,diffie-hellman-group14-sha256,ext-info-c,kex-strict-c-v00@openssh.com [preauth]
+2024-11-13T19:46:48.668030+00:00 518a3654da20 sshd[11]: debug2: KEX algorithms: curve25519-sha256,curve25519-sha256@libssh.org,ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,diffie-hellman-group-exchange-sha256,diffie-hellman-group16-sha512,diffie-hellman-group18-sha512,diffie-hellman-group14-sha256,ext-info-c,kex-strict-c-v00@openssh.com [preauth]
+2024-11-13T19:46:48.668063+00:00 518a3654da20 sshd[11]: debug2: host key algorithms: ssh-ed25519-cert-v01@openssh.com,ecdsa-sha2-nistp256-cert-v01@openssh.com,ecdsa-sha2-nistp384-cert-v01@openssh.com,ecdsa-sha2-nistp521-cert-v01@openssh.com,sk-ssh-ed25519-cert-v01@openssh.com,sk-ecdsa-sha2-nistp256-cert-v01@openssh.com,rsa-sha2-512-cert-v01@openssh.com,rsa-sha2-256-cert-v01@openssh.com,ssh-ed25519,ecdsa-sha2-nistp256,ecdsa-sha2-nistp384,ecdsa-sha2-nistp521,sk-ssh-ed25519@openssh.com,sk-ecdsa-sha2-nistp256@openssh.com,rsa-sha2-512,rsa-sha2-256 [preaut
+2024-11-13T19:46:48.668074+00:00 518a3654da20 sshd[11]: debug2: ciphers ctos: chacha20-poly1305@openssh.com,aes128-ctr,aes192-ctr,aes256-ctr,aes128-gcm@openssh.com,aes256-gcm@openssh.com [preauth]
+2024-11-13T19:46:48.668084+00:00 518a3654da20 sshd[11]: debug2: ciphers stoc: chacha20-poly1305@openssh.com,aes128-ctr,aes192-ctr,aes256-ctr,aes128-gcm@openssh.com,aes256-gcm@openssh.com [preauth]
+2024-11-13T19:46:48.668094+00:00 518a3654da20 sshd[11]: debug2: MACs ctos: umac-64-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-256-etm@openssh.com,hmac-sha2-512-etm@openssh.com,umac-64@openssh.com,umac-128@openssh.com,hmac-sha2-256,hmac-sha2-512 [preauth]
+2024-11-13T19:46:48.668063+00:00 518a3654da20 sshd[11]: debug2: host key algorithms: ssh-ed25519-cert-v01@openssh.com,ecdsa-sha2-nistp256-cert-v01@openssh.com,ecdsa-sha2-nistp384-cert-v01@openssh.com,ecdsa-sha2-nistp521-cert-v01@openssh.com,sk-ssh-ed25519-cert-v01@openssh.com,sk-ecdsa-sha2-nistp256-cert-v01@openssh.com,rsa-sha2-512-cert-v01@openssh.com,rsa-sha2-256-cert-v01@openssh.com,ssh-ed25519,ecdsa-sha2-nistp256,ecdsa-sha2-nistp384,ecdsa-sha2-nistp521,sk-ssh-ed25519@openssh.com,sk-ecdsa-sha2-nistp256@openssh.com,rsa-sha2-512,rsa-sha2-256 [preaut
+2024-11-13T19:46:48.668074+00:00 518a3654da20 sshd[11]: debug2: ciphers ctos: chacha20-poly1305@openssh.com,aes128-ctr,aes192-ctr,aes256-ctr,aes128-gcm@openssh.com,aes256-gcm@openssh.com [preauth]
+2024-11-13T19:46:48.668084+00:00 518a3654da20 sshd[11]: debug2: ciphers stoc: chacha20-poly1305@openssh.com,aes128-ctr,aes192-ctr,aes256-ctr,aes128-gcm@openssh.com,aes256-gcm@openssh.com [preauth]
+2024-11-13T19:46:48.668094+00:00 518a3654da20 sshd[11]: debug2: MACs ctos: umac-64-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-256-etm@openssh.com,hmac-sha2-512-etm@openssh.com,umac-64@openssh.com,umac-128@openssh.com,hmac-sha2-256,hmac-sha2-512 [preauth]
+2024-11-13T19:46:48.668103+00:00 518a3654da20 sshd[11]: debug2: MACs stoc: umac-64-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-256-etm@openssh.com,hmac-sha2-512-etm@openssh.com,umac-64@openssh.com,umac-128@openssh.com,hmac-sha2-256,hmac-sha2-512 [preauth]
+2024-11-13T19:46:48.668112+00:00 518a3654da20 sshd[11]: debug2: compression ctos: none,zlib@openssh.com,zlib [preauth]
+2024-11-13T19:46:48.668103+00:00 518a3654da20 sshd[11]: debug2: MACs stoc: umac-64-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-256-etm@openssh.com,hmac-sha2-512-etm@openssh.com,umac-64@openssh.com,umac-128@openssh.com,hmac-sha2-256,hmac-sha2-512 [preauth]
+2024-11-13T19:46:48.668112+00:00 518a3654da20 sshd[11]: debug2: compression ctos: none,zlib@openssh.com,zlib [preauth]
+2024-11-13T19:46:48.668122+00:00 518a3654da20 sshd[11]: debug2: compression stoc: none,zlib@openssh.com,zlib [preauth]
+2024-11-13T19:46:48.668122+00:00 518a3654da20 sshd[11]: debug2: compression stoc: none,zlib@openssh.com,zlib [preauth]
+2024-11-13T19:46:48.668131+00:00 518a3654da20 sshd[11]: debug2: languages ctos:  [preauth]
+2024-11-13T19:46:48.668131+00:00 518a3654da20 sshd[11]: debug2: languages ctos:  [preauth]
+2024-11-13T19:46:48.668163+00:00 518a3654da20 sshd[11]: debug2: languages stoc:  [preauth]
+2024-11-13T19:46:48.668173+00:00 518a3654da20 sshd[11]: debug2: first_kex_follows 0  [preauth]
+2024-11-13T19:46:48.668182+00:00 518a3654da20 sshd[11]: debug2: reserved 0  [preauth]
+2024-11-13T19:46:48.668191+00:00 518a3654da20 sshd[11]: debug3: kex_choose_conf: will use strict KEX ordering [preauth]
+2024-11-13T19:46:48.668163+00:00 518a3654da20 sshd[11]: debug2: languages stoc:  [preauth]
+2024-11-13T19:46:48.668173+00:00 518a3654da20 sshd[11]: debug2: first_kex_follows 0  [preauth]
+2024-11-13T19:46:48.668182+00:00 518a3654da20 sshd[11]: debug2: reserved 0  [preauth]
+2024-11-13T19:46:48.668191+00:00 518a3654da20 sshd[11]: debug3: kex_choose_conf: will use strict KEX ordering [preauth]
+2024-11-13T19:46:48.668200+00:00 518a3654da20 sshd[11]: debug1: kex: algorithm: curve25519-sha256 [preauth]
+2024-11-13T19:46:48.668232+00:00 518a3654da20 sshd[11]: debug1: kex: host key algorithm: ssh-ed25519 [preauth]
+2024-11-13T19:46:48.668243+00:00 518a3654da20 sshd[11]: debug1: kex: client->server cipher: chacha20-poly1305@openssh.com MAC: <implicit> compression: none [preauth]
+2024-11-13T19:46:48.668200+00:00 518a3654da20 sshd[11]: debug1: kex: algorithm: curve25519-sha256 [preauth]
+2024-11-13T19:46:48.668232+00:00 518a3654da20 sshd[11]: debug1: kex: host key algorithm: ssh-ed25519 [preauth]
+2024-11-13T19:46:48.668243+00:00 518a3654da20 sshd[11]: debug1: kex: client->server cipher: chacha20-poly1305@openssh.com MAC: <implicit> compression: none [preauth]
+2024-11-13T19:46:48.668252+00:00 518a3654da20 sshd[11]: debug1: kex: server->client cipher: chacha20-poly1305@openssh.com MAC: <implicit> compression: none [preauth]
+2024-11-13T19:46:48.668252+00:00 518a3654da20 sshd[11]: debug1: kex: server->client cipher: chacha20-poly1305@openssh.com MAC: <implicit> compression: none [preauth]
+2024-11-13T19:46:48.668261+00:00 518a3654da20 sshd[11]: debug1: expecting SSH2_MSG_KEX_ECDH_INIT [preauth]
+2024-11-13T19:46:48.668261+00:00 518a3654da20 sshd[11]: debug1: expecting SSH2_MSG_KEX_ECDH_INIT [preauth]
+2024-11-13T19:46:48.715719+00:00 518a3654da20 sshd[11]: debug3: receive packet: type 30 [preauth]
+2024-11-13T19:46:48.715748+00:00 518a3654da20 sshd[11]: debug1: SSH2_MSG_KEX_ECDH_INIT received [preauth]
+2024-11-13T19:46:48.715719+00:00 518a3654da20 sshd[11]: debug3: receive packet: type 30 [preauth]
+2024-11-13T19:46:48.715748+00:00 518a3654da20 sshd[11]: debug1: SSH2_MSG_KEX_ECDH_INIT received [preauth]
+2024-11-13T19:46:48.717656+00:00 518a3654da20 sshd[11]: debug3: mm_sshkey_sign: entering [preauth]
+2024-11-13T19:46:48.717697+00:00 518a3654da20 sshd[11]: debug3: mm_request_send: entering, type 6 [preauth]
+2024-11-13T19:46:48.717711+00:00 518a3654da20 sshd[11]: debug3: mm_sshkey_sign: waiting for MONITOR_ANS_SIGN [preauth]
+2024-11-13T19:46:48.717656+00:00 518a3654da20 sshd[11]: debug3: mm_sshkey_sign: entering [preauth]
+2024-11-13T19:46:48.717697+00:00 518a3654da20 sshd[11]: debug3: mm_request_send: entering, type 6 [preauth]
+2024-11-13T19:46:48.717711+00:00 518a3654da20 sshd[11]: debug3: mm_sshkey_sign: waiting for MONITOR_ANS_SIGN [preauth]
+2024-11-13T19:46:48.717722+00:00 518a3654da20 sshd[11]: debug3: mm_request_receive_expect: entering, type 7 [preauth]
+2024-11-13T19:46:48.717734+00:00 518a3654da20 sshd[11]: debug3: mm_request_receive: entering [preauth]
+2024-11-13T19:46:48.717745+00:00 518a3654da20 sshd[11]: debug3: mm_request_receive: entering
+2024-11-13T19:46:48.717722+00:00 518a3654da20 sshd[11]: debug3: mm_request_receive_expect: entering, type 7 [preauth]
+2024-11-13T19:46:48.717734+00:00 518a3654da20 sshd[11]: debug3: mm_request_receive: entering [preauth]
+2024-11-13T19:46:48.717745+00:00 518a3654da20 sshd[11]: debug3: mm_request_receive: entering
+2024-11-13T19:46:48.717786+00:00 518a3654da20 sshd[11]: debug3: monitor_read: checking request 6
+2024-11-13T19:46:48.717821+00:00 518a3654da20 sshd[11]: debug3: mm_answer_sign: entering
+2024-11-13T19:46:48.717786+00:00 518a3654da20 sshd[11]: debug3: monitor_read: checking request 6
+2024-11-13T19:46:48.717821+00:00 518a3654da20 sshd[11]: debug3: mm_answer_sign: entering
+2024-11-13T19:46:48.718496+00:00 518a3654da20 sshd[11]: debug3: mm_answer_sign: ssh-ed25519 KEX signature len=83
+2024-11-13T19:46:48.718528+00:00 518a3654da20 sshd[11]: debug3: mm_request_send: entering, type 7
+2024-11-13T19:46:48.718496+00:00 518a3654da20 sshd[11]: debug3: mm_answer_sign: ssh-ed25519 KEX signature len=83
+2024-11-13T19:46:48.718528+00:00 518a3654da20 sshd[11]: debug3: mm_request_send: entering, type 7
+2024-11-13T19:46:48.718561+00:00 518a3654da20 sshd[11]: debug2: monitor_read: 6 used once, disabling now
+2024-11-13T19:46:48.718595+00:00 518a3654da20 sshd[11]: debug3: send packet: type 31 [preauth]
+2024-11-13T19:46:48.718561+00:00 518a3654da20 sshd[11]: debug2: monitor_read: 6 used once, disabling now
+2024-11-13T19:46:48.718595+00:00 518a3654da20 sshd[11]: debug3: send packet: type 31 [preauth]
+2024-11-13T19:46:48.718605+00:00 518a3654da20 sshd[11]: debug3: send packet: type 21 [preauth]
+2024-11-13T19:46:48.718615+00:00 518a3654da20 sshd[11]: debug1: ssh_packet_send2_wrapped: resetting send seqnr 3 [preauth]
+2024-11-13T19:46:48.718625+00:00 518a3654da20 sshd[11]: debug2: ssh_set_newkeys: mode 1 [preauth]
+2024-11-13T19:46:48.718605+00:00 518a3654da20 sshd[11]: debug3: send packet: type 21 [preauth]
+2024-11-13T19:46:48.718615+00:00 518a3654da20 sshd[11]: debug1: ssh_packet_send2_wrapped: resetting send seqnr 3 [preauth]
+2024-11-13T19:46:48.718625+00:00 518a3654da20 sshd[11]: debug2: ssh_set_newkeys: mode 1 [preauth]
+2024-11-13T19:46:48.718635+00:00 518a3654da20 sshd[11]: debug1: rekey out after 134217728 blocks [preauth]
+2024-11-13T19:46:48.718668+00:00 518a3654da20 sshd[11]: debug1: SSH2_MSG_NEWKEYS sent [preauth]
+2024-11-13T19:46:48.718635+00:00 518a3654da20 sshd[11]: debug1: rekey out after 134217728 blocks [preauth]
+2024-11-13T19:46:48.718668+00:00 518a3654da20 sshd[11]: debug1: SSH2_MSG_NEWKEYS sent [preauth]
+2024-11-13T19:46:48.718679+00:00 518a3654da20 sshd[11]: debug1: Sending SSH2_MSG_EXT_INFO [preauth]
+2024-11-13T19:46:48.718688+00:00 518a3654da20 sshd[11]: debug3: send packet: type 7 [preauth]
+2024-11-13T19:46:48.718679+00:00 518a3654da20 sshd[11]: debug1: Sending SSH2_MSG_EXT_INFO [preauth]
+2024-11-13T19:46:48.718688+00:00 518a3654da20 sshd[11]: debug3: send packet: type 7 [preauth]
+2024-11-13T19:46:48.718697+00:00 518a3654da20 sshd[11]: debug1: expecting SSH2_MSG_NEWKEYS [preauth]
+2024-11-13T19:46:48.718697+00:00 518a3654da20 sshd[11]: debug1: expecting SSH2_MSG_NEWKEYS [preauth]
+2024-11-13T19:46:48.724219+00:00 518a3654da20 sshd[11]: debug3: receive packet: type 21 [preauth]
+2024-11-13T19:46:48.724250+00:00 518a3654da20 sshd[11]: debug1: ssh_packet_read_poll2: resetting read seqnr 3 [preauth]
+2024-11-13T19:46:48.724265+00:00 518a3654da20 sshd[11]: debug1: SSH2_MSG_NEWKEYS received [preauth]
+2024-11-13T19:46:48.724275+00:00 518a3654da20 sshd[11]: debug2: ssh_set_newkeys: mode 0 [preauth]
+2024-11-13T19:46:48.724219+00:00 518a3654da20 sshd[11]: debug3: receive packet: type 21 [preauth]
+2024-11-13T19:46:48.724250+00:00 518a3654da20 sshd[11]: debug1: ssh_packet_read_poll2: resetting read seqnr 3 [preauth]
+2024-11-13T19:46:48.724265+00:00 518a3654da20 sshd[11]: debug1: SSH2_MSG_NEWKEYS received [preauth]
+2024-11-13T19:46:48.724275+00:00 518a3654da20 sshd[11]: debug2: ssh_set_newkeys: mode 0 [preauth]
+2024-11-13T19:46:48.724284+00:00 518a3654da20 sshd[11]: debug1: rekey in after 134217728 blocks [preauth]
+2024-11-13T19:46:48.724284+00:00 518a3654da20 sshd[11]: debug1: rekey in after 134217728 blocks [preauth]
+2024-11-13T19:46:48.724295+00:00 518a3654da20 sshd[11]: debug1: KEX done [preauth]
+2024-11-13T19:46:48.724295+00:00 518a3654da20 sshd[11]: debug1: KEX done [preauth]
+2024-11-13T19:46:48.765740+00:00 518a3654da20 sshd[11]: debug3: receive packet: type 5 [preauth]
+2024-11-13T19:46:48.765783+00:00 518a3654da20 sshd[11]: debug3: send packet: type 6 [preauth]
+2024-11-13T19:46:48.765740+00:00 518a3654da20 sshd[11]: debug3: receive packet: type 5 [preauth]
+2024-11-13T19:46:48.765783+00:00 518a3654da20 sshd[11]: debug3: send packet: type 6 [preauth]
+2024-11-13T19:46:48.766834+00:00 518a3654da20 sshd[11]: debug3: receive packet: type 50 [preauth]
+2024-11-13T19:46:48.766863+00:00 518a3654da20 sshd[11]: debug1: userauth-request for user root service ssh-connection method none [preauth]
+2024-11-13T19:46:48.766872+00:00 518a3654da20 sshd[11]: debug1: attempt 0 failures 0 [preauth]
+2024-11-13T19:46:48.766834+00:00 518a3654da20 sshd[11]: debug3: receive packet: type 50 [preauth]
+2024-11-13T19:46:48.766863+00:00 518a3654da20 sshd[11]: debug1: userauth-request for user root service ssh-connection method none [preauth]
+2024-11-13T19:46:48.766872+00:00 518a3654da20 sshd[11]: debug1: attempt 0 failures 0 [preauth]
+2024-11-13T19:46:48.766880+00:00 518a3654da20 sshd[11]: debug3: mm_getpwnamallow: entering [preauth]
+2024-11-13T19:46:48.766888+00:00 518a3654da20 sshd[11]: debug3: mm_request_send: entering, type 8 [preauth]
+2024-11-13T19:46:48.766880+00:00 518a3654da20 sshd[11]: debug3: mm_getpwnamallow: entering [preauth]
+2024-11-13T19:46:48.766888+00:00 518a3654da20 sshd[11]: debug3: mm_request_send: entering, type 8 [preauth]
+2024-11-13T19:46:48.766895+00:00 518a3654da20 sshd[11]: debug3: mm_getpwnamallow: waiting for MONITOR_ANS_PWNAM [preauth]
+2024-11-13T19:46:48.766904+00:00 518a3654da20 sshd[11]: debug3: mm_request_receive_expect: entering, type 9 [preauth]
+2024-11-13T19:46:48.766912+00:00 518a3654da20 sshd[11]: debug3: mm_request_receive: entering [preauth]
+2024-11-13T19:46:48.766895+00:00 518a3654da20 sshd[11]: debug3: mm_getpwnamallow: waiting for MONITOR_ANS_PWNAM [preauth]
+2024-11-13T19:46:48.766904+00:00 518a3654da20 sshd[11]: debug3: mm_request_receive_expect: entering, type 9 [preauth]
+2024-11-13T19:46:48.766912+00:00 518a3654da20 sshd[11]: debug3: mm_request_receive: entering [preauth]
+2024-11-13T19:46:48.766919+00:00 518a3654da20 sshd[11]: debug3: mm_request_receive: entering
+2024-11-13T19:46:48.766919+00:00 518a3654da20 sshd[11]: debug3: mm_request_receive: entering
+2024-11-13T19:46:48.766960+00:00 518a3654da20 sshd[11]: debug3: monitor_read: checking request 8
+2024-11-13T19:46:48.766971+00:00 518a3654da20 sshd[11]: debug3: mm_answer_pwnamallow: entering
+2024-11-13T19:46:48.766960+00:00 518a3654da20 sshd[11]: debug3: monitor_read: checking request 8
+2024-11-13T19:46:48.766971+00:00 518a3654da20 sshd[11]: debug3: mm_answer_pwnamallow: entering
+2024-11-13T19:46:48.766979+00:00 518a3654da20 sshd[11]: debug2: parse_server_config_depth: config reprocess config len 192
+2024-11-13T19:46:48.766979+00:00 518a3654da20 sshd[11]: debug2: parse_server_config_depth: config reprocess config len 192
+2024-11-13T19:46:48.767273+00:00 518a3654da20 sshd[11]: debug3: auth_shadow_acctexpired: today 20040 sp_expire -1 days left -20041
+2024-11-13T19:46:48.767301+00:00 518a3654da20 sshd[11]: debug3: account expiration disabled
+2024-11-13T19:46:48.767273+00:00 518a3654da20 sshd[11]: debug3: auth_shadow_acctexpired: today 20040 sp_expire -1 days left -20041
+2024-11-13T19:46:48.767301+00:00 518a3654da20 sshd[11]: debug3: account expiration disabled
+2024-11-13T19:46:48.767322+00:00 518a3654da20 sshd[11]: debug3: mm_answer_pwnamallow: sending MONITOR_ANS_PWNAM: 1
+2024-11-13T19:46:48.767334+00:00 518a3654da20 sshd[11]: debug3: mm_request_send: entering, type 9
+2024-11-13T19:46:48.767322+00:00 518a3654da20 sshd[11]: debug3: mm_answer_pwnamallow: sending MONITOR_ANS_PWNAM: 1
+2024-11-13T19:46:48.767334+00:00 518a3654da20 sshd[11]: debug3: mm_request_send: entering, type 9
+2024-11-13T19:46:48.767361+00:00 518a3654da20 sshd[11]: debug2: monitor_read: 8 used once, disabling now
+2024-11-13T19:46:48.767361+00:00 518a3654da20 sshd[11]: debug2: monitor_read: 8 used once, disabling now
+2024-11-13T19:46:48.767609+00:00 518a3654da20 sshd[11]: debug3: process_channel_timeouts: setting 0 timeouts [preauth]
+2024-11-13T19:46:48.767637+00:00 518a3654da20 sshd[11]: debug3: channel_clear_timeouts: clearing [preauth]
+2024-11-13T19:46:48.767646+00:00 518a3654da20 sshd[11]: debug2: input_userauth_request: setting up authctxt for root [preauth]
+2024-11-13T19:46:48.767609+00:00 518a3654da20 sshd[11]: debug3: process_channel_timeouts: setting 0 timeouts [preauth]
+2024-11-13T19:46:48.767637+00:00 518a3654da20 sshd[11]: debug3: channel_clear_timeouts: clearing [preauth]
+2024-11-13T19:46:48.767646+00:00 518a3654da20 sshd[11]: debug2: input_userauth_request: setting up authctxt for root [preauth]
+2024-11-13T19:46:48.767654+00:00 518a3654da20 sshd[11]: debug3: mm_inform_authserv: entering [preauth]
+2024-11-13T19:46:48.767661+00:00 518a3654da20 sshd[11]: debug3: mm_request_send: entering, type 4 [preauth]
+2024-11-13T19:46:48.767668+00:00 518a3654da20 sshd[11]: debug2: input_userauth_request: try method none [preauth]
+2024-11-13T19:46:48.767654+00:00 518a3654da20 sshd[11]: debug3: mm_inform_authserv: entering [preauth]
+2024-11-13T19:46:48.767661+00:00 518a3654da20 sshd[11]: debug3: mm_request_send: entering, type 4 [preauth]
+2024-11-13T19:46:48.767668+00:00 518a3654da20 sshd[11]: debug2: input_userauth_request: try method none [preauth]
+2024-11-13T19:46:48.767676+00:00 518a3654da20 sshd[11]: debug3: userauth_finish: failure partial=0 next methods="publickey,keyboard-interactive" [preauth]
+2024-11-13T19:46:48.767703+00:00 518a3654da20 sshd[11]: debug3: send packet: type 51 [preauth]
+2024-11-13T19:46:48.767712+00:00 518a3654da20 sshd[11]: debug3: mm_request_receive: entering
+2024-11-13T19:46:48.767676+00:00 518a3654da20 sshd[11]: debug3: userauth_finish: failure partial=0 next methods="publickey,keyboard-interactive" [preauth]
+2024-11-13T19:46:48.767703+00:00 518a3654da20 sshd[11]: debug3: send packet: type 51 [preauth]
+2024-11-13T19:46:48.767712+00:00 518a3654da20 sshd[11]: debug3: mm_request_receive: entering
+2024-11-13T19:46:48.767721+00:00 518a3654da20 sshd[11]: debug3: monitor_read: checking request 4
+2024-11-13T19:46:48.767729+00:00 518a3654da20 sshd[11]: debug3: mm_answer_authserv: service=ssh-connection, style=, role=
+2024-11-13T19:46:48.767736+00:00 518a3654da20 sshd[11]: debug2: monitor_read: 4 used once, disabling now
+2024-11-13T19:46:48.767721+00:00 518a3654da20 sshd[11]: debug3: monitor_read: checking request 4
+2024-11-13T19:46:48.767729+00:00 518a3654da20 sshd[11]: debug3: mm_answer_authserv: service=ssh-connection, style=, role=
+2024-11-13T19:46:48.767736+00:00 518a3654da20 sshd[11]: debug2: monitor_read: 4 used once, disabling now
+2024-11-13T19:46:48.769350+00:00 518a3654da20 sshd[11]: debug3: receive packet: type 50 [preauth]
+2024-11-13T19:46:48.769384+00:00 518a3654da20 sshd[11]: debug1: userauth-request for user root service ssh-connection method publickey [preauth]
+2024-11-13T19:46:48.769395+00:00 518a3654da20 sshd[11]: debug1: attempt 1 failures 0 [preauth]
+2024-11-13T19:46:48.769350+00:00 518a3654da20 sshd[11]: debug3: receive packet: type 50 [preauth]
+2024-11-13T19:46:48.769384+00:00 518a3654da20 sshd[11]: debug1: userauth-request for user root service ssh-connection method publickey [preauth]
+2024-11-13T19:46:48.769395+00:00 518a3654da20 sshd[11]: debug1: attempt 1 failures 0 [preauth]
+2024-11-13T19:46:48.769404+00:00 518a3654da20 sshd[11]: debug2: input_userauth_request: try method publickey [preauth]
+2024-11-13T19:46:48.769414+00:00 518a3654da20 sshd[11]: debug2: userauth_pubkey: valid user root querying public key ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOA0xToaOpMiNor76jxTeLZzjcha0daTzcVyjGN/ONdb [preauth]
+2024-11-13T19:46:48.769423+00:00 518a3654da20 sshd[11]: debug1: userauth_pubkey: publickey test pkalg ssh-ed25519 pkblob ED25519 SHA256:HIvYGOrN0qVfBess+Ez1eptS8c4ZoECUhQoI5L+2Sb0 [preauth]
+2024-11-13T19:46:48.769404+00:00 518a3654da20 sshd[11]: debug2: input_userauth_request: try method publickey [preauth]
+2024-11-13T19:46:48.769414+00:00 518a3654da20 sshd[11]: debug2: userauth_pubkey: valid user root querying public key ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOA0xToaOpMiNor76jxTeLZzjcha0daTzcVyjGN/ONdb [preauth]
+2024-11-13T19:46:48.769423+00:00 518a3654da20 sshd[11]: debug1: userauth_pubkey: publickey test pkalg ssh-ed25519 pkblob ED25519 SHA256:HIvYGOrN0qVfBess+Ez1eptS8c4ZoECUhQoI5L+2Sb0 [preauth]
+2024-11-13T19:46:48.769432+00:00 518a3654da20 sshd[11]: debug3: mm_key_allowed: entering [preauth]
+2024-11-13T19:46:48.769432+00:00 518a3654da20 sshd[11]: debug3: mm_key_allowed: entering [preauth]
+2024-11-13T19:46:48.769442+00:00 518a3654da20 sshd[11]: debug3: mm_request_send: entering, type 22 [preauth]
+2024-11-13T19:46:48.769474+00:00 518a3654da20 sshd[11]: debug3: mm_key_allowed: waiting for MONITOR_ANS_KEYALLOWED [preauth]
+2024-11-13T19:46:48.769484+00:00 518a3654da20 sshd[11]: debug3: mm_request_receive_expect: entering, type 23 [preauth]
+2024-11-13T19:46:48.769442+00:00 518a3654da20 sshd[11]: debug3: mm_request_send: entering, type 22 [preauth]
+2024-11-13T19:46:48.769474+00:00 518a3654da20 sshd[11]: debug3: mm_key_allowed: waiting for MONITOR_ANS_KEYALLOWED [preauth]
+2024-11-13T19:46:48.769484+00:00 518a3654da20 sshd[11]: debug3: mm_request_receive_expect: entering, type 23 [preauth]
+2024-11-13T19:46:48.769493+00:00 518a3654da20 sshd[11]: debug3: mm_request_receive: entering [preauth]
+2024-11-13T19:46:48.769502+00:00 518a3654da20 sshd[11]: debug3: mm_request_receive: entering
+2024-11-13T19:46:48.769493+00:00 518a3654da20 sshd[11]: debug3: mm_request_receive: entering [preauth]
+2024-11-13T19:46:48.769502+00:00 518a3654da20 sshd[11]: debug3: mm_request_receive: entering
+2024-11-13T19:46:48.769536+00:00 518a3654da20 sshd[11]: debug3: monitor_read: checking request 22
+2024-11-13T19:46:48.769566+00:00 518a3654da20 sshd[11]: debug3: mm_answer_keyallowed: entering
+2024-11-13T19:46:48.769536+00:00 518a3654da20 sshd[11]: debug3: monitor_read: checking request 22
+2024-11-13T19:46:48.769566+00:00 518a3654da20 sshd[11]: debug3: mm_answer_keyallowed: entering
+2024-11-13T19:46:48.769582+00:00 518a3654da20 sshd[11]: debug1: temporarily_use_uid: 0/0 (e=0/0)
+2024-11-13T19:46:48.769582+00:00 518a3654da20 sshd[11]: debug1: temporarily_use_uid: 0/0 (e=0/0)
+2024-11-13T19:46:48.769956+00:00 518a3654da20 sshd[11]: debug1: trying public key file /root/.ssh/authorized_keys
+2024-11-13T19:46:48.769956+00:00 518a3654da20 sshd[11]: debug1: trying public key file /root/.ssh/authorized_keys
+2024-11-13T19:46:48.770013+00:00 518a3654da20 sshd[11]: debug1: fd 3 clearing O_NONBLOCK
+2024-11-13T19:46:48.770013+00:00 518a3654da20 sshd[11]: debug1: fd 3 clearing O_NONBLOCK
+2024-11-13T19:46:48.770054+00:00 518a3654da20 sshd[11]: debug2: /root/.ssh/authorized_keys:1: check options: '\377\376s'
+2024-11-13T19:46:48.770062+00:00 518a3654da20 sshd[11]: debug2: /root/.ssh/authorized_keys:1: advance: ''
+2024-11-13T19:46:48.770054+00:00 518a3654da20 sshd[11]: debug2: /root/.ssh/authorized_keys:1: check options: '\377\376s'
+2024-11-13T19:46:48.770062+00:00 518a3654da20 sshd[11]: debug2: /root/.ssh/authorized_keys:1: advance: ''
+2024-11-13T19:46:48.770070+00:00 518a3654da20 sshd[11]: debug2: auth_check_authkeys_file: /root/.ssh/authorized_keys: processed 1/2 lines
+2024-11-13T19:46:48.770096+00:00 518a3654da20 sshd[11]: debug1: restore_uid: 0/0
+2024-11-13T19:46:48.770105+00:00 518a3654da20 sshd[11]: debug3: mm_answer_keyallowed: publickey authentication test: ED25519 key is not allowed
+2024-11-13T19:46:48.770070+00:00 518a3654da20 sshd[11]: debug2: auth_check_authkeys_file: /root/.ssh/authorized_keys: processed 1/2 lines
+2024-11-13T19:46:48.770096+00:00 518a3654da20 sshd[11]: debug1: restore_uid: 0/0
+2024-11-13T19:46:48.770105+00:00 518a3654da20 sshd[11]: debug3: mm_answer_keyallowed: publickey authentication test: ED25519 key is not allowed
+2024-11-13T19:46:48.770121+00:00 518a3654da20 sshd[11]: Failed publickey for root from 172.18.0.1 port 34470 ssh2: ED25519 SHA256:HIvYGOrN0qVfBess+Ez1eptS8c4ZoECUhQoI5L+2Sb0
+2024-11-13T19:46:48.770121+00:00 518a3654da20 sshd[11]: Failed publickey for root from 172.18.0.1 port 34470 ssh2: ED25519 SHA256:HIvYGOrN0qVfBess+Ez1eptS8c4ZoECUhQoI5L+2Sb0
+2024-11-13T19:46:48.770183+00:00 518a3654da20 sshd[11]: debug3: mm_request_send: entering, type 23
+2024-11-13T19:46:48.770183+00:00 518a3654da20 sshd[11]: debug3: mm_request_send: entering, type 23
+2024-11-13T19:46:48.770277+00:00 518a3654da20 sshd[11]: debug2: userauth_pubkey: authenticated 0 pkalg ssh-ed25519 [preauth]
+2024-11-13T19:46:48.770304+00:00 518a3654da20 sshd[11]: debug3: user_specific_delay: user specific delay 0.000ms [preauth]
+2024-11-13T19:46:48.770313+00:00 518a3654da20 sshd[11]: debug3: ensure_minimum_time_since: elapsed 0.946ms, delaying 4.078ms (requested 5.024ms) [preauth]
+2024-11-13T19:46:48.770277+00:00 518a3654da20 sshd[11]: debug2: userauth_pubkey: authenticated 0 pkalg ssh-ed25519 [preauth]
+2024-11-13T19:46:48.770304+00:00 518a3654da20 sshd[11]: debug3: user_specific_delay: user specific delay 0.000ms [preauth]
+2024-11-13T19:46:48.770313+00:00 518a3654da20 sshd[11]: debug3: ensure_minimum_time_since: elapsed 0.946ms, delaying 4.078ms (requested 5.024ms) [preauth]
+2024-11-13T19:46:48.774463+00:00 518a3654da20 sshd[11]: debug3: userauth_finish: failure partial=0 next methods="publickey,keyboard-interactive" [preauth]
+2024-11-13T19:46:48.774492+00:00 518a3654da20 sshd[11]: debug3: send packet: type 51 [preauth]
+2024-11-13T19:46:48.774463+00:00 518a3654da20 sshd[11]: debug3: userauth_finish: failure partial=0 next methods="publickey,keyboard-interactive" [preauth]
+2024-11-13T19:46:48.774492+00:00 518a3654da20 sshd[11]: debug3: send packet: type 51 [preauth]
+2024-11-13T19:46:48.776133+00:00 518a3654da20 sshd[11]: debug3: receive packet: type 50 [preauth]
+2024-11-13T19:46:48.776162+00:00 518a3654da20 sshd[11]: debug1: userauth-request for user root service ssh-connection method keyboard-interactive [preauth]
+2024-11-13T19:46:48.776171+00:00 518a3654da20 sshd[11]: debug1: attempt 2 failures 1 [preauth]
+2024-11-13T19:46:48.776133+00:00 518a3654da20 sshd[11]: debug3: receive packet: type 50 [preauth]
+2024-11-13T19:46:48.776162+00:00 518a3654da20 sshd[11]: debug1: userauth-request for user root service ssh-connection method keyboard-interactive [preauth]
+2024-11-13T19:46:48.776171+00:00 518a3654da20 sshd[11]: debug1: attempt 2 failures 1 [preauth]
+2024-11-13T19:46:48.776179+00:00 518a3654da20 sshd[11]: debug2: input_userauth_request: try method keyboard-interactive [preauth]
+2024-11-13T19:46:48.776187+00:00 518a3654da20 sshd[11]: debug1: keyboard-interactive devs  [preauth]
+2024-11-13T19:46:48.776195+00:00 518a3654da20 sshd[11]: debug1: auth2_challenge: user=root devs= [preauth]
+2024-11-13T19:46:48.776179+00:00 518a3654da20 sshd[11]: debug2: input_userauth_request: try method keyboard-interactive [preauth]
+2024-11-13T19:46:48.776187+00:00 518a3654da20 sshd[11]: debug1: keyboard-interactive devs  [preauth]
+2024-11-13T19:46:48.776195+00:00 518a3654da20 sshd[11]: debug1: auth2_challenge: user=root devs= [preauth]
+2024-11-13T19:46:48.776202+00:00 518a3654da20 sshd[11]: debug1: kbdint_alloc: devices '' [preauth]
+2024-11-13T19:46:48.776229+00:00 518a3654da20 sshd[11]: debug2: auth2_challenge_start: devices  [preauth]
+2024-11-13T19:46:48.776238+00:00 518a3654da20 sshd[11]: debug3: user_specific_delay: user specific delay 0.000ms [preauth]
+2024-11-13T19:46:48.776202+00:00 518a3654da20 sshd[11]: debug1: kbdint_alloc: devices '' [preauth]
+2024-11-13T19:46:48.776229+00:00 518a3654da20 sshd[11]: debug2: auth2_challenge_start: devices  [preauth]
+2024-11-13T19:46:48.776238+00:00 518a3654da20 sshd[11]: debug3: user_specific_delay: user specific delay 0.000ms [preauth]
+2024-11-13T19:46:48.776246+00:00 518a3654da20 sshd[11]: debug3: ensure_minimum_time_since: elapsed 0.019ms, delaying 5.005ms (requested 5.024ms) [preauth]
+2024-11-13T19:46:48.776246+00:00 518a3654da20 sshd[11]: debug3: ensure_minimum_time_since: elapsed 0.019ms, delaying 5.005ms (requested 5.024ms) [preauth]
+2024-11-13T19:46:48.781244+00:00 518a3654da20 sshd[11]: debug3: userauth_finish: failure partial=0 next methods="publickey,keyboard-interactive" [preauth]
+2024-11-13T19:46:48.781274+00:00 518a3654da20 sshd[11]: debug3: send packet: type 51 [preauth]
+2024-11-13T19:46:48.781244+00:00 518a3654da20 sshd[11]: debug3: userauth_finish: failure partial=0 next methods="publickey,keyboard-interactive" [preauth]
+2024-11-13T19:46:48.781274+00:00 518a3654da20 sshd[11]: debug3: send packet: type 51 [preauth]
+2024-11-13T19:46:48.783448+00:00 518a3654da20 sshd[11]: Connection closed by authenticating user root 172.18.0.1 port 34470 [preauth]
+2024-11-13T19:46:48.783478+00:00 518a3654da20 sshd[11]: debug1: do_cleanup [preauth]
+2024-11-13T19:46:48.783448+00:00 518a3654da20 sshd[11]: Connection closed by authenticating user root 172.18.0.1 port 34470 [preauth]
+2024-11-13T19:46:48.783478+00:00 518a3654da20 sshd[11]: debug1: do_cleanup [preauth]
+2024-11-13T19:46:48.783693+00:00 518a3654da20 sshd[11]: debug1: monitor_read_log: child log fd closed
+2024-11-13T19:46:48.783729+00:00 518a3654da20 sshd[11]: debug3: mm_request_receive: entering
+2024-11-13T19:46:48.783739+00:00 518a3654da20 sshd[11]: debug1: do_cleanup
+2024-11-13T19:46:48.783693+00:00 518a3654da20 sshd[11]: debug1: monitor_read_log: child log fd closed
+2024-11-13T19:46:48.783729+00:00 518a3654da20 sshd[11]: debug3: mm_request_receive: entering
+2024-11-13T19:46:48.783739+00:00 518a3654da20 sshd[11]: debug1: do_cleanup
+2024-11-13T19:46:48.783747+00:00 518a3654da20 sshd[11]: debug1: Killing privsep child 12
+2024-11-13T19:46:48.783757+00:00 518a3654da20 sshd[11]: debug1: audit_event: unhandled event 12
+2024-11-13T19:46:48.783747+00:00 518a3654da20 sshd[11]: debug1: Killing privsep child 12
+2024-11-13T19:46:48.783757+00:00 518a3654da20 sshd[11]: debug1: audit_event: unhandled event 12
